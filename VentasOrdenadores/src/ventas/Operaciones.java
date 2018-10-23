@@ -20,13 +20,6 @@ public class Operaciones {
         return true;
     }
     
-    public static void añadirCompra(int selectedIndex, int procesador, int memoria, int monitor, 
-            int disco, boolean dvd, boolean wifi, boolean tv, boolean restore) {
-        Ordenador ordenador = new Ordenador(monitor, procesador, memoria, monitor, disco, dvd, wifi, tv, restore);
-        Vector ventas = new Vector();
-        ventas.add(ordenador);
-        
-    } 
  }
 
 
