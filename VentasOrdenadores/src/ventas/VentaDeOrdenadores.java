@@ -5,12 +5,10 @@
  */
 package ventas;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static ventas.Operaciones.validarNombre;
 
 /**
  *
@@ -18,11 +16,7 @@ import static ventas.Operaciones.validarNombre;
  */
 public class VentaDeOrdenadores extends javax.swing.JFrame {
 
-    final static int ESTADO_INICIAL=1;
-    final static int ESTADO_DOS=2;
-    int modo=1;
-    static Vector nombres = new Vector();
-    public ArrayList<Venta> ventas = new ArrayList<Venta>();
+    public ArrayList<Venta> ventas = new ArrayList<>();
     /**
      * Creates new form VentaDeOrdenadores
      */
@@ -75,7 +69,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jCheckBoxDvD = new javax.swing.JCheckBox();
         jCheckBoxWifi = new javax.swing.JCheckBox();
         jCheckBoxTV = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        jCheckBoxRestore = new javax.swing.JCheckBox();
         jButtonAdd = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
@@ -88,9 +82,19 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel1.setText("Nombre del cliente");
 
+        jTextFieldNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldNombreMouseClicked(evt);
+            }
+        });
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreActionPerformed(evt);
+            }
+        });
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyPressed(evt);
             }
         });
 
@@ -104,6 +108,11 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel3.setText("Lista de clientes");
 
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jLabel4.setText("Procesador");
@@ -214,9 +223,9 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jCheckBoxTV.setText("Sintonizador TV");
         jCheckBoxTV.setEnabled(false);
 
-        jCheckBox4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jCheckBox4.setText("Backup/Restore");
-        jCheckBox4.setEnabled(false);
+        jCheckBoxRestore.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jCheckBoxRestore.setText("Backup/Restore");
+        jCheckBoxRestore.setEnabled(false);
 
         jButtonAdd.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jButtonAdd.setMnemonic('a');
@@ -306,7 +315,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                                 .addGap(146, 146, 146)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCheckBoxDvD)
-                                    .addComponent(jCheckBox4)
+                                    .addComponent(jCheckBoxRestore)
                                     .addComponent(jCheckBoxTV)
                                     .addComponent(jCheckBoxWifi))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -395,7 +404,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                     .addComponent(jRadioButton8)
                     .addComponent(jRadioButton12)
                     .addComponent(jRadioButton16)
-                    .addComponent(jCheckBox4))
+                    .addComponent(jCheckBoxRestore))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -410,28 +419,13 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
-        if(validarNombre(jTextFieldNombre.getText()))
-            if(jTextFieldNombre.getText().length()>15)
-                 JOptionPane.showConfirmDialog(this,"El nombre debe tener un máximo de 15 carácteres.",
-                            "Nombre del cliente", JOptionPane.CLOSED_OPTION);
-            else
-                estado2();
-        else
-           JOptionPane.showConfirmDialog(this,"El nombre es incorrecto, no puede estar en blanco ni contener carácteres especiales.",
-                            "Nombre del cliente", JOptionPane.CLOSED_OPTION);
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
-
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
-        añadir();
+        aniadir();
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        try {
-            buscar();
-        } catch (Exception ex) {
-            Logger.getLogger(VentaDeOrdenadores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        buscar();  
+        estadoInicial();
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -439,12 +433,62 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        //Volver al estado inicial.
         estadoInicial();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+       //Salir del programa
        System.exit(0);
     }//GEN-LAST:event_jButtonExitActionPerformed
+
+    private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
+         //Al pulsar ENTER en la posición de la caja de texto del nombre.
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(jTextFieldNombre.getText().equals("")){
+                JOptionPane.showMessageDialog(this, "La caja de texto del nomnbre no puede estar vacía.", "ERROR.", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                if(jTextFieldNombre.getText().length()>15){
+                    JOptionPane.showMessageDialog(this, "La caja de texto no admite más de 15 carácteres.", "ERROR.", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    if(!validarNombre(jTextFieldNombre.getText())){
+                        JOptionPane.showMessageDialog(this, "La caja de texto no admite carácteres especiales(números, símbolos, barras, etc).", "ERROR.", JOptionPane.ERROR_MESSAGE);
+                        estadoInicial();
+                    }else{
+                        estado2();
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jTextFieldNombreKeyPressed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(!ventas.isEmpty()){
+            jButtonDelete.setEnabled(true);
+            jButtonAdd.setEnabled(false);
+            jButtonBuscar.setEnabled(false);
+            String nombre=jList1.getSelectedValuesList().toString();
+            nombre = nombre.replace("[","");
+            nombre = nombre.replace("]","");
+            jTextFieldNombre.setText(nombre);
+                try{
+                    if(ventas.get(jList1.getSelectedIndex()).getCliente().equals(nombre)){
+                        dibujaVentas(ventas.get(jList1.getSelectedIndex()));
+                }
+                }catch(Exception e){
+                    
+                }
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+        estadoInicial();
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
+
+    private void jTextFieldNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreMouseClicked
+        estadoInicial();
+    }//GEN-LAST:event_jTextFieldNombreMouseClicked
 
     /**
      * @param args the command line arguments
@@ -482,7 +526,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     }
 
     private void estadoInicial(){
-        modo = ESTADO_INICIAL;     
+        //Todo deshabilitado menos Caja de texto del Nombre, la Lista de Clientes y los Botones de Cancelar y Salir. 
         jTextFieldNombre.setEnabled(true);
         jComboBoxLocalidad.setEnabled(false);
         jButtonAdd.setEnabled(false);
@@ -508,7 +552,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton16.setEnabled(false);
         jCheckBoxDvD.setEnabled(false);
         jCheckBoxTV.setEnabled(false);
-        jCheckBox4.setEnabled(false);
+        jCheckBoxRestore.setEnabled(false);
         jCheckBoxWifi.setEnabled(false);
         jList1.setEnabled(true);
         jRadioButton3.setSelected(true);
@@ -519,7 +563,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jTextFieldNombre.grabFocus();
         jCheckBoxWifi.setSelected(true);
         jCheckBoxDvD.setSelected(true);
-        jCheckBox4.setSelected(false);
+        jCheckBoxRestore.setSelected(false);
         jCheckBoxTV.setSelected(false);
         jTextFieldNombre.grabFocus();
         jComboBoxLocalidad.setSelectedIndex(0);
@@ -535,8 +579,8 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonExit;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JCheckBox jCheckBoxDvD;
+    private javax.swing.JCheckBox jCheckBoxRestore;
     private javax.swing.JCheckBox jCheckBoxTV;
     private javax.swing.JCheckBox jCheckBoxWifi;
     private javax.swing.JComboBox jComboBoxLocalidad;
@@ -570,7 +614,6 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void estado2() {
-        modo = ESTADO_DOS;
         jTextFieldNombre.setEnabled(false);
         jComboBoxLocalidad.setEnabled(true);
         jButtonAdd.setEnabled(true);
@@ -596,7 +639,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton16.setEnabled(true);
         jCheckBoxDvD.setEnabled(true);
         jCheckBoxTV.setEnabled(true);
-        jCheckBox4.setEnabled(true);
+        jCheckBoxRestore.setEnabled(true);
         jCheckBoxWifi.setEnabled(true);
         jList1.setEnabled(true);
         jRadioButton3.setSelected(true);
@@ -604,48 +647,12 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton12.setSelected(true);
         jRadioButton16.setSelected(true);
         jComboBoxLocalidad.setSelectedIndex(0);
+        jComboBoxLocalidad.grabFocus(); //Foco en Localidad
        
     }
 
-    private void añadir() {
-        int procesador = 2,memoria = 3,monitor = 3,disco = 3;
-        if(jRadioButton1.isSelected())
-            procesador=0;
-        else if(jRadioButton2.isSelected())
-            procesador=1;
-                    else if(jRadioButton3.isSelected())          
-                        procesador=2;
-                    else if(jRadioButton4.isSelected())
-                        procesador=3;
-        if(jRadioButton5.isSelected())
-            memoria=0;
-        else if(jRadioButton6.isSelected())
-            memoria=1;
-                    else if(jRadioButton7.isSelected())          
-                        memoria=2;
-                    else if(jRadioButton8.isSelected())
-                        memoria=3;
-        if(jRadioButton9.isSelected())
-            monitor=0;
-        else if(jRadioButton10.isSelected())
-            monitor=1;
-                    else if(jRadioButton11.isSelected())          
-                        monitor=2;
-                    else if(jRadioButton12.isSelected())
-                        monitor=3;
-        if(jRadioButton13.isSelected())
-            disco=0;
-        else if(jRadioButton14.isSelected())
-            disco=1;
-                    else if(jRadioButton15.isSelected())          
-                        disco=2;
-                    else if(jRadioButton16.isSelected())
-                        disco=3;
-        
-        nombres.add(jTextFieldNombre.getText());
-        jList1.setListData(actualizarLista(jTextFieldNombre.getText(),procesador,memoria,monitor,disco));
-      //  ventas.add(new Venta(jTextFieldNombre.getText(),jComboBoxLocalidad.getSelectedIndex(),procesador,memoria,monitor,disco,
-        //        jCheckBoxDvD.isSelected(),jCheckBoxWifi.isSelected(),jCheckBoxTV.isSelected(),jCheckBox4.isSelected()));
+    private void aniadir() {      
+        jList1.setListData(actualizarLista(jTextFieldNombre.getText()));
         estadoInicial();
     }
 
@@ -706,29 +713,34 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                 jRadioButton16.setSelected(true);
                 break;
         }
-         switch(v.getLocalidad()){
-            case 0:
-                jComboBoxLocalidad.setSelectedIndex(0);
-                break;
-            case 1:
-                jComboBoxLocalidad.setSelectedIndex(1);
-                break;
-            case 2:
-                jComboBoxLocalidad.setSelectedIndex(2);
-                break;
-            case 3:
-                jComboBoxLocalidad.setSelectedIndex(3);
-                break;
-            case 4:
-                jComboBoxLocalidad.setSelectedItem(4);
-                break;
+        if(v.isDvd()){
+            jCheckBoxDvD.setSelected(true);
+        }else{
+            jCheckBoxDvD.setSelected(false);
         }
+        if(v.isRestore()){
+            jCheckBoxRestore.setSelected(true);
+        }else{
+            jCheckBoxRestore.setSelected(false);
+        }
+        if(v.isTv()){
+            jCheckBoxTV.setSelected(true);
+        }else{
+            jCheckBoxTV.setSelected(false);
+        }
+        if(v.isWifi()){
+            jCheckBoxWifi.setSelected(true);
+        }else{
+            jCheckBoxWifi.setSelected(false);
+        }
+        jComboBoxLocalidad.setSelectedIndex(v.getLocalidad());
     }
     
+    //Busca una Venta del array Ventas según el nombre.
     public Venta sacarDatosVenta(String nombre, int celda) throws Exception{
         int aux=0;
         for(int i=0;i<ventas.size();i++){
-            if(nombres.get(i).toString().equals(nombre)&& ventas.get(i).getCliente().equals(nombre)) {
+            if(ventas.get(i).getCliente().equals(nombre)) {
                 if(aux==celda){
                     return ventas.get(i); 
                 }else {
@@ -736,28 +748,113 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                 }
             }
         }
-        throw new Exception("No encontrada");       
+        throw new Exception("No se ha encontrado");       
     }
 
-    private String [] actualizarLista(String nombre, int procesador, int memoria, int monitor, int disco) {
+    private String [] actualizarLista(String nombre) {
+         //Vemos lo seleccionado en el formulario.
+        int procesador = 2,memoria = 3,monitor = 3,disco = 3;
+        if(jRadioButton1.isSelected())
+            procesador=0;
+        else if(jRadioButton2.isSelected())
+            procesador=1;
+                    else if(jRadioButton3.isSelected())          
+                        procesador=2;
+                    else if(jRadioButton4.isSelected())
+                        procesador=3;
+        if(jRadioButton5.isSelected())
+            memoria=0;
+        else if(jRadioButton6.isSelected())
+            memoria=1;
+                    else if(jRadioButton7.isSelected())          
+                        memoria=2;
+                    else if(jRadioButton8.isSelected())
+                        memoria=3;
+        if(jRadioButton9.isSelected())
+            monitor=0;
+        else if(jRadioButton10.isSelected())
+            monitor=1;
+                    else if(jRadioButton11.isSelected())          
+                        monitor=2;
+                    else if(jRadioButton12.isSelected())
+                        monitor=3;
+        if(jRadioButton13.isSelected())
+            disco=0;
+        else if(jRadioButton14.isSelected())
+            disco=1;
+                    else if(jRadioButton15.isSelected())          
+                        disco=2;
+                    else if(jRadioButton16.isSelected())
+                        disco=3;
+        //-- Después de ver las opciones seleccionadas, añadimos la nueva venta --//
         if(nombre!=null){
-            ventas.add(new Venta(jTextFieldNombre.getText(),jComboBoxLocalidad.getSelectedIndex(),procesador,memoria,monitor,disco,
-                jCheckBoxDvD.isSelected(),jCheckBoxWifi.isSelected(),jCheckBoxTV.isSelected(),jCheckBox4.isSelected()));        }
-        String[]lista = new String[ventas.size()];
-        //Guardamos los nombres de los clientes que han hecho una venta en el array de String declarado anteriormente.
+            ventas.add(new Venta(nombre,jComboBoxLocalidad.getSelectedIndex(),procesador,memoria,monitor,disco,
+                jCheckBoxDvD.isSelected(),jCheckBoxWifi.isSelected(),jCheckBoxTV.isSelected(),jCheckBoxRestore.isSelected()));        }
+        //Se crea un array para guardar los Nombres de los Clientes
+        String[]listaClientes = new String[ventas.size()];
+        //Guardamos los nombres de los clientes que han hecho una venta en el array listaClientes.
         for(int i=0; i<ventas.size();i++){
-            lista[i]=ventas.get(i).getCliente();
+            listaClientes[i]=ventas.get(i).getCliente();
         }
         //Devolvemos la lista de clientes.
-        return lista;
+        return listaClientes;
     }
 
-    private void buscar() throws Exception {
+    private void buscar(){
+        //Busca si hay ventas guardadas.
+        int bus = 0; //Variable que indica si habrá o no más ventas del mismo nombre.
         if(ventas.isEmpty()){
-            JOptionPane.showMessageDialog(this, "No hay ventas guardadas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
+            JOptionPane.showMessageDialog(this, "No hay ventas guardadas.", "ERROR DE VENTAS", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
         }else{
-            dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),jList1.getSelectedIndex()));
+             try {
+                dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),bus));
+                try{
+                    if(!masVentas(jTextFieldNombre.getText()))
+                        throw new Exception();
+                    bus++;   
+                     boolean salir = false;
+                    do {                        
+                        int opcion=JOptionPane.showConfirmDialog(null, "¿Quiere seguir mostrando ventas de este cliente?","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
+                        switch(opcion){
+                            case JOptionPane.OK_OPTION://Si das a "aceptar" en la ventana anterior muestra este mensaje.
+                                    dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),bus));
+                                    break;
+                            case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
+                                    JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
+                                    salir=true;
+                                    break;
+                            case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
+                                    JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
+                                    salir=true;
+                                    break;
+                        }
+                    }while(!salir);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Ese cliente no tiene más ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
+            }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Ese cliente no tiene ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
+            }
         }
     }
 
+    //Método en el que mira si hay más ventas con el mismo Nombre
+    private boolean masVentas(String nombre) {
+        int cont=0;
+        for(int i=0; i< ventas.size();i++){
+            if(ventas.get(i).getCliente().equals(nombre)){
+                cont++;
+                if(cont>1){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    //Validar Nombre
+    private static boolean validarNombre(String nombre){
+        String patron = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]{1,15}";
+        return nombre.matches(patron);
+    }
 }
