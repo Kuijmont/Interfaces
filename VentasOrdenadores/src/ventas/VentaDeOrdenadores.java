@@ -6,7 +6,6 @@
 package ventas;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -16,11 +15,13 @@ import javax.swing.JOptionPane;
  */
 public class VentaDeOrdenadores extends javax.swing.JFrame {
 
-    public ArrayList<Venta> ventas = new ArrayList<>();
+    public Vector <Venta> ventas;   //Guarda los datos de las ventas.
+    public Vector <String> listaClientes; //Guarda los nombres de los clientes.
     /**
      * Creates new form VentaDeOrdenadores
      */
     public VentaDeOrdenadores() {
+        this.ventas = new Vector<Venta>();
         initComponents();      
         estadoInicial();      
     }
@@ -111,6 +112,11 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jList1MouseClicked(evt);
+            }
+        });
+        jList1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jList1KeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(jList1);
@@ -429,6 +435,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        borrar();       
         estadoInicial();     
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
@@ -445,17 +452,22 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
          //Al pulsar ENTER en la posición de la caja de texto del nombre.
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            if(jTextFieldNombre.getText().equals("")){
-                JOptionPane.showMessageDialog(this, "La caja de texto del nomnbre no puede estar vacía.", "ERROR.", JOptionPane.ERROR_MESSAGE);
+            if(jTextFieldNombre.getText().equals("")){//Si la caja de texto está vacía, mostrar mensaje informativo.
+                JOptionPane.showMessageDialog(this, "La caja de texto del nomnbre no puede estar vacía.",
+                        "ERROR.", JOptionPane.ERROR_MESSAGE);
             }
             else{
                 if(jTextFieldNombre.getText().length()>15){
-                    JOptionPane.showMessageDialog(this, "La caja de texto no admite más de 15 carácteres.", "ERROR.", JOptionPane.ERROR_MESSAGE);
+                //Si el nombre introducido tiene más de 15 carácteres,mostrar mensaje informativo.
+                    JOptionPane.showMessageDialog(this, "La caja de texto no admite más de 15 carácteres.",
+                            "ERROR.", JOptionPane.ERROR_MESSAGE);
                 }else{
                     if(!validarNombre(jTextFieldNombre.getText())){
-                        JOptionPane.showMessageDialog(this, "La caja de texto no admite carácteres especiales(números, símbolos, barras, etc).", "ERROR.", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La caja de texto no admite carácteres especiales"
+                                + " ni números.", "ERROR.", JOptionPane.ERROR_MESSAGE);
                         estadoInicial();
                     }else{
+                        //Si nombre correcto, habilitamos los demás deatos del formulario
                         estado2();
                     }
                 }
@@ -464,15 +476,20 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNombreKeyPressed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        if(!ventas.isEmpty()){
+        //Al clicar un elemento del JList
+        if(!ventas.isEmpty()){ //Si el JList no está vacío, habilitamos el botón Eliminar
+            //Y deshabilitamos los de añadir y buscar.
             jButtonDelete.setEnabled(true);
             jButtonAdd.setEnabled(false);
             jButtonBuscar.setEnabled(false);
+            //Al recoger los nombres de la lista, quitamos los corchetes, que el toString los coloca automáticamente.
             String nombre=jList1.getSelectedValuesList().toString();
             nombre = nombre.replace("[","");
             nombre = nombre.replace("]","");
+            //Mostramos en la casilla de texto del nombre, el nombre del elemento seleccionado del JList
             jTextFieldNombre.setText(nombre);
-                try{
+                try{//Visualizamos la venta del cliente comparando la posición de la venta en la lista y 
+                    //la posición del Vector ventas que sea igual al nombre sacado anteriormente.
                     if(ventas.get(jList1.getSelectedIndex()).getCliente().equals(nombre)){
                         dibujaVentas(ventas.get(jList1.getSelectedIndex()));
                 }
@@ -489,6 +506,30 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     private void jTextFieldNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreMouseClicked
         estadoInicial();
     }//GEN-LAST:event_jTextFieldNombreMouseClicked
+
+    private void jList1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jList1KeyReleased
+       //Al clicar un elemento del JList
+        if(!ventas.isEmpty()){ //Si el JList no está vacío, habilitamos el botón Eliminar
+            //Y deshabilitamos los de añadir y buscar.
+            jButtonDelete.setEnabled(true);
+            jButtonAdd.setEnabled(false);
+            jButtonBuscar.setEnabled(false);
+            //Al recoger los nombres de la lista, quitamos los corchetes, que el toString los coloca automáticamente.
+            String nombre=jList1.getSelectedValuesList().toString();
+            nombre = nombre.replace("[","");
+            nombre = nombre.replace("]","");
+            //Mostramos en la casilla de texto del nombre, el nombre del elemento seleccionado del JList
+            jTextFieldNombre.setText(nombre);
+                try{//Visualizamos la venta del cliente comparando la posición de la venta en la lista y 
+                    //la posición del Vector ventas que sea igual al nombre sacado anteriormente.
+                    if(ventas.get(jList1.getSelectedIndex()).getCliente().equals(nombre)){
+                        dibujaVentas(ventas.get(jList1.getSelectedIndex()));
+                }
+                }catch(Exception e){
+                    
+                }
+        }
+    }//GEN-LAST:event_jList1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -527,6 +568,8 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
 
     private void estadoInicial(){
         //Todo deshabilitado menos Caja de texto del Nombre, la Lista de Clientes y los Botones de Cancelar y Salir. 
+        //Focus sobre el la caja de texto sobre el nombre.
+        //Se muestra la configuración estándar
         jTextFieldNombre.setEnabled(true);
         jComboBoxLocalidad.setEnabled(false);
         jButtonAdd.setEnabled(false);
@@ -614,6 +657,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void estado2() {
+        //Se habilita los botones añadir y buscar, los botones para la configuración
         jTextFieldNombre.setEnabled(false);
         jComboBoxLocalidad.setEnabled(true);
         jButtonAdd.setEnabled(true);
@@ -651,12 +695,17 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
        
     }
 
-    private void aniadir() {      
+    private void aniadir() {    
+        //Añade al JList la lista actualizada
         jList1.setListData(actualizarLista(jTextFieldNombre.getText()));
         estadoInicial();
     }
 
-    public void dibujaVentas(Venta v){
+    //Dibuja la configuración de la venta
+    //Switch para los RadioButtons
+    //If para los checkBox
+    //Y para la localida recoger la que está seleccionada
+    public void dibujaVentas(Venta v){       
         switch(v.getProcesador()){
             case 0:
                 jRadioButton1.setSelected(true);
@@ -736,7 +785,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jComboBoxLocalidad.setSelectedIndex(v.getLocalidad());
     }
     
-    //Busca una Venta del array Ventas según el nombre.
+    //Busca una Venta del vector Ventas según el nombre.
     public Venta sacarDatosVenta(String nombre, int celda) throws Exception{
         int aux=0;
         for(int i=0;i<ventas.size();i++){
@@ -751,7 +800,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         throw new Exception("No se ha encontrado");       
     }
 
-    private String [] actualizarLista(String nombre) {
+    private Vector<String> actualizarLista(String nombre) {
          //Vemos lo seleccionado en el formulario.
         int procesador = 2,memoria = 3,monitor = 3,disco = 3;
         if(jRadioButton1.isSelected())
@@ -790,11 +839,11 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         if(nombre!=null){
             ventas.add(new Venta(nombre,jComboBoxLocalidad.getSelectedIndex(),procesador,memoria,monitor,disco,
                 jCheckBoxDvD.isSelected(),jCheckBoxWifi.isSelected(),jCheckBoxTV.isSelected(),jCheckBoxRestore.isSelected()));        }
-        //Se crea un array para guardar los Nombres de los Clientes
-        String[]listaClientes = new String[ventas.size()];
+        //Se crea un vector para guardar los Nombres de los Clientes
+        listaClientes = new Vector<>();
         //Guardamos los nombres de los clientes que han hecho una venta en el array listaClientes.
         for(int i=0; i<ventas.size();i++){
-            listaClientes[i]=ventas.get(i).getCliente();
+            listaClientes.add(ventas.get(i).getCliente());
         }
         //Devolvemos la lista de clientes.
         return listaClientes;
@@ -802,22 +851,24 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
 
     private void buscar(){
         //Busca si hay ventas guardadas.
-        int bus = 0; //Variable que indica si habrá o no más ventas del mismo nombre.
+        int cnt = 0; //Variable que indica si habrá o no más ventas del mismo nombre. Contador de ventas.
         if(ventas.isEmpty()){
             JOptionPane.showMessageDialog(this, "No hay ventas guardadas.", "ERROR DE VENTAS", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
         }else{
              try {
-                dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),bus));
+                dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
+                
                 try{
-                    if(!masVentas(jTextFieldNombre.getText()))
+                    if(!masVentas(jTextFieldNombre.getText())){
                         throw new Exception();
-                    bus++;   
-                     boolean salir = false;
-                    do {                        
+                    }       
+                    cnt++; 
+                    while(true){   
+                        boolean salir = false;                        
                         int opcion=JOptionPane.showConfirmDialog(null, "¿Quiere seguir mostrando ventas de este cliente?","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
                         switch(opcion){
                             case JOptionPane.OK_OPTION://Si das a "aceptar" en la ventana anterior muestra este mensaje.
-                                    dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),bus));
+                                    dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
                                     break;
                             case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
                                     JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
@@ -828,12 +879,16 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                                     salir=true;
                                     break;
                         }
-                    }while(!salir);
-                } catch (Exception e) {
+                        if(salir)
+                            break;
+                        else
+                            cnt++;
+                    }
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Ese cliente no tiene más ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
             }
             }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "Ese cliente no tiene ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
+                JOptionPane.showMessageDialog(this, "EL cliente que busca no tiene ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
             }
         }
     }
@@ -856,5 +911,22 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     private static boolean validarNombre(String nombre){
         String patron = "[a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]{1,15}";
         return nombre.matches(patron);
+    }
+
+    private void borrar() {
+        int opcion=JOptionPane.showConfirmDialog(null, "¿Quiere eliminar la venta de éste cliente?","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
+                        switch(opcion){
+                            case JOptionPane.OK_OPTION://Si das a "aceptar" en la ventana anterior muestra este mensaje.
+                                    ventas.remove(jList1.getSelectedIndex());
+                                    jList1.setListData(actualizarLista(null));
+                                    estadoInicial();
+                                    break;
+                            case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
+                                    JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
+                                    break;
+                            case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
+                                    JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
+                                    break;
+                        }
     }
 }
