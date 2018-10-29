@@ -690,6 +690,10 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton8.setSelected(true);
         jRadioButton12.setSelected(true);
         jRadioButton16.setSelected(true);
+        jCheckBoxWifi.setSelected(true);
+        jCheckBoxDvD.setSelected(true);
+        jCheckBoxRestore.setSelected(false);
+        jCheckBoxTV.setSelected(false);
         jComboBoxLocalidad.setSelectedIndex(0);
         jComboBoxLocalidad.grabFocus(); //Foco en Localidad
        
@@ -852,6 +856,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     private void buscar(){
         //Busca si hay ventas guardadas.
         int cnt = 0; //Variable que indica si habrá o no más ventas del mismo nombre. Contador de ventas.
+        int cont = masVentas(jTextFieldNombre.getText());
         if(ventas.isEmpty()){
             JOptionPane.showMessageDialog(this, "No hay ventas guardadas.", "ERROR DE VENTAS", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
         }else{
@@ -859,52 +864,47 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                 dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
                 
                 try{
-                    if(!masVentas(jTextFieldNombre.getText())){
-                        throw new Exception();
-                    }       
-                    cnt++; 
-                    while(true){   
-                        boolean salir = false;                        
-                        int opcion=JOptionPane.showConfirmDialog(null, "¿Quiere seguir mostrando ventas de este cliente?","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
-                        switch(opcion){
-                            case JOptionPane.OK_OPTION://Si das a "aceptar" en la ventana anterior muestra este mensaje.
-                                    dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
-                                    break;
-                            case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
-                                    JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
-                                    salir=true;
-                                    break;
-                            case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
-                                    JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
-                                    salir=true;
-                                    break;
-                        }
-                        if(salir)
-                            break;
-                        else
-                            cnt++;
-                    }
+                    if(masVentas(jTextFieldNombre.getText())==1){
+                        //throw new Exception();
+                        JOptionPane.showMessageDialog(this, "Ese cliente no tiene más ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.    
+                     }else{      
+                            cnt++; 
+                           // boolean salir = false; 
+                            for (int i = cont; i > 1; i--) {
+                                int opcion=JOptionPane.showConfirmDialog(null, "¿Quiere seguir mostrando ventas de este cliente?","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
+                                switch(opcion){
+                                    case JOptionPane.OK_OPTION://Si das a "aceptar" en la ventana anterior muestra este mensaje.
+                                            dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
+                                            //cont--;
+                                            break;
+                                    case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
+                                            JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
+                                            //salir=true;
+                                            break;
+                                    case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
+                                            JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
+                                           // salir=true;
+                                            break;
+                                }
+                               cnt++; }dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));}
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Ese cliente no tiene más ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
             }
             }catch(Exception e){
-                JOptionPane.showMessageDialog(this, "EL cliente que busca no tiene ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
+                JOptionPane.showMessageDialog(this, "EL cliente que busca no tiene ventas .", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
             }
         }
     }
 
     //Método en el que mira si hay más ventas con el mismo Nombre
-    private boolean masVentas(String nombre) {
+    private int masVentas(String nombre) {
         int cont=0;
         for(int i=0; i< ventas.size();i++){
             if(ventas.get(i).getCliente().equals(nombre)){
                 cont++;
-                if(cont>1){
-                    return true;
-                }
             }
         }
-        return false;
+        return cont;
     }
     
     //Validar Nombre
