@@ -289,6 +289,9 @@
         <Property name="text" type="java.lang.String" value="P4 3.0 Gb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton2" target="jRadioButton1" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton2">
       <Properties>
@@ -301,6 +304,9 @@
         <Property name="text" type="java.lang.String" value="P4 3.2 Gb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton3" target="jRadioButton2" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton3">
       <Properties>
@@ -314,6 +320,9 @@
         <Property name="text" type="java.lang.String" value="P4 Celeron"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton4" target="jRadioButton3" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton4">
       <Properties>
@@ -326,6 +335,9 @@
         <Property name="text" type="java.lang.String" value="AMD 650"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton5" target="jRadioButton4" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -343,6 +355,9 @@
         <Property name="text" type="java.lang.String" value="128 Mb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton6" target="jRadioButton5" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton6">
       <Properties>
@@ -355,6 +370,9 @@
         <Property name="text" type="java.lang.String" value="256 Mb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton7" target="jRadioButton6" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton7">
       <Properties>
@@ -367,6 +385,9 @@
         <Property name="text" type="java.lang.String" value="512 Mb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton8" target="jRadioButton7" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton8">
       <Properties>
@@ -380,6 +401,9 @@
         <Property name="text" type="java.lang.String" value="1024 Mb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton9" target="jRadioButton8" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -397,6 +421,9 @@
         <Property name="text" type="java.lang.String" value="15&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton10" target="jRadioButton9" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton10">
       <Properties>
@@ -409,6 +436,9 @@
         <Property name="text" type="java.lang.String" value="17&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton11" target="jRadioButton10" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton11">
       <Properties>
@@ -421,6 +451,9 @@
         <Property name="text" type="java.lang.String" value="TFT 15&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton12" target="jRadioButton11" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton12">
       <Properties>
@@ -434,6 +467,9 @@
         <Property name="text" type="java.lang.String" value="TFT 17&quot;"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton13" target="jRadioButton12" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
@@ -451,6 +487,9 @@
         <Property name="text" type="java.lang.String" value="60 Gb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton14" target="jRadioButton13" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton14">
       <Properties>
@@ -463,6 +502,9 @@
         <Property name="text" type="java.lang.String" value="80 Gb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton15" target="jRadioButton14" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton15">
       <Properties>
@@ -475,6 +517,9 @@
         <Property name="text" type="java.lang.String" value="120 Gb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jRadioButton16" target="jRadioButton15" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jRadioButton16">
       <Properties>
@@ -488,6 +533,9 @@
         <Property name="text" type="java.lang.String" value="200 Gb"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jCheckBoxDvD" target="jRadioButton16" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>
@@ -503,6 +551,9 @@
         <Property name="text" type="java.lang.String" value="Grabadora DVD"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jCheckBoxWifi" target="jCheckBoxDvD" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxWifi">
       <Properties>
@@ -513,6 +564,9 @@
         <Property name="text" type="java.lang.String" value="Wifi"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jCheckBoxTV" target="jCheckBoxWifi" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxTV">
       <Properties>
@@ -522,6 +576,9 @@
         <Property name="text" type="java.lang.String" value="Sintonizador TV"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jCheckBoxRestore" target="jCheckBoxTV" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxRestore">
       <Properties>
@@ -531,6 +588,9 @@
         <Property name="text" type="java.lang.String" value="Backup/Restore"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <BindingProperties>
+        <BindingProperty name="nextFocusableComponent" source="jButtonAdd" target="jCheckBoxRestore" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAdd">
       <Properties>

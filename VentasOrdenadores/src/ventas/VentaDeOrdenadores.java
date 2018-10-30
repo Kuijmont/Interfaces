@@ -34,6 +34,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
@@ -128,10 +129,16 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton1.setText("P4 3.0 Gb");
         jRadioButton1.setEnabled(false);
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton2, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton1, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton2.setText("P4 3.2 Gb");
         jRadioButton2.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton3, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton2, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -139,10 +146,16 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton3.setText("P4 Celeron");
         jRadioButton3.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton4, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton3, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton4.setText("AMD 650");
         jRadioButton4.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton5, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton4, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         jLabel5.setText("Memoria");
 
@@ -151,21 +164,33 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton5.setText("128 Mb");
         jRadioButton5.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton6, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton5, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup2.add(jRadioButton6);
         jRadioButton6.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton6.setText("256 Mb");
         jRadioButton6.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton7, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton6, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         buttonGroup2.add(jRadioButton7);
         jRadioButton7.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton7.setText("512 Mb");
         jRadioButton7.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton8, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton7, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup2.add(jRadioButton8);
         jRadioButton8.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton8.setSelected(true);
         jRadioButton8.setText("1024 Mb");
         jRadioButton8.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton9, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton8, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         jLabel6.setText("Monitor");
 
@@ -174,21 +199,33 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton9.setText("15\"");
         jRadioButton9.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton10, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton9, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup3.add(jRadioButton10);
         jRadioButton10.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton10.setText("17\"");
         jRadioButton10.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton11, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton10, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         buttonGroup3.add(jRadioButton11);
         jRadioButton11.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton11.setText("TFT 15\"");
         jRadioButton11.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton12, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton11, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup3.add(jRadioButton12);
         jRadioButton12.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton12.setSelected(true);
         jRadioButton12.setText("TFT 17\"");
         jRadioButton12.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton13, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton12, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         jLabel7.setText("Disco Duro");
 
@@ -197,21 +234,33 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jRadioButton13.setText("60 Gb");
         jRadioButton13.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton14, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton13, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup4.add(jRadioButton14);
         jRadioButton14.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton14.setText("80 Gb");
         jRadioButton14.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton15, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton14, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         buttonGroup4.add(jRadioButton15);
         jRadioButton15.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton15.setText("120 Gb");
         jRadioButton15.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jRadioButton16, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton15, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         buttonGroup4.add(jRadioButton16);
         jRadioButton16.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jRadioButton16.setSelected(true);
         jRadioButton16.setText("200 Gb");
         jRadioButton16.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxDvD, org.jdesktop.beansbinding.ObjectProperty.create(), jRadioButton16, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         jLabel8.setText("Opciones");
 
@@ -220,18 +269,30 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
         jCheckBoxDvD.setText("Grabadora DVD");
         jCheckBoxDvD.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxWifi, org.jdesktop.beansbinding.ObjectProperty.create(), jCheckBoxDvD, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         jCheckBoxWifi.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jCheckBoxWifi.setSelected(true);
         jCheckBoxWifi.setText("Wifi");
         jCheckBoxWifi.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxTV, org.jdesktop.beansbinding.ObjectProperty.create(), jCheckBoxWifi, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         jCheckBoxTV.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jCheckBoxTV.setText("Sintonizador TV");
         jCheckBoxTV.setEnabled(false);
 
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jCheckBoxRestore, org.jdesktop.beansbinding.ObjectProperty.create(), jCheckBoxTV, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
         jCheckBoxRestore.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jCheckBoxRestore.setText("Backup/Restore");
         jCheckBoxRestore.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jButtonAdd, org.jdesktop.beansbinding.ObjectProperty.create(), jCheckBoxRestore, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         jButtonAdd.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jButtonAdd.setMnemonic('a');
@@ -422,6 +483,8 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -431,7 +494,8 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         buscar();  
-        estadoInicial();
+        estadoInicialListado();
+        
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
@@ -654,6 +718,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldNombre;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     private void estado2() {
@@ -856,7 +921,7 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     private void buscar(){
         //Busca si hay ventas guardadas.
         int cnt = 0; //Variable que indica si habrá o no más ventas del mismo nombre. Contador de ventas.
-        int cont = masVentas(jTextFieldNombre.getText());
+        //int cont = masVentas(jTextFieldNombre.getText());
         if(ventas.isEmpty()){
             JOptionPane.showMessageDialog(this, "No hay ventas guardadas.", "ERROR DE VENTAS", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
         }else{
@@ -864,32 +929,45 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                 dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
                 
                 try{
-                    if(masVentas(jTextFieldNombre.getText())==1){
-                        //throw new Exception();
-                        JOptionPane.showMessageDialog(this, "Ese cliente no tiene más ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.    
-                     }else{      
+                   // if(masVentas(jTextFieldNombre.getText())>0){      
                             cnt++; 
-                           // boolean salir = false; 
-                            for (int i = cont; i > 1; i--) {
-                                int opcion=JOptionPane.showConfirmDialog(null, "¿Quiere seguir mostrando ventas de este cliente?","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
-                                switch(opcion){
+                 while(true){
+                     int opcion;
+                     boolean salir = false; 
+                            if (cnt==masVentas(jTextFieldNombre.getText(),ventas)) { 
+                                dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
+                            opcion=JOptionPane.CLOSED_OPTION;
+                      
+                        }else{
+                            //for (int i = cont; i > 1; i--) {
+                          opcion=JOptionPane.showConfirmDialog(null, "¿Quiere seguir mostrando ventas de este cliente?","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
+                        }
+                            switch(opcion){
                                     case JOptionPane.OK_OPTION://Si das a "aceptar" en la ventana anterior muestra este mensaje.
                                             dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
                                             //cont--;
                                             break;
                                     case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
                                             JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
-                                            //salir=true;
+                                            salir=true;
                                             break;
                                     case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
                                             JOptionPane.showMessageDialog(this, "Búsqueda finalizada.");//Mensaje informativo.
-                                           // salir=true;
+                                            salir=true;
                                             break;
-                                }
-                               cnt++; }dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));}
+                                
+                               //cnt++; 
+                            }
+                    if(salir){
+                        break;
+                    }else{
+                        cnt++;
+                    }}
+                           //dibujaVentas(sacarDatosVenta(jTextFieldNombre.getText(),cnt));
+                    
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Ese cliente no tiene más ventas.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
             }
+                 
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, "EL cliente que busca no tiene ventas .", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
             }
@@ -897,9 +975,9 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
     }
 
     //Método en el que mira si hay más ventas con el mismo Nombre
-    private int masVentas(String nombre) {
+    private int masVentas(String nombre, Vector<Venta> ventas1) {
         int cont=0;
-        for(int i=0; i< ventas.size();i++){
+        for(int i=0; i< ventas1.size();i++){
             if(ventas.get(i).getCliente().equals(nombre)){
                 cont++;
             }
@@ -929,4 +1007,34 @@ public class VentaDeOrdenadores extends javax.swing.JFrame {
                                     break;
                         }
     }
+
+    private void estadoInicialListado() {
+        jTextFieldNombre.setEnabled(true);
+        jComboBoxLocalidad.setEnabled(false);
+        jButtonAdd.setEnabled(false);
+        jButtonBuscar.setEnabled(false);
+        jButtonCancel.setEnabled(true);
+        jButtonDelete.setEnabled(false);
+        jButtonExit.setEnabled(true);
+        jRadioButton1.setEnabled(false);
+        jRadioButton2.setEnabled(false);
+        jRadioButton3.setEnabled(false);
+        jRadioButton4.setEnabled(false);
+        jRadioButton5.setEnabled(false);
+        jRadioButton6.setEnabled(false);
+        jRadioButton7.setEnabled(false);
+        jRadioButton8.setEnabled(false);
+        jRadioButton9.setEnabled(false);
+        jRadioButton10.setEnabled(false);
+        jRadioButton11.setEnabled(false);
+        jRadioButton12.setEnabled(false);
+        jRadioButton13.setEnabled(false);
+        jRadioButton14.setEnabled(false);
+        jRadioButton15.setEnabled(false);
+        jRadioButton16.setEnabled(false);
+        jCheckBoxDvD.setEnabled(false);
+        jCheckBoxTV.setEnabled(false);
+        jCheckBoxRestore.setEnabled(false);
+        jCheckBoxWifi.setEnabled(false);
+        jList1.setEnabled(true);    }
 }
