@@ -6,6 +6,13 @@
 package ventas;
 
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
@@ -17,6 +24,8 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
 
     public Vector <Venta> ventas;   //Guarda los datos de las ventas.
     public Vector <String> listaClientes; //Guarda los nombres de los clientes.
+    public Vector <Venta> listaAuxiliar = new Vector();
+    File f = new File("Ventas");
     /**
      * Creates new form VentaDeOrdenadores
      */
@@ -80,7 +89,7 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
         jButtonMostrar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
@@ -354,6 +363,11 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
 
         jButtonGuardar.setMnemonic('g');
         jButtonGuardar.setText("Guardar ventas");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -514,6 +528,7 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         buscar();  
         estadoInicialListado();
+        jTextFieldNombre.grabFocus();
         
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
@@ -529,7 +544,29 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
        //Salir del programa
-       System.exit(0);
+        try{
+            ventas.get(0);
+
+            int opcion=JOptionPane.showConfirmDialog(null, ""
+                        + "¿Quiere salir sin guardar?","Cancelar para estado inicial.",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
+                switch(opcion){
+                    case JOptionPane.OK_OPTION://Si das a "aceptar" sigue con el bucle.
+                           System.exit(0);
+                            break;
+                    case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
+                            JOptionPane.showMessageDialog(this, "Salida cancelada.");//Mensaje informativo.
+                            
+                            break;
+                    case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
+                            JOptionPane.showMessageDialog(this, "Salida cancelada.");//Mensaje informativo.
+
+                            break;
+                }
+              
+        }catch(Exception e){
+               System.exit(0);
+        }
+       
     }//GEN-LAST:event_jButtonExitActionPerformed
 
     private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
@@ -617,12 +654,31 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
     private void jButtonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarActionPerformed
         try{
             ficheroVacio();//Comprueba si el fichero está vacío.
-
+            mostrarFichero();
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "No hay ventas guardadas en el fichero.", "ERROR.", JOptionPane.ERROR_MESSAGE);//Mensaje informativo.
+            JOptionPane.showMessageDialog(this, "No hay ventas guardadas en el fichero.", "Fichero vacío.", JOptionPane.INFORMATION_MESSAGE);//Mensaje informativo.
         }
         jTextFieldNombre.grabFocus();
     }//GEN-LAST:event_jButtonMostrarActionPerformed
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+       if(ventas.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay ventas que guardar.", "Lista vacía.", JOptionPane.INFORMATION_MESSAGE);//Mensaje informativo.
+            estadoInicial();
+        }
+        else{
+            try{
+                guardarVentas();
+                ventas.clear();
+                String [] listaBorrada = new String[ventas.size()];
+                jList1.setListData(listaBorrada);
+                estadoInicial();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Error al guardar en fichero.");//Mensaje informativo.    
+            }
+        }
+        jTextFieldNombre.grabFocus();
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -943,7 +999,7 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
         listaClientes = new Vector<>();
         //Guardamos los nombres de los clientes que han hecho una venta en el array listaClientes.
         for(int i=0; i<ventas.size();i++){
-            listaClientes.add(ventas.get(i).getCliente());
+            listaClientes.add(ventas.get(i).getCliente());           
         }
         //Devolvemos la lista de clientes.
         return listaClientes;
@@ -1068,4 +1124,203 @@ public class VentaDeOrdenadoresMejorada extends javax.swing.JFrame {
         jCheckBoxRestore.setEnabled(false);
         jCheckBoxWifi.setEnabled(false);
         jList1.setEnabled(true);    }
+
+    //Método que guarda las ventas del programa en el fichero.
+    public void guardarVentas() throws IOException{
+        String cadena;
+        PrintWriter pw = new PrintWriter(new FileWriter(f, true));
+        for(int i=0; i< ventas.size();i++){
+            cadena=ventas.get(i).getCliente()+";"+ventas.get(i).getLocalidad()+";"+ventas.get(i).getProcesador()+";"
+                    +ventas.get(i).getMemoria()+";"+ventas.get(i).getMonitor()+";"+ventas.get(i).getDisco();
+            if(ventas.get(i).isDvd()){
+                cadena=cadena+";"+1;
+            }else{
+                cadena=cadena+";"+0;
+            }
+            if(ventas.get(i).isWifi()){
+                cadena=cadena+";"+1;
+            }else
+            {
+                cadena=cadena+";"+0;
+            }
+            if(ventas.get(i).isTv()){
+                 cadena=cadena+";"+1;
+            }else{
+                cadena=cadena+";"+0;
+            }
+            if(ventas.get(i).isRestore()){
+                cadena=cadena+";"+1;
+            }else{
+                cadena=cadena+";"+0;
+            }
+            pw.println(cadena);
+        }
+        pw.close();
+    }
+    //Método que comprueba si el fichero está vacío.
+    public void ficheroVacio() throws Exception{
+        //Te crea el fichero si no existe.
+        PrintWriter pw = new PrintWriter(new FileWriter(f,true));
+        pw.close();
+        //Luego comprueba si está vacío o no. Si lo está devolverá una excepción.
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String cadena = br.readLine();
+        if(cadena==null){
+            throw new Exception("Fichero vacío");
+        }
+        br.close();
+    }
+    //Método que va mostrando el contenido de un fichero.
+    private void mostrarFichero() throws Exception{
+        vueltaFichero();
+        dibujaVentas2(listaAuxiliar.get(0));
+        if(listaAuxiliar.size()>1)
+        {
+           boolean salir=false;
+           for(int i=1;i<listaAuxiliar.size();i++){
+                int opcion=JOptionPane.showConfirmDialog(null, ""
+                        + "Hay más ventas guardadas","¿Continuar?",JOptionPane.OK_CANCEL_OPTION);//Devuelve un valor entero según la opción que escojamos de la ventana.
+                switch(opcion)
+                {
+                    case JOptionPane.OK_OPTION://Si das a "aceptar" sigue con el bucle.
+
+                            break;
+                    case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
+                            JOptionPane.showMessageDialog(this, "Datos cancelados.");//Mensaje informativo.
+                            estadoInicial();
+                            salir=true;
+                            break;
+                    case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
+                            JOptionPane.showMessageDialog(this, "Datos cerrados.");//Mensaje informativo.
+                            estadoInicial();
+                            salir=true;
+                            break;
+                }
+                if(salir){
+                    break;
+                }
+                dibujaVentas2(listaAuxiliar.get(i));
+            }
+           if(!salir){
+               JOptionPane.showMessageDialog(this, "No hay más ventas guardadas.");//Mensaje informativo.
+               estadoInicial();
+           }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No hay más ventas guardadas.");//Mensaje informativo.
+            estadoInicial();
+        }
+        listaAuxiliar.clear();
+    }
+
+    private void vueltaFichero() throws FileNotFoundException, IOException{
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String cadena = br.readLine();
+        while(cadena!=null){
+            String [] splitter = cadena.split(";");
+            listaAuxiliar.add(new Venta(splitter[0],
+                    Integer.valueOf(splitter[1]),
+                    Integer.valueOf(splitter[2]),
+                    Integer.valueOf(splitter[3]),
+                    Integer.valueOf(splitter[4]),
+                    Integer.valueOf(splitter[5]),
+                    devuelveIntegerABooleano(Integer.valueOf(splitter[6])),
+                    devuelveIntegerABooleano(Integer.valueOf(splitter[7])),
+                    devuelveIntegerABooleano(Integer.valueOf(splitter[8])),
+                    devuelveIntegerABooleano(Integer.valueOf(splitter[9]))));
+            cadena = br.readLine();
+        }
+        br.close();
+    }
+    //Método auxiliar del volcado de datos desde fichero.
+    public boolean devuelveIntegerABooleano(int num){
+        if(num==1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    //Método que pone todos los valores del formulario iguales a los que una vez estaban elegidos cuando se guardó la venta que se recibe por parámetro.
+    public void dibujaVentas2(Venta v){
+        switch(v.getProcesador()){
+            case 0:
+                jRadioButton1.setSelected(true);
+                break;
+            case 1:
+                jRadioButton2.setSelected(true);
+                break;
+            case 2:
+                jRadioButton3.setSelected(true);
+                break;
+            case 3:
+                jRadioButton4.setSelected(true);
+                break;
+        }
+        switch(v.getMemoria()){
+            case 0:
+                jRadioButton5.setSelected(true);
+                break;
+            case 1:
+                jRadioButton6.setSelected(true);
+                break;
+            case 2:
+                jRadioButton7.setSelected(true);
+                break;
+            case 3:
+                jRadioButton8.setSelected(true);
+                break;
+        }
+        switch(v.getMonitor()){
+            case 0:
+                jRadioButton9.setSelected(true);
+                break;
+            case 1:
+                jRadioButton10.setSelected(true);
+                break;
+            case 2:
+                jRadioButton11.setSelected(true);
+                break;
+            case 3:
+                jRadioButton12.setSelected(true);
+                break;
+        }
+        switch(v.getDisco()){
+            case 0:
+                jRadioButton13.setSelected(true);
+                break;
+            case 1:
+                jRadioButton14.setSelected(true);
+                break;
+            case 2:
+                jRadioButton15.setSelected(true);
+                break;
+            case 3:
+                jRadioButton16.setSelected(true);
+                break;
+        }
+        if(v.isDvd()){
+            jCheckBoxDvD.setSelected(true);
+        }else{
+            jCheckBoxDvD.setSelected(false);
+        }
+        if(v.isRestore()){
+            jCheckBoxRestore.setSelected(true);
+        }else{
+            jCheckBoxRestore.setSelected(false);
+        }
+        if(v.isTv()){
+            jCheckBoxTV.setSelected(true);
+        }else{
+            jCheckBoxTV.setSelected(false);
+        }
+        if(v.isWifi()){
+            jCheckBoxWifi.setSelected(true);
+        }else{
+            jCheckBoxWifi.setSelected(false);
+        }
+        jTextFieldNombre.setText(v.getCliente());
+        jComboBoxLocalidad.setSelectedIndex(v.getLocalidad());
+    }    
+    
 }
