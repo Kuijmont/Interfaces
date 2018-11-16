@@ -124,6 +124,8 @@ public class GestionAlmacen extends javax.swing.JFrame {
         Formulario f=new Formulario(this);
         setEnabled(false);
         f.setVisible(true);
+        GestorBD bd = new GestorBD();
+        bd.ConectarGestorBD();
     }//GEN-LAST:event_jMenuItemClientActionPerformed
 
     /**

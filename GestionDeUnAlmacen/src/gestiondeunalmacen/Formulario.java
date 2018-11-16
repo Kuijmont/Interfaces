@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class Formulario extends javax.swing.JFrame {
     static javax.swing.JFrame padre;
+    private GestorBD bd;
     /**
      * Creates new form JFrameFormulario
      */
@@ -36,7 +37,7 @@ public class Formulario extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldCod = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
@@ -84,18 +85,18 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre");
 
-        jTextField1.setColumns(6);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldCod.setColumns(6);
+        jTextFieldCod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldCodActionPerformed(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                jTextFieldCodKeyTyped(evt);
             }
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField1KeyPressed(evt);
+                jTextFieldCodKeyPressed(evt);
             }
         });
 
@@ -402,7 +403,7 @@ public class Formulario extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -452,7 +453,7 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -501,9 +502,9 @@ public class Formulario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodActionPerformed
         // TODO add your handling code here:  
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldCodActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
@@ -551,7 +552,7 @@ public class Formulario extends javax.swing.JFrame {
         }
         if(verdadero){
             JOptionPane.showMessageDialog(this, "Todo correcto", "Información de datos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField1.setText(null);
+            jTextFieldCod.setText(null);
             jTextField2.setText(null);
             jTextField3.setText(null);
             jTextField4.setText(null);
@@ -563,7 +564,7 @@ public class Formulario extends javax.swing.JFrame {
             jTextField10.setText(null);
             jTextField11.setText(null);
             jTextField12.setText(null);
-            jTextField1.grabFocus();
+            jTextFieldCod.grabFocus();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -605,7 +606,7 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        jTextField1.setText(null);
+        jTextFieldCod.setText(null);
         jTextField2.setText(null);
         jTextField3.setText(null);
         jTextField4.setText(null);
@@ -617,24 +618,27 @@ public class Formulario extends javax.swing.JFrame {
         jTextField10.setText(null);
         jTextField11.setText(null);
         jTextField12.setText(null);
-        jTextField1.grabFocus();
+        jTextFieldCod.grabFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+    private void jTextFieldCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
             jTextField2.grabFocus();
+            validacionCodigo();
+            //if(bd.valCod(jTextFieldCod.getText()))
+                estadoAltas();
         }
-    }//GEN-LAST:event_jTextField1KeyPressed
+    }//GEN-LAST:event_jTextFieldCodKeyPressed
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void jTextFieldCodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodKeyTyped
         // TODO add your handling code here:
         int limite=6;
-        if(jTextField1.getText().length()==limite){
+        if(jTextFieldCod.getText().length()==limite){
             evt.consume();
         }
-        
-    }//GEN-LAST:event_jTextField1KeyTyped
+  
+    }//GEN-LAST:event_jTextFieldCodKeyTyped
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
@@ -802,7 +806,6 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jMenuItemAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltasActionPerformed
         estadoABMC();
-        GestorBD g = new GestorBD();
     }//GEN-LAST:event_jMenuItemAltasActionPerformed
 
     /**
@@ -876,7 +879,6 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuList;
     private javax.swing.JMenu jMenuMan;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
@@ -889,10 +891,11 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextFieldCod;
     // End of variables declaration//GEN-END:variables
 
     private void validacionCodigo() {
-        String Codigo=jTextField1.getText();
+        String Codigo=jTextFieldCod.getText();
         if(Codigo.matches("([A-Z]*[a-z]*[0-9]*){6}") || Codigo==""){
             verdadero=true;
             if(Codigo.length()<6){
@@ -915,17 +918,17 @@ public class Formulario extends javax.swing.JFrame {
                     }
                     if(longitud==6){
                         JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Código", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                        jTextField1.setText(null);
-                        jTextField1.grabFocus();
+                        jTextFieldCod.setText(null);
+                        jTextFieldCod.grabFocus();
                         verdadero=false;
                     }
             Codigo=ceros.concat(Codigo);
-            jTextField1.setText(Codigo);
+            jTextFieldCod.setText(Codigo);
             }
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Código", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField1.setText(null);
-            jTextField1.grabFocus();
+            jTextFieldCod.setText(null);
+            jTextFieldCod.grabFocus();
             verdadero=false;
         }
     }
@@ -1118,7 +1121,8 @@ public class Formulario extends javax.swing.JFrame {
     }
 
     private void estadoInicial() {
-        jTextField1.setEnabled(false);
+        jTextFieldCod.setText("");
+        jTextFieldCod.setEnabled(false);
         jTextField2.setEnabled(false);
         jTextField3.setEnabled(false);
         jTextField4.setEnabled(false);
@@ -1148,8 +1152,9 @@ public class Formulario extends javax.swing.JFrame {
         jMenuMan.setEnabled(true);
         jMenuBar1.grabFocus();
     }
+    
     private void estadoABMC() {
-        jTextField1.setEnabled(true);
+        jTextFieldCod.setEnabled(true);
         jTextField2.setEnabled(false);
         jTextField3.setEnabled(false);
         jTextField4.setEnabled(false);
@@ -1177,7 +1182,39 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItemVolver.setEnabled(true);
         jMenuList.setEnabled(true);
         jMenuMan.setEnabled(true);
-        jTextField1.grabFocus();
+        jTextFieldCod.grabFocus();
+    }
+
+    private void estadoAltas() {
+        jTextFieldCod.setEnabled(false);
+        jTextField2.setEnabled(true);
+        jTextField3.setEnabled(true);
+        jTextField4.setEnabled(true);
+        jTextField5.setEnabled(true);
+        jTextField6.setEnabled(true);
+        jTextField7.setEnabled(true);
+        jTextField8.setEnabled(true);
+        jTextField9.setEnabled(true);
+        jTextField10.setEnabled(true);
+        jTextField11.setEnabled(true);
+        jTextField12.setEnabled(true);
+        jTextField13.setEnabled(true);
+        jButton1.setEnabled(true);
+        jButton2.setEnabled(true);
+        jButtonExit.setEnabled(true);
+        jMenuBar1.setEnabled(true);
+        jMenuCon.setEnabled(true);
+        jMenuItemAltas.setEnabled(true);
+        jMenuItemBajas.setEnabled(true);
+        jMenuItemCod.setEnabled(true);
+        jMenuItemCodigo.setEnabled(true);
+        jMenuItemEntre.setEnabled(true);
+        jMenuItemGraf.setEnabled(true);
+        jMenuItemMod.setEnabled(true);
+        jMenuItemVolver.setEnabled(true);
+        jMenuList.setEnabled(true);
+        jMenuMan.setEnabled(true);
+        jTextField2.grabFocus();
     }
 }
 
