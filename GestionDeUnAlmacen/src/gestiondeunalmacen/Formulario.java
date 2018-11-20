@@ -5,6 +5,9 @@
  */
 package gestiondeunalmacen;
 
+import static gestiondeunalmacen.GestionAlmacen.bd;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class Formulario extends javax.swing.JFrame {
     static javax.swing.JFrame padre;
-    private GestorBD bd;
+    //private GestorBD bd;
     /**
      * Creates new form JFrameFormulario
      */
@@ -33,14 +36,15 @@ public class Formulario extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCod = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        jTextFieldNif = new javax.swing.JTextField();
+        jTextFieldLetra = new javax.swing.JTextField();
+        jTextFieldNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -48,19 +52,19 @@ public class Formulario extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        jTextFieldApel = new javax.swing.JTextField();
+        jTextFieldDom = new javax.swing.JTextField();
+        jTextFieldCP = new javax.swing.JTextField();
+        jTextFieldLoc = new javax.swing.JTextField();
+        jTextFieldTelf = new javax.swing.JTextField();
+        jTextFieldMov = new javax.swing.JTextField();
+        jTextFieldFax = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jTextFieldEmail = new javax.swing.JTextField();
+        jTextFieldTotal = new javax.swing.JTextField();
+        jButtonAceptar = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuMan = new javax.swing.JMenu();
@@ -86,11 +90,6 @@ public class Formulario extends javax.swing.JFrame {
         jLabel3.setText("Nombre");
 
         jTextFieldCod.setColumns(6);
-        jTextFieldCod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCodActionPerformed(evt);
-            }
-        });
         jTextFieldCod.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldCodKeyTyped(evt);
@@ -100,42 +99,31 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        jTextField2.setColumns(7);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldNif.setColumns(7);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTextFieldNombre, org.jdesktop.beansbinding.ObjectProperty.create(), jTextFieldNif, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
+
+        jTextFieldNif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField2KeyTyped(evt);
+                jTextFieldNifKeyTyped(evt);
             }
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField2KeyPressed(evt);
+                jTextFieldNifKeyPressed(evt);
             }
         });
 
-        jTextField3.setEditable(false);
-        jTextField3.setColumns(1);
-        jTextField3.setEnabled(false);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+        jTextFieldLetra.setEditable(false);
+        jTextFieldLetra.setColumns(1);
+        jTextFieldLetra.setEnabled(false);
 
-        jTextField4.setColumns(15);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldNombre.setColumns(15);
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField4KeyTyped(evt);
+                jTextFieldNombreKeyTyped(evt);
             }
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField4KeyPressed(evt);
+                jTextFieldNombreKeyPressed(evt);
             }
         });
 
@@ -153,108 +141,73 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel10.setText("Fax");
 
-        jTextField5.setColumns(35);
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
-        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField5KeyPressed(evt);
-            }
+        jTextFieldApel.setColumns(35);
+        jTextFieldApel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField5KeyTyped(evt);
+                jTextFieldApelKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldApelKeyPressed(evt);
             }
         });
 
-        jTextField6.setColumns(40);
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
-            }
-        });
-        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField6KeyPressed(evt);
-            }
+        jTextFieldDom.setColumns(40);
+        jTextFieldDom.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField6KeyTyped(evt);
+                jTextFieldDomKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldDomKeyPressed(evt);
             }
         });
 
-        jTextField7.setColumns(4);
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
-            }
-        });
-        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField7KeyPressed(evt);
-            }
+        jTextFieldCP.setColumns(4);
+        jTextFieldCP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField7KeyTyped(evt);
+                jTextFieldCPKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCPKeyPressed(evt);
             }
         });
 
-        jTextField8.setColumns(20);
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
-            }
-        });
-        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField8KeyPressed(evt);
-            }
+        jTextFieldLoc.setColumns(20);
+        jTextFieldLoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField8KeyTyped(evt);
+                jTextFieldLocKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldLocKeyPressed(evt);
             }
         });
 
-        jTextField9.setColumns(7);
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
-            }
-        });
-        jTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField9KeyPressed(evt);
-            }
+        jTextFieldTelf.setColumns(7);
+        jTextFieldTelf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField9KeyTyped(evt);
+                jTextFieldTelfKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldTelfKeyPressed(evt);
             }
         });
 
-        jTextField10.setColumns(7);
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
-            }
-        });
-        jTextField10.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField10KeyPressed(evt);
-            }
+        jTextFieldMov.setColumns(7);
+        jTextFieldMov.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField10KeyTyped(evt);
+                jTextFieldMovKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldMovKeyPressed(evt);
             }
         });
 
-        jTextField11.setColumns(7);
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
-            }
-        });
-        jTextField11.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField11KeyPressed(evt);
-            }
+        jTextFieldFax.setColumns(7);
+        jTextFieldFax.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField11KeyTyped(evt);
+                jTextFieldFaxKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldFaxKeyPressed(evt);
             }
         });
 
@@ -262,43 +215,33 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel12.setText("Total Ventas");
 
-        jTextField12.setColumns(20);
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
-            }
-        });
-        jTextField12.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField12KeyPressed(evt);
-            }
+        jTextFieldEmail.setColumns(20);
+        jTextFieldEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField12KeyTyped(evt);
+                jTextFieldEmailKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldEmailKeyPressed(evt);
             }
         });
 
-        jTextField13.setColumns(1);
-        jTextField13.setText("0");
-        jTextField13.setEnabled(false);
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldTotal.setColumns(1);
+        jTextFieldTotal.setText("0");
+        jTextFieldTotal.setEnabled(false);
+
+        jButtonAceptar.setMnemonic('a');
+        jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+                jButtonAceptarActionPerformed(evt);
             }
         });
 
-        jButton1.setMnemonic('a');
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancel.setMnemonic('c');
+        jButtonCancel.setText("Cancelar");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setMnemonic('c');
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonCancelActionPerformed(evt);
             }
         });
 
@@ -326,11 +269,21 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItemBajas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBajas.setMnemonic('b');
         jMenuItemBajas.setText("Bajas");
+        jMenuItemBajas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBajasActionPerformed(evt);
+            }
+        });
         jMenuMan.add(jMenuItemBajas);
 
         jMenuItemMod.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemMod.setMnemonic('m');
         jMenuItemMod.setText("Modificaciones");
+        jMenuItemMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemModActionPerformed(evt);
+            }
+        });
         jMenuMan.add(jMenuItemMod);
         jMenuMan.add(jSeparator1);
 
@@ -346,7 +299,7 @@ public class Formulario extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuMan);
 
-        jMenuCon.setMnemonic('c');
+        jMenuCon.setMnemonic('o');
         jMenuCon.setText("Consultas");
 
         jMenuItemCod.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
@@ -386,9 +339,9 @@ public class Formulario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -401,8 +354,8 @@ public class Formulario extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel8)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldTelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,36 +363,36 @@ public class Formulario extends javax.swing.JFrame {
                                         .addGap(42, 42, 42)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jTextFieldLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(34, 34, 34)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel9)
-                                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jTextFieldMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(39, 39, 39)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel10)
-                                            .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(jTextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(43, 43, 43)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jTextFieldNif, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jTextFieldLetra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jLabel2))
                                         .addGap(43, 43, 43)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(159, 159, 159)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField13)))
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextFieldTotal)))
+                            .addComponent(jTextFieldApel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldDom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -454,25 +407,25 @@ public class Formulario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldLetra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldApel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldDom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -480,41 +433,31 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldTelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(jButtonAceptar)
+                    .addComponent(jButtonCancel)
                     .addComponent(jButtonExit))
                 .addGap(20, 20, 20))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void jTextFieldCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodActionPerformed
-        // TODO add your handling code here:  
-    }//GEN-LAST:event_jTextFieldCodActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-    boolean verdadero=true;
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean verdadero=true;
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
         validacionCodigo();
         if(verdadero){
@@ -553,81 +496,52 @@ public class Formulario extends javax.swing.JFrame {
         if(verdadero){
             JOptionPane.showMessageDialog(this, "Todo correcto", "Información de datos", JOptionPane.INFORMATION_MESSAGE);
             jTextFieldCod.setText(null);
-            jTextField2.setText(null);
-            jTextField3.setText(null);
-            jTextField4.setText(null);
-            jTextField5.setText(null);
-            jTextField6.setText(null);
-            jTextField7.setText(null);
-            jTextField8.setText(null);
-            jTextField9.setText(null);
-            jTextField10.setText(null);
-            jTextField11.setText(null);
-            jTextField12.setText(null);
+            jTextFieldNif.setText(null);
+            jTextFieldLetra.setText(null);
+            jTextFieldNombre.setText(null);
+            jTextFieldApel.setText(null);
+            jTextFieldDom.setText(null);
+            jTextFieldCP.setText(null);
+            jTextFieldLoc.setText(null);
+            jTextFieldTelf.setText(null);
+            jTextFieldMov.setText(null);
+            jTextFieldFax.setText(null);
+            jTextFieldEmail.setText(null);
             jTextFieldCod.grabFocus();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
-
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
-
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
-
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
-
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
-
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
-
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
-
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
         jTextFieldCod.setText(null);
-        jTextField2.setText(null);
-        jTextField3.setText(null);
-        jTextField4.setText(null);
-        jTextField5.setText(null);
-        jTextField6.setText(null);
-        jTextField7.setText(null);
-        jTextField8.setText(null);
-        jTextField9.setText(null);
-        jTextField10.setText(null);
-        jTextField11.setText(null);
-        jTextField12.setText(null);
-        jTextFieldCod.grabFocus();
-    }//GEN-LAST:event_jButton2ActionPerformed
+        jTextFieldNif.setText(null);
+        jTextFieldLetra.setText(null);
+        jTextFieldNombre.setText(null);
+        jTextFieldApel.setText(null);
+        jTextFieldDom.setText(null);
+        jTextFieldCP.setText(null);
+        jTextFieldLoc.setText(null);
+        jTextFieldTelf.setText(null);
+        jTextFieldMov.setText(null);
+        jTextFieldFax.setText(null);
+        jTextFieldEmail.setText(null);
+        estadoABMC();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jTextFieldCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodKeyPressed
-        // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField2.grabFocus();
-            validacionCodigo();
-            //if(bd.valCod(jTextFieldCod.getText()))
-                estadoAltas();
+            jTextFieldNif.grabFocus();
+            if(verdadero)
+                validacionCodigo();         
+            try {
+                if(bd.valCod(jTextFieldCod.getText()))
+                    estadoA();
+                else{
+                    estadoABMC();
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_jTextFieldCodKeyPressed
 
@@ -640,160 +554,156 @@ public class Formulario extends javax.swing.JFrame {
   
     }//GEN-LAST:event_jTextFieldCodKeyTyped
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+    private void jTextFieldNifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyTyped
         // TODO add your handling code here:
         int limite=8;
-        if(jTextField2.getText().length()==limite){
+        if(jTextFieldNif.getText().length()==limite){
             //evt.consume();
-            jTextField4.grabFocus();
+            jTextFieldNombre.grabFocus();
         }
-    }//GEN-LAST:event_jTextField2KeyTyped
+    }//GEN-LAST:event_jTextFieldNifKeyTyped
 
-    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+    private void jTextFieldApelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApelKeyTyped
         // TODO add your handling code here:
         int limite=35;
-        if(jTextField5.getText().length()==limite){
+        if(jTextFieldApel.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField5KeyTyped
+    }//GEN-LAST:event_jTextFieldApelKeyTyped
 
-    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+    private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
         // TODO add your handling code here:
         int limite=15;
-        if(jTextField4.getText().length()==limite){
+        if(jTextFieldNombre.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField4KeyTyped
+    }//GEN-LAST:event_jTextFieldNombreKeyTyped
 
-    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+    private void jTextFieldDomKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDomKeyTyped
         // TODO add your handling code here:
         int limite=40;
-        if(jTextField6.getText().length()==limite){
+        if(jTextFieldDom.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField6KeyTyped
+    }//GEN-LAST:event_jTextFieldDomKeyTyped
 
-    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
+    private void jTextFieldCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPKeyTyped
         // TODO add your handling code here:
         int limite=5;
-        if(jTextField7.getText().length()==limite){
+        if(jTextFieldCP.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField7KeyTyped
+    }//GEN-LAST:event_jTextFieldCPKeyTyped
 
-    private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
+    private void jTextFieldLocKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLocKeyTyped
         // TODO add your handling code here:
         int limite=20;
-        if(jTextField8.getText().length()==limite){
+        if(jTextFieldLoc.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField8KeyTyped
+    }//GEN-LAST:event_jTextFieldLocKeyTyped
 
-    private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
+    private void jTextFieldTelfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelfKeyTyped
         // TODO add your handling code here:
         int limite=9;
-        if(jTextField9.getText().length()==limite){
+        if(jTextFieldTelf.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField9KeyTyped
+    }//GEN-LAST:event_jTextFieldTelfKeyTyped
 
-    private void jTextField10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyTyped
+    private void jTextFieldMovKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMovKeyTyped
         // TODO add your handling code here:
         int limite=9;
-        if(jTextField10.getText().length()==limite){
+        if(jTextFieldMov.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField10KeyTyped
+    }//GEN-LAST:event_jTextFieldMovKeyTyped
 
-    private void jTextField11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField11KeyTyped
+    private void jTextFieldFaxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFaxKeyTyped
         // TODO add your handling code here:
         int limite=9;
-        if(jTextField11.getText().length()==limite){
+        if(jTextFieldFax.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField11KeyTyped
+    }//GEN-LAST:event_jTextFieldFaxKeyTyped
 
-    private void jTextField12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField12KeyTyped
+    private void jTextFieldEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldEmailKeyTyped
         // TODO add your handling code here:
         int limite=20;
-        if(jTextField12.getText().length()==limite){
+        if(jTextFieldEmail.getText().length()==limite){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextField12KeyTyped
+    }//GEN-LAST:event_jTextFieldEmailKeyTyped
 
-    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+    private void jTextFieldNifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField4.grabFocus();
+            jTextFieldNombre.grabFocus();
         }
-    }//GEN-LAST:event_jTextField2KeyPressed
+    }//GEN-LAST:event_jTextFieldNifKeyPressed
 
-    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+    private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField5.grabFocus();
+            jTextFieldApel.grabFocus();
         }
-    }//GEN-LAST:event_jTextField4KeyPressed
+    }//GEN-LAST:event_jTextFieldNombreKeyPressed
 
-    private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
+    private void jTextFieldApelKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApelKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField6.grabFocus();
+            jTextFieldDom.grabFocus();
         }
-    }//GEN-LAST:event_jTextField5KeyPressed
+    }//GEN-LAST:event_jTextFieldApelKeyPressed
 
-    private void jTextField6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyPressed
+    private void jTextFieldDomKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDomKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField7.grabFocus();
+            jTextFieldCP.grabFocus();
         }
-    }//GEN-LAST:event_jTextField6KeyPressed
+    }//GEN-LAST:event_jTextFieldDomKeyPressed
 
-    private void jTextField7KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyPressed
+    private void jTextFieldCPKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCPKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField8.grabFocus();
+            jTextFieldLoc.grabFocus();
         }
-    }//GEN-LAST:event_jTextField7KeyPressed
+    }//GEN-LAST:event_jTextFieldCPKeyPressed
 
-    private void jTextField8KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyPressed
+    private void jTextFieldLocKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLocKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField9.grabFocus();
+            jTextFieldTelf.grabFocus();
         }
-    }//GEN-LAST:event_jTextField8KeyPressed
+    }//GEN-LAST:event_jTextFieldLocKeyPressed
 
-    private void jTextField9KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyPressed
+    private void jTextFieldTelfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelfKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField10.grabFocus();
+            jTextFieldMov.grabFocus();
         }
-    }//GEN-LAST:event_jTextField9KeyPressed
+    }//GEN-LAST:event_jTextFieldTelfKeyPressed
 
-    private void jTextField10KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyPressed
+    private void jTextFieldMovKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMovKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField11.grabFocus();
+            jTextFieldFax.grabFocus();
         }
-    }//GEN-LAST:event_jTextField10KeyPressed
+    }//GEN-LAST:event_jTextFieldMovKeyPressed
 
-    private void jTextField11KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField11KeyPressed
+    private void jTextFieldFaxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFaxKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jTextField12.grabFocus();
+            jTextFieldEmail.grabFocus();
         }
-    }//GEN-LAST:event_jTextField11KeyPressed
+    }//GEN-LAST:event_jTextFieldFaxKeyPressed
 
-    private void jTextField12KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField12KeyPressed
+    private void jTextFieldEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldEmailKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            jButton1.grabFocus();
+            jButtonAceptar.grabFocus();
         }
-    }//GEN-LAST:event_jTextField12KeyPressed
+    }//GEN-LAST:event_jTextFieldEmailKeyPressed
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
        estadoInicial();
@@ -807,6 +717,14 @@ public class Formulario extends javax.swing.JFrame {
     private void jMenuItemAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltasActionPerformed
         estadoABMC();
     }//GEN-LAST:event_jMenuItemAltasActionPerformed
+
+    private void jMenuItemBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBajasActionPerformed
+        estadoABMC();
+    }//GEN-LAST:event_jMenuItemBajasActionPerformed
+
+    private void jMenuItemModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModActionPerformed
+        estadoABMC();      
+    }//GEN-LAST:event_jMenuItemModActionPerformed
 
     /**
      * @param args the command line arguments
@@ -851,8 +769,8 @@ public class Formulario extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAceptar;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonExit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -879,19 +797,20 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuList;
     private javax.swing.JMenu jMenuMan;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextFieldApel;
+    private javax.swing.JTextField jTextFieldCP;
     private javax.swing.JTextField jTextFieldCod;
+    private javax.swing.JTextField jTextFieldDom;
+    private javax.swing.JTextField jTextFieldEmail;
+    private javax.swing.JTextField jTextFieldFax;
+    private javax.swing.JTextField jTextFieldLetra;
+    private javax.swing.JTextField jTextFieldLoc;
+    private javax.swing.JTextField jTextFieldMov;
+    private javax.swing.JTextField jTextFieldNif;
+    private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldTelf;
+    private javax.swing.JTextField jTextFieldTotal;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     private void validacionCodigo() {
@@ -934,188 +853,188 @@ public class Formulario extends javax.swing.JFrame {
     }
 
     private void validacionNIF() {
-        String NIF=jTextField2.getText();
+        String NIF=jTextFieldNif.getText();
         if(NIF.matches("[0-9]{8}") || NIF==null){
             if(NIF==null){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en NIF", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField2.setText(null);
-                jTextField2.grabFocus();
+                jTextFieldNif.setText(null);
+                jTextFieldNif.grabFocus();
                 verdadero=false;
             }
             verdadero=true;
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en NIF", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField2.setText(null);
-            jTextField2.grabFocus();
+            jTextFieldNif.setText(null);
+            jTextFieldNif.grabFocus();
             verdadero=false;
         }
     }
     
      private void sacarletra() {
         String NIF_STRING_ASOCIATION = "TRWAGMYFPDXBNJZSQVHLCKE";
-        int letra=Integer.valueOf(jTextField2.getText()) % 23;
-        jTextField3.setText(""+NIF_STRING_ASOCIATION.charAt(letra));
+        int letra=Integer.valueOf(jTextFieldNif.getText()) % 23;
+        jTextFieldLetra.setText(""+NIF_STRING_ASOCIATION.charAt(letra));
         
     }
 
     private void validacionNombre() {
-        String Nombre=jTextField4.getText();
+        String Nombre=jTextFieldNombre.getText();
         if(Nombre.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù]*){15}") || Nombre.equals("")){
             verdadero=true;
             if(Nombre.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Nombre", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField4.setText(null);
-                jTextField4.grabFocus();
+                jTextFieldNombre.setText(null);
+                jTextFieldNombre.grabFocus();
                 verdadero=false;
             }
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Nombre", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField4.setText(null);
-            jTextField4.grabFocus();
+            jTextFieldNombre.setText(null);
+            jTextFieldNombre.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionApellidos() {
-        String Apellidos=jTextField5.getText();
+        String Apellidos=jTextFieldApel.getText();
         if(Apellidos.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*){35}") || Apellidos.equals("")){
             verdadero=true;
             if(Apellidos.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Apellidos", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField5.setText(null);
-                jTextField5.grabFocus();
+                jTextFieldApel.setText(null);
+                jTextFieldApel.grabFocus();
                 verdadero=false;
             }
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Apellidos", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField5.setText(null);
-            jTextField5.grabFocus();
+            jTextFieldApel.setText(null);
+            jTextFieldApel.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionDomicilio() {
-        String Domicilio=jTextField6.getText();
+        String Domicilio=jTextFieldDom.getText();
         if(Domicilio.matches("([A-Z]*[a-z]*[0-9]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*[ºª/,]*){35}") || Domicilio.equals("")){
             verdadero=true;
             if(Domicilio.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Domicilio", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField6.setText(null);
-                jTextField6.grabFocus();
+                jTextFieldDom.setText(null);
+                jTextFieldDom.grabFocus();
                 verdadero=false;
             }
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Domicilio", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField6.setText(null);
-            jTextField6.grabFocus();
+            jTextFieldDom.setText(null);
+            jTextFieldDom.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionCP() {
-        String CP=jTextField7.getText();
+        String CP=jTextFieldCP.getText();
         if(CP.matches("[0-9]{5}") || CP.equals("")){
             verdadero=true;
             if(CP.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en C.P.", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField7.setText(null);
-                jTextField7.grabFocus();
+                jTextFieldCP.setText(null);
+                jTextFieldCP.grabFocus();
                 verdadero=false;
             }  
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en C.P.", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField7.setText(null);
-            jTextField7.grabFocus();
+            jTextFieldCP.setText(null);
+            jTextFieldCP.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionLocalidad() {
-        String Localidad=jTextField8.getText();
+        String Localidad=jTextFieldLoc.getText();
         if(Localidad.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*){20}") || Localidad.equals("")){
             verdadero=true;
             if(Localidad.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Localidad", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField8.setText(null);
-                jTextField8.grabFocus();
+                jTextFieldLoc.setText(null);
+                jTextFieldLoc.grabFocus();
                 verdadero=false;
             }  
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Localidad", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField8.setText(null);
-            jTextField8.grabFocus();
+            jTextFieldLoc.setText(null);
+            jTextFieldLoc.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionTelefono() {
-        String Tlf=jTextField9.getText();
+        String Tlf=jTextFieldTelf.getText();
         if(Tlf.matches("[0-9]{9}") || Tlf.equals("")){
             verdadero=true;
             if(Tlf.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Teléfono", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField9.setText(null);
-                jTextField9.grabFocus();
+                jTextFieldTelf.setText(null);
+                jTextFieldTelf.grabFocus();
                 verdadero=false;
             }  
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Teléfono", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField9.setText(null);
-            jTextField9.grabFocus();
+            jTextFieldTelf.setText(null);
+            jTextFieldTelf.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionMovil() {
-        String Movil=jTextField10.getText();
+        String Movil=jTextFieldMov.getText();
         if(Movil.matches("[0-9]{9}") || Movil.equals("")){
             verdadero=true;
             if(Movil.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Móvil", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField10.setText(null);
-                jTextField10.grabFocus();
+                jTextFieldMov.setText(null);
+                jTextFieldMov.grabFocus();
                 verdadero=false;
             }  
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Móvil", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField10.setText(null);
-            jTextField10.grabFocus();
+            jTextFieldMov.setText(null);
+            jTextFieldMov.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionFax() {
-        String Fax=jTextField11.getText();
+        String Fax=jTextFieldFax.getText();
         if(Fax.matches("[0-9]{9}") || Fax.equals("")){
             verdadero=true;
             if(Fax.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Fax", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField11.setText(null);
-                jTextField11.grabFocus();
+                jTextFieldFax.setText(null);
+                jTextFieldFax.grabFocus();
                 verdadero=false;
             }  
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Fax", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField11.setText(null);
-            jTextField11.grabFocus();
+            jTextFieldFax.setText(null);
+            jTextFieldFax.grabFocus();
             verdadero=false;
         }
     }
 
     private void validacionCorreo() {
-        String Email=jTextField12.getText();
+        String Email=jTextFieldEmail.getText();
         if(Email.matches("([A-Z]*[a-z]*[0-9]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*[_@]*){20}") || Email.equals("")){
             verdadero=true;
             if(Email.equals("")){
                 JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en E-mail", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextField12.setText(null);
-                jTextField12.grabFocus();
+                jTextFieldEmail.setText(null);
+                jTextFieldEmail.grabFocus();
                 verdadero=false;
             }  
         }else{
             JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en E-mail", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextField12.setText(null);
-            jTextField12.grabFocus();
+            jTextFieldEmail.setText(null);
+            jTextFieldEmail.grabFocus();
             verdadero=false;
         }
     }
@@ -1123,20 +1042,20 @@ public class Formulario extends javax.swing.JFrame {
     private void estadoInicial() {
         jTextFieldCod.setText("");
         jTextFieldCod.setEnabled(false);
-        jTextField2.setEnabled(false);
-        jTextField3.setEnabled(false);
-        jTextField4.setEnabled(false);
-        jTextField5.setEnabled(false);
-        jTextField6.setEnabled(false);
-        jTextField7.setEnabled(false);
-        jTextField8.setEnabled(false);
-        jTextField9.setEnabled(false);
-        jTextField10.setEnabled(false);
-        jTextField11.setEnabled(false);
-        jTextField12.setEnabled(false);
-        jTextField13.setEnabled(false);
-        jButton1.setEnabled(false);
-        jButton2.setEnabled(false);
+        jTextFieldNif.setEnabled(false);
+        jTextFieldLetra.setEnabled(false);
+        jTextFieldNombre.setEnabled(false);
+        jTextFieldApel.setEnabled(false);
+        jTextFieldDom.setEnabled(false);
+        jTextFieldCP.setEnabled(false);
+        jTextFieldLoc.setEnabled(false);
+        jTextFieldTelf.setEnabled(false);
+        jTextFieldMov.setEnabled(false);
+        jTextFieldFax.setEnabled(false);
+        jTextFieldEmail.setEnabled(false);
+        jTextFieldTotal.setEnabled(false);
+        jButtonAceptar.setEnabled(false);
+        jButtonCancel.setEnabled(false);
         jButtonExit.setEnabled(false);
         jMenuBar1.setEnabled(true);
         jMenuCon.setEnabled(true);
@@ -1155,20 +1074,20 @@ public class Formulario extends javax.swing.JFrame {
     
     private void estadoABMC() {
         jTextFieldCod.setEnabled(true);
-        jTextField2.setEnabled(false);
-        jTextField3.setEnabled(false);
-        jTextField4.setEnabled(false);
-        jTextField5.setEnabled(false);
-        jTextField6.setEnabled(false);
-        jTextField7.setEnabled(false);
-        jTextField8.setEnabled(false);
-        jTextField9.setEnabled(false);
-        jTextField10.setEnabled(false);
-        jTextField11.setEnabled(false);
-        jTextField12.setEnabled(false);
-        jTextField13.setEnabled(false);
-        jButton1.setEnabled(false);
-        jButton2.setEnabled(false);
+        jTextFieldNif.setEnabled(false);
+        jTextFieldLetra.setEnabled(false);
+        jTextFieldNombre.setEnabled(false);
+        jTextFieldApel.setEnabled(false);
+        jTextFieldDom.setEnabled(false);
+        jTextFieldCP.setEnabled(false);
+        jTextFieldLoc.setEnabled(false);
+        jTextFieldTelf.setEnabled(false);
+        jTextFieldMov.setEnabled(false);
+        jTextFieldFax.setEnabled(false);
+        jTextFieldEmail.setEnabled(false);
+        jTextFieldTotal.setEnabled(false);
+        jButtonAceptar.setEnabled(false);
+        jButtonCancel.setEnabled(false);
         jButtonExit.setEnabled(true);
         jMenuBar1.setEnabled(true);
         jMenuCon.setEnabled(true);
@@ -1183,24 +1102,25 @@ public class Formulario extends javax.swing.JFrame {
         jMenuList.setEnabled(true);
         jMenuMan.setEnabled(true);
         jTextFieldCod.grabFocus();
+        jTextFieldCod.setText("");
     }
 
-    private void estadoAltas() {
+    private void estadoA() {
         jTextFieldCod.setEnabled(false);
-        jTextField2.setEnabled(true);
-        jTextField3.setEnabled(true);
-        jTextField4.setEnabled(true);
-        jTextField5.setEnabled(true);
-        jTextField6.setEnabled(true);
-        jTextField7.setEnabled(true);
-        jTextField8.setEnabled(true);
-        jTextField9.setEnabled(true);
-        jTextField10.setEnabled(true);
-        jTextField11.setEnabled(true);
-        jTextField12.setEnabled(true);
-        jTextField13.setEnabled(true);
-        jButton1.setEnabled(true);
-        jButton2.setEnabled(true);
+        jTextFieldNif.setEnabled(true);
+        jTextFieldLetra.setEnabled(true);
+        jTextFieldNombre.setEnabled(true);
+        jTextFieldApel.setEnabled(true);
+        jTextFieldDom.setEnabled(true);
+        jTextFieldCP.setEnabled(true);
+        jTextFieldLoc.setEnabled(true);
+        jTextFieldTelf.setEnabled(true);
+        jTextFieldMov.setEnabled(true);
+        jTextFieldFax.setEnabled(true);
+        jTextFieldEmail.setEnabled(true);
+        jTextFieldTotal.setEnabled(false);
+        jButtonAceptar.setEnabled(true);
+        jButtonCancel.setEnabled(true);
         jButtonExit.setEnabled(true);
         jMenuBar1.setEnabled(true);
         jMenuCon.setEnabled(true);
@@ -1214,7 +1134,7 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItemVolver.setEnabled(true);
         jMenuList.setEnabled(true);
         jMenuMan.setEnabled(true);
-        jTextField2.grabFocus();
+        jTextFieldNif.grabFocus();
     }
 }
 

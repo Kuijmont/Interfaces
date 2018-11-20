@@ -14,6 +14,7 @@ public class GestionAlmacen extends javax.swing.JFrame {
     /**
      * Creates new form GestionAlmacen
      */
+    static GestorBD bd = new GestorBD();
     public GestionAlmacen() {
         initComponents();
         this.setTitle("Gestión de Almacén");
@@ -117,14 +118,14 @@ public class GestionAlmacen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
-        System.exit(0);
+        bd.close();
+        System.exit(0);      
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void jMenuItemClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientActionPerformed
         Formulario f=new Formulario(this);
         setEnabled(false);
-        f.setVisible(true);
-        GestorBD bd = new GestorBD();
+        f.setVisible(true);       
         bd.ConectarGestorBD();
     }//GEN-LAST:event_jMenuItemClientActionPerformed
 
