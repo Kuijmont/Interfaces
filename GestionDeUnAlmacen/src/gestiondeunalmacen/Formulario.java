@@ -6,9 +6,10 @@
 package gestiondeunalmacen;
 
 import static gestiondeunalmacen.GestionAlmacen.bd;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class Formulario extends javax.swing.JFrame {
     static javax.swing.JFrame padre;
+    String op;
     //private GestorBD bd;
     /**
      * Creates new form JFrameFormulario
@@ -80,7 +82,7 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItemEntre = new javax.swing.JMenuItem();
         jMenuItemGraf = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         jLabel1.setText("Código");
@@ -464,9 +466,6 @@ public class Formulario extends javax.swing.JFrame {
         validacionNIF();
         }
         if(verdadero){
-        sacarletra();
-        }
-        if(verdadero){
         validacionNombre();
         }
         if(verdadero){
@@ -493,22 +492,32 @@ public class Formulario extends javax.swing.JFrame {
         if(verdadero){
         validacionCorreo();
         }
-        if(verdadero){
-            JOptionPane.showMessageDialog(this, "Todo correcto", "Información de datos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldCod.setText(null);
-            jTextFieldNif.setText(null);
-            jTextFieldLetra.setText(null);
-            jTextFieldNombre.setText(null);
-            jTextFieldApel.setText(null);
-            jTextFieldDom.setText(null);
-            jTextFieldCP.setText(null);
-            jTextFieldLoc.setText(null);
-            jTextFieldTelf.setText(null);
-            jTextFieldMov.setText(null);
-            jTextFieldFax.setText(null);
-            jTextFieldEmail.setText(null);
-            jTextFieldCod.grabFocus();
+       
+        if(op.equals("altas")){
+            try { 
+                bd.darAlta(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
+                        jTextFieldApel.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
+                        jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
+                        jTextFieldTotal.getText());
+                estadoABMC();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
+        if(op.equals("bajas")){
+            try { 
+                int confirmado = JOptionPane.showConfirmDialog(null,"¿Lo confirmas?");
+                if (JOptionPane.OK_OPTION == confirmado)
+                    bd.darBaja(jTextFieldCod.getText());
+                else
+                    System.out.println("Baja cancelada");
+                
+                estadoABMC();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
@@ -534,10 +543,41 @@ public class Formulario extends javax.swing.JFrame {
             if(verdadero)
                 validacionCodigo();         
             try {
-                if(bd.valCod(jTextFieldCod.getText()))
-                    estadoA();
-                else{
-                    estadoABMC();
+                switch (op) {
+                    case "altas":
+                        if(bd.valCod(jTextFieldCod.getText()))
+                            estadoA();
+                        else{
+                            JOptionPane.showMessageDialog(null, "El código introducido ya existe.", "Código incorrecto", 0);
+                            estadoABMC();
+                        }   break;
+                    case "bajas":
+                        if(!bd.valCod(jTextFieldCod.getText())){
+                            ArrayList<String>al=bd.consulta(jTextFieldCod.getText());
+                            jTextFieldNif.setText(al.get(1));
+                            //jTextFieldLetra.setText(al.get(1));
+                            jTextFieldNombre.setText(al.get(2));
+                            jTextFieldApel.setText(al.get(3));
+                            jTextFieldDom.setText(al.get(4));
+                            jTextFieldCP.setText(al.get(5));
+                            jTextFieldLoc.setText(al.get(6));
+                            jTextFieldTelf.setText(al.get(7));
+                            jTextFieldMov.setText(al.get(8));
+                            jTextFieldFax.setText(al.get(9));
+                            jTextFieldEmail.setText(al.get(10));
+                            jTextFieldTotal.setText(al.get(11));
+                            estadoB();
+                        }else{
+                            JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
+                            estadoABMC();
+                        }   break;
+                    case "mod":
+                        if(!bd.valCod(jTextFieldCod.getText()))
+                            estadoA();
+                        else{
+                            JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
+                            estadoABMC();
+                        }   break;
                 }
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -558,7 +598,8 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
         int limite=8;
         if(jTextFieldNif.getText().length()==limite){
-            //evt.consume();
+            evt.consume();
+            sacarletra();
             jTextFieldNombre.grabFocus();
         }
     }//GEN-LAST:event_jTextFieldNifKeyTyped
@@ -638,6 +679,7 @@ public class Formulario extends javax.swing.JFrame {
     private void jTextFieldNifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
+            sacarletra();
             jTextFieldNombre.grabFocus();
         }
     }//GEN-LAST:event_jTextFieldNifKeyPressed
@@ -711,19 +753,23 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jMenuItemVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVolverActionPerformed
         this.setVisible(false);
-        padre.setEnabled(true);
+        padre.setEnabled(true); 
+        bd.close();
     }//GEN-LAST:event_jMenuItemVolverActionPerformed
 
     private void jMenuItemAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltasActionPerformed
         estadoABMC();
+        op="altas";
     }//GEN-LAST:event_jMenuItemAltasActionPerformed
 
     private void jMenuItemBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBajasActionPerformed
         estadoABMC();
+        op="bajas";
     }//GEN-LAST:event_jMenuItemBajasActionPerformed
 
     private void jMenuItemModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModActionPerformed
-        estadoABMC();      
+        estadoABMC();   
+        op="mod";
     }//GEN-LAST:event_jMenuItemModActionPerformed
 
     /**
@@ -971,14 +1017,9 @@ public class Formulario extends javax.swing.JFrame {
         String Tlf=jTextFieldTelf.getText();
         if(Tlf.matches("[0-9]{9}") || Tlf.equals("")){
             verdadero=true;
-            if(Tlf.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Teléfono", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldTelf.setText(null);
-                jTextFieldTelf.grabFocus();
-                verdadero=false;
-            }  
+             
         }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Teléfono", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en Teléfono", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
             jTextFieldTelf.setText(null);
             jTextFieldTelf.grabFocus();
             verdadero=false;
@@ -989,14 +1030,9 @@ public class Formulario extends javax.swing.JFrame {
         String Movil=jTextFieldMov.getText();
         if(Movil.matches("[0-9]{9}") || Movil.equals("")){
             verdadero=true;
-            if(Movil.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Móvil", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldMov.setText(null);
-                jTextFieldMov.grabFocus();
-                verdadero=false;
-            }  
+            
         }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Móvil", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en Móvil", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
             jTextFieldMov.setText(null);
             jTextFieldMov.grabFocus();
             verdadero=false;
@@ -1007,14 +1043,9 @@ public class Formulario extends javax.swing.JFrame {
         String Fax=jTextFieldFax.getText();
         if(Fax.matches("[0-9]{9}") || Fax.equals("")){
             verdadero=true;
-            if(Fax.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Fax", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldFax.setText(null);
-                jTextFieldFax.grabFocus();
-                verdadero=false;
-            }  
+            
         }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Fax", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en Fax", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
             jTextFieldFax.setText(null);
             jTextFieldFax.grabFocus();
             verdadero=false;
@@ -1025,14 +1056,9 @@ public class Formulario extends javax.swing.JFrame {
         String Email=jTextFieldEmail.getText();
         if(Email.matches("([A-Z]*[a-z]*[0-9]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*[_@]*){20}") || Email.equals("")){
             verdadero=true;
-            if(Email.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en E-mail", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldEmail.setText(null);
-                jTextFieldEmail.grabFocus();
-                verdadero=false;
-            }  
+            
         }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en E-mail", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en E-mail", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
             jTextFieldEmail.setText(null);
             jTextFieldEmail.grabFocus();
             verdadero=false;
@@ -1103,6 +1129,18 @@ public class Formulario extends javax.swing.JFrame {
         jMenuMan.setEnabled(true);
         jTextFieldCod.grabFocus();
         jTextFieldCod.setText("");
+        jTextFieldCod.setText(null);
+        jTextFieldNif.setText(null);
+        jTextFieldLetra.setText(null);
+        jTextFieldNombre.setText(null);
+        jTextFieldApel.setText(null);
+        jTextFieldDom.setText(null);
+        jTextFieldCP.setText(null);
+        jTextFieldLoc.setText(null);
+        jTextFieldTelf.setText(null);
+        jTextFieldMov.setText(null);
+        jTextFieldFax.setText(null);
+        jTextFieldEmail.setText(null);
     }
 
     private void estadoA() {
@@ -1135,6 +1173,37 @@ public class Formulario extends javax.swing.JFrame {
         jMenuList.setEnabled(true);
         jMenuMan.setEnabled(true);
         jTextFieldNif.grabFocus();
+    }
+    private void estadoB() {
+        jTextFieldCod.setEnabled(false);
+        jTextFieldNif.setEnabled(false);
+        jTextFieldLetra.setEnabled(false);
+        jTextFieldNombre.setEnabled(false);
+        jTextFieldApel.setEnabled(false);
+        jTextFieldDom.setEnabled(false);
+        jTextFieldCP.setEnabled(false);
+        jTextFieldLoc.setEnabled(false);
+        jTextFieldTelf.setEnabled(false);
+        jTextFieldMov.setEnabled(false);
+        jTextFieldFax.setEnabled(false);
+        jTextFieldEmail.setEnabled(false);
+        jTextFieldTotal.setEnabled(false);
+        jButtonAceptar.setEnabled(true);
+        jButtonCancel.setEnabled(true);
+        jButtonExit.setEnabled(true);
+        jMenuBar1.setEnabled(true);
+        jMenuCon.setEnabled(true);
+        jMenuItemAltas.setEnabled(true);
+        jMenuItemBajas.setEnabled(true);
+        jMenuItemCod.setEnabled(true);
+        jMenuItemCodigo.setEnabled(true);
+        jMenuItemEntre.setEnabled(true);
+        jMenuItemGraf.setEnabled(true);
+        jMenuItemMod.setEnabled(true);
+        jMenuItemVolver.setEnabled(true);
+        jMenuList.setEnabled(true);
+        jMenuMan.setEnabled(true);
+        jButtonAceptar.grabFocus();
     }
 }
 

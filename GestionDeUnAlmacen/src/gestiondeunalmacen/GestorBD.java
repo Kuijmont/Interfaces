@@ -10,6 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -50,11 +53,7 @@ public class GestorBD {
             result = st.executeQuery(sql);
                 while(result.next()){
                     s = result.getString("Código");
-                    if(s.equals(cod)){
-                         JOptionPane.showMessageDialog(null, "El código introducido ya existe.", "Código incorrecto", 0);
-                        return false;
-                    } else
-                        return true;
+                    return !s.equals(cod);
                 }
                 return true;
         } catch(SQLException ex) {
@@ -63,4 +62,50 @@ public class GestorBD {
          
         return false;
     }              
+
+    public void darAlta(String cod, String nif, String nombre, String apell, String dom, String cp, 
+            String loc, String telf, String movil, String fax, String email, String total) throws SQLException { 
+        
+        st = cn.createStatement();
+        String sql = "INSERT INTO clientes VALUES('"+cod+"','"+nif+"','"+nombre+"','"+apell+"','"+dom+"','"+cp+"','"+loc+"','"+telf+"','"+movil+"','"+fax+"','"+email+"', '"+total+"')";
+        try {
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null,"Persona insertada correctamente.","Mensaje", 1);                        
+            st.close(); // Cierra el statement
+        } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null,"Persona insertada incorrectamente.","Error", 0);
+        }
+
+    }
+
+    public void darBaja(String cod) throws SQLException{
+        st = cn.createStatement();
+		String sql = "DELETE FROM clientes where Código='"+cod+"'";
+		try {
+			st.executeUpdate(sql);
+			JOptionPane.showMessageDialog(null,"Persona borrada correctamente.","Mensaje", 1);
+			
+			st.close(); // Cierra el statement
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Código no existe","Mensaje", 0);
+		}
+    }
+
+    public Cliente consulta(String cod) throws SQLException{
+        st = cn.createStatement();
+	String sql = "select * FROM clientes where Código='"+cod+"'";
+        Cliente client = null;
+	try {
+            result = st.executeQuery(sql);
+            result.next();
+            client = new Cliente(result.getString(1), result.getString(2), result.getString(3), result.getString(4));
+            result.close();
+            st.close(); // Cierra el statement
+            return client;
+	} catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al sacar la consulta.","Mensaje", 0);
+	}
+        return client;
+    }
 }
