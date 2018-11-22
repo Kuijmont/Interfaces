@@ -10,9 +10,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -31,8 +28,8 @@ public class GestorBD {
             
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
-                
+            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
         } catch (Exception e) {
             System.out.println("Error en driver");
             System.out.println(e.getMessage());
@@ -98,7 +95,8 @@ public class GestorBD {
 	try {
             result = st.executeQuery(sql);
             result.next();
-            client = new Cliente(result.getString(1), result.getString(2), result.getString(3), result.getString(4));
+            client = new Cliente(result.getString(1), result.getString(2).substring(0, 8),result.getString(2).substring(9), result.getString(3), result.getString(4),
+            result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getString(9), result.getString(10), result.getString(11), result.getString(12));
             result.close();
             st.close(); // Cierra el statement
             return client;
@@ -108,4 +106,20 @@ public class GestorBD {
 	}
         return client;
     }
+    
+    public void modificar(String cod, String nif, String nombre, String apell, String dom, String cp, 
+            String loc, String telf, String movil, String fax, String email, String total) throws SQLException { 
+        
+        st = cn.createStatement();
+        String sql = "update clientes set Código='"+cod+"', nif='"+nif+"', nombre='"+nombre+"', apellido='"+apell+"', domicilio='"+dom+"', cp='"+cp+"', localidad='"+loc+"', telf='"+telf+"', movil='"+movil+"', fax='"+fax+"', email='"+email+"', total='"+total+"'";
+        try {
+            st.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null,"Cliente modificado correctamente.","Mensaje", 1);                        
+            st.close(); // Cierra el statement
+        } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null,"Error al modificar el cliente.","Error", 0);
+        }
+
+    }
+    
 }

@@ -322,6 +322,7 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItemEntre.setText("Entre Códigos");
         jMenuList.add(jMenuItemEntre);
 
+        jMenuItemGraf.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGraf.setMnemonic('g');
         jMenuItemGraf.setText("Gráficos");
         jMenuList.add(jMenuItemGraf);
@@ -460,68 +461,54 @@ public class Formulario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
         boolean verdadero=true;
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        // TODO add your handling code here:
-        validacionCodigo();
-        if(verdadero){
-        validacionNIF();
-        }
-        if(verdadero){
-        validacionNombre();
-        }
-        if(verdadero){
-        validacionApellidos();
-        }
-        if(verdadero){
-        validacionDomicilio();
-        }
-        if(verdadero){
-        validacionCP();
-        }
-        if(verdadero){
-        validacionLocalidad();
-        }
-        if(verdadero){
-        validacionTelefono();
-        }
-        if(verdadero){
-        validacionMovil();
-        }
-        if(verdadero){
-        validacionFax();
-        }
-        if(verdadero){
-        validacionCorreo();
-        }
-       
         if(op.equals("altas")){
-            try { 
-                bd.darAlta(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
-                        jTextFieldApel.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
-                        jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
-                        jTextFieldTotal.getText());
-                estadoABMC();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+            try {
+                comprobarTextFields_Altas();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "ERROR");
             }
         }
-        if(op.equals("bajas")){
-            try { 
-                int confirmado = JOptionPane.showConfirmDialog(null,"¿Lo confirmas?");
-                if (JOptionPane.OK_OPTION == confirmado)
-                    bd.darBaja(jTextFieldCod.getText());
-                else
-                    System.out.println("Baja cancelada");
-                
-                estadoABMC();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+        else
+        {
+            if(op.equals("mod")){
+                try {
+                    comprobarTextFields_Mod();
+                } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(null, "ERROR");
+                }
+            }
+            else
+            {
+                if(op.equals("bajas")){
+                int num = JOptionPane.showConfirmDialog(rootPane,"¿Seguro que quieres borrar ese cliente?", "ERROR.", JOptionPane.OK_CANCEL_OPTION);
+                switch(num)
+                {
+                    case JOptionPane.OK_OPTION:
+                        try {
+                            bd.darBaja(jTextFieldCod.getText());
+                            estadoABMC();
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "ERROR AL BORRAR.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                        break;
+                    case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
+                        estadoABMC();
+                    case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
+                        estadoABMC();
+                        break;
+                }
+                }
+                else{
+                    //comprobarTextFields();
+                }
             }
         }
+  
         
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        // TODO add your handling code here:
+        // Reset
         jTextFieldCod.setText(null);
         jTextFieldNif.setText(null);
         jTextFieldLetra.setText(null);
@@ -539,48 +526,68 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jTextFieldCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodKeyPressed
         if(evt.getKeyCode()==10){
-            jTextFieldNif.grabFocus();
-            if(verdadero)
-                validacionCodigo();         
             try {
-                switch (op) {
-                    case "altas":
-                        if(bd.valCod(jTextFieldCod.getText()))
-                            estadoA();
-                        else{
-                            JOptionPane.showMessageDialog(null, "El código introducido ya existe.", "Código incorrecto", 0);
-                            estadoABMC();
-                        }   break;
-                    case "bajas":
-                        if(!bd.valCod(jTextFieldCod.getText())){
-                            ArrayList<String>al=bd.consulta(jTextFieldCod.getText());
-                            jTextFieldNif.setText(al.get(1));
-                            //jTextFieldLetra.setText(al.get(1));
-                            jTextFieldNombre.setText(al.get(2));
-                            jTextFieldApel.setText(al.get(3));
-                            jTextFieldDom.setText(al.get(4));
-                            jTextFieldCP.setText(al.get(5));
-                            jTextFieldLoc.setText(al.get(6));
-                            jTextFieldTelf.setText(al.get(7));
-                            jTextFieldMov.setText(al.get(8));
-                            jTextFieldFax.setText(al.get(9));
-                            jTextFieldEmail.setText(al.get(10));
-                            jTextFieldTotal.setText(al.get(11));
-                            estadoB();
-                        }else{
-                            JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
-                            estadoABMC();
-                        }   break;
-                    case "mod":
-                        if(!bd.valCod(jTextFieldCod.getText()))
-                            estadoA();
-                        else{
-                            JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
-                            estadoABMC();
-                        }   break;
+                if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}")){
+                    rellenarCodigo();
+                try {
+                    switch (op) {
+                        case "altas":
+                            if(bd.valCod(jTextFieldCod.getText()))
+                                estadoA();
+                            else{
+                                JOptionPane.showMessageDialog(null, "El código introducido ya existe.", "Código incorrecto", 0);
+                                estadoABMC();
+                            }   break;
+                        case "bajas":
+                            if(!bd.valCod(jTextFieldCod.getText())){
+                                Cliente c=bd.consulta(jTextFieldCod.getText());
+                                jTextFieldNif.setText(c.getNif());
+                                jTextFieldLetra.setText(c.getLetra());
+                                jTextFieldNombre.setText(c.getNombre());
+                                jTextFieldApel.setText(c.getApell());
+                                jTextFieldDom.setText(c.getDom());
+                                jTextFieldCP.setText(c.getCp());
+                                jTextFieldLoc.setText(c.getLocal());
+                                jTextFieldTelf.setText(c.getTelf());
+                                jTextFieldMov.setText(c.getMovil());
+                                jTextFieldFax.setText(c.getFax());
+                                jTextFieldEmail.setText(c.getEmail());
+                                jTextFieldTotal.setText(c.getTotal());
+                                estadoB();
+                            }else{
+                                JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
+                                estadoABMC();
+                            }   break;
+                        case "mod":
+                            if(!bd.valCod(jTextFieldCod.getText())){
+                                Cliente c=bd.consulta(jTextFieldCod.getText());
+                                jTextFieldNif.setText(c.getNif());
+                                jTextFieldLetra.setText(c.getLetra());
+                                jTextFieldNombre.setText(c.getNombre());
+                                jTextFieldApel.setText(c.getApell());
+                                jTextFieldDom.setText(c.getDom());
+                                jTextFieldCP.setText(c.getCp());
+                                jTextFieldLoc.setText(c.getLocal());
+                                jTextFieldTelf.setText(c.getTelf());
+                                jTextFieldMov.setText(c.getMovil());
+                                jTextFieldFax.setText(c.getFax());
+                                jTextFieldEmail.setText(c.getEmail());
+                                jTextFieldTotal.setText(c.getTotal());
+                                estadoA();
+                            }else{
+                                JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
+                                estadoABMC();
+                            }   break;
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error en la base de datos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    estadoABMC();
+                }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Código no puede estar vacío.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jTextFieldCodKeyPressed
@@ -599,7 +606,7 @@ public class Formulario extends javax.swing.JFrame {
         int limite=8;
         if(jTextFieldNif.getText().length()==limite){
             evt.consume();
-            sacarletra();
+           // sacarletra();
             jTextFieldNombre.grabFocus();
         }
     }//GEN-LAST:event_jTextFieldNifKeyTyped
@@ -679,9 +686,9 @@ public class Formulario extends javax.swing.JFrame {
     private void jTextFieldNifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10){
-            sacarletra();
+            
             jTextFieldNombre.grabFocus();
-        }
+        }//sacarletra();
     }//GEN-LAST:event_jTextFieldNifKeyPressed
 
     private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
@@ -897,7 +904,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionNIF() {
         String NIF=jTextFieldNif.getText();
         if(NIF.matches("[0-9]{8}") || NIF==null){
@@ -914,15 +920,13 @@ public class Formulario extends javax.swing.JFrame {
             jTextFieldNif.grabFocus();
             verdadero=false;
         }
-    }
-    
-     private void sacarletra() {
+    }   
+    private void sacarletra() {
         String NIF_STRING_ASOCIATION = "TRWAGMYFPDXBNJZSQVHLCKE";
         int letra=Integer.valueOf(jTextFieldNif.getText()) % 23;
         jTextFieldLetra.setText(""+NIF_STRING_ASOCIATION.charAt(letra));
         
     }
-
     private void validacionNombre() {
         String Nombre=jTextFieldNombre.getText();
         if(Nombre.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù]*){15}") || Nombre.equals("")){
@@ -940,7 +944,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionApellidos() {
         String Apellidos=jTextFieldApel.getText();
         if(Apellidos.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*){35}") || Apellidos.equals("")){
@@ -958,7 +961,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionDomicilio() {
         String Domicilio=jTextFieldDom.getText();
         if(Domicilio.matches("([A-Z]*[a-z]*[0-9]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*[ºª/,]*){35}") || Domicilio.equals("")){
@@ -976,7 +978,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionCP() {
         String CP=jTextFieldCP.getText();
         if(CP.matches("[0-9]{5}") || CP.equals("")){
@@ -994,7 +995,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionLocalidad() {
         String Localidad=jTextFieldLoc.getText();
         if(Localidad.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*){20}") || Localidad.equals("")){
@@ -1012,7 +1012,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionTelefono() {
         String Tlf=jTextFieldTelf.getText();
         if(Tlf.matches("[0-9]{9}") || Tlf.equals("")){
@@ -1025,7 +1024,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionMovil() {
         String Movil=jTextFieldMov.getText();
         if(Movil.matches("[0-9]{9}") || Movil.equals("")){
@@ -1038,7 +1036,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionFax() {
         String Fax=jTextFieldFax.getText();
         if(Fax.matches("[0-9]{9}") || Fax.equals("")){
@@ -1051,7 +1048,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void validacionCorreo() {
         String Email=jTextFieldEmail.getText();
         if(Email.matches("([A-Z]*[a-z]*[0-9]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*[_@]*){20}") || Email.equals("")){
@@ -1064,7 +1060,6 @@ public class Formulario extends javax.swing.JFrame {
             verdadero=false;
         }
     }
-
     private void estadoInicial() {
         jTextFieldCod.setText("");
         jTextFieldCod.setEnabled(false);
@@ -1097,7 +1092,6 @@ public class Formulario extends javax.swing.JFrame {
         jMenuMan.setEnabled(true);
         jMenuBar1.grabFocus();
     }
-    
     private void estadoABMC() {
         jTextFieldCod.setEnabled(true);
         jTextFieldNif.setEnabled(false);
@@ -1142,7 +1136,6 @@ public class Formulario extends javax.swing.JFrame {
         jTextFieldFax.setText(null);
         jTextFieldEmail.setText(null);
     }
-
     private void estadoA() {
         jTextFieldCod.setEnabled(false);
         jTextFieldNif.setEnabled(true);
@@ -1204,6 +1197,231 @@ public class Formulario extends javax.swing.JFrame {
         jMenuList.setEnabled(true);
         jMenuMan.setEnabled(true);
         jButtonAceptar.grabFocus();
+    }
+    private void comprobarTextFields_Altas() {
+        if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}"))
+        {
+            if(jTextFieldNif.getText().matches("[0-9]{8}"))
+            {
+                sacarletra();
+                if(jTextFieldNombre.getText().matches("[a-zA-Z\\s]{1,15}"))
+                {
+                    if(jTextFieldApel.getText().matches("[a-zA-Z\\s.-]{1,35}"))
+                    {
+                        if(jTextFieldDom.getText().matches("[a-zA-Z0-9\\s\\W]{1,40}"))
+                        {
+                            if(jTextFieldCP.getText().matches("[0-9]{5}")) 
+                            {
+                                if(jTextFieldLoc.getText().matches("[a-zA-Z\\s.-]{1,20}"))
+                                {
+                                    if(jTextFieldTelf.getText().matches("[0-9]{9}") || jTextFieldTelf.getText().equals(""))
+                                    {
+                                        if(jTextFieldMov.getText().matches("[0-9]{9}") || jTextFieldMov.getText().equals(""))
+                                        {
+                                            if(jTextFieldFax.getText().matches("[0-9]{9}") || jTextFieldFax.getText().equals(""))
+                                            {
+                                                if(jTextFieldEmail.getText().matches("[a-zA-z0-9@_.-]{1,20}") || jTextFieldEmail.getText().equals(""))
+                                                {
+                                                    JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
+                                                   try { 
+                                                        bd.darAlta(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
+                                                                jTextFieldApel.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
+                                                                jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
+                                                                jTextFieldTotal.getText());
+                                                        estadoABMC();
+                                                    } catch (SQLException ex) {
+                                                        JOptionPane.showMessageDialog(null, "ERROR en el dado de alta.", "ERROR.", JOptionPane.ERROR_MESSAGE);                       
+                                                    }
+                                                    
+                                                    
+                                                }
+                                                else
+                                                {
+                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                                    jTextFieldEmail.grabFocus();
+                                                }
+                                                
+                                            }
+                                            else
+                                            {
+                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                                jTextFieldFax.grabFocus();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                            jTextFieldMov.grabFocus();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                        jTextFieldTelf.grabFocus();
+                                    }
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                    jTextFieldLoc.grabFocus();
+                                }
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el domicilio", WIDTH);
+                                jTextFieldCP.grabFocus();
+                            }
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(rootPane, "El domicilio no puede contener @ ni _ \n y no puede superar los 40 caracteres","Error en el domicilio", WIDTH);
+                            jTextFieldDom.grabFocus(); 
+                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(rootPane, "El apellido no puede contener números\n y no puede superar los 35 caracteres","Error en el apellido", WIDTH);
+                        jTextFieldApel.grabFocus(); 
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener números ni carácteres extraños \n y no puede superar los 15 caracteres","Error en el Nombre", WIDTH);
+                    jTextFieldNombre.grabFocus(); 
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane, "El NIF tiene que llevar 8 dígitos","Error en el NIF", WIDTH);
+                jTextFieldNif.grabFocus(); 
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, "El código solo puede contener letras o números","Error en el código", WIDTH);
+            jTextFieldCod.grabFocus(); 
+        }
+    }
+
+    private void comprobarTextFields_Mod() {
+
+        if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}"))
+        {
+            if(jTextFieldNif.getText().matches("[0-9]{8}"))
+            {
+                sacarletra();
+                if(jTextFieldNombre.getText().matches("[a-zA-Z\\s]{1,15}"))
+                {
+                    if(jTextFieldApel.getText().matches("[a-zA-Z\\s.-]{1,35}"))
+                    {
+                        if(jTextFieldDom.getText().matches("[a-zA-Z0-9\\s\\W]{1,40}"))
+                        {
+                            if(jTextFieldCP.getText().matches("[0-9]{5}")) 
+                            {
+                                if(jTextFieldLoc.getText().matches("[a-zA-Z\\s.-]{1,20}"))
+                                {
+                                    if(jTextFieldTelf.getText().matches("[0-9]{9}") || jTextFieldTelf.getText().equals(""))
+                                    {
+                                        if(jTextFieldMov.getText().matches("[0-9]{9}") || jTextFieldMov.getText().equals(""))
+                                        {
+                                            if(jTextFieldFax.getText().matches("[0-9]{9}") || jTextFieldFax.getText().equals(""))
+                                            {
+                                                if(jTextFieldEmail.getText().matches("[a-zA-z0-9@_.-]{1,20}") || jTextFieldEmail.getText().equals(""))
+                                                {
+                                                    JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
+                                                    try {
+                                                        bd.modificar(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
+                                                                jTextFieldApel.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
+                                                                jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
+                                                                jTextFieldTotal.getText());
+                                                     } catch (SQLException ex) {
+                                                        JOptionPane.showMessageDialog(null, "ERROR en la modificación.", "ERROR.", JOptionPane.ERROR_MESSAGE);
+                                                    }
+                                                    estadoABMC();
+                                                }
+                                                else
+                                                {
+                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                                    jTextFieldEmail.grabFocus();
+                                                }
+                                                
+                                            }
+                                            else
+                                            {
+                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                                jTextFieldFax.grabFocus();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                            jTextFieldMov.grabFocus();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                        jTextFieldTelf.grabFocus();
+                                    }
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                    jTextFieldLoc.grabFocus();
+                                }
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el domicilio", WIDTH);
+                                jTextFieldCP.grabFocus();
+                            }
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(rootPane, "El domicilio no puede contener @ ni _ \n y no puede superar los 40 caracteres","Error en el domicilio", WIDTH);
+                            jTextFieldDom.grabFocus(); 
+                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(rootPane, "El apellido no puede contener números\n y no puede superar los 35 caracteres","Error en el apellido", WIDTH);
+                        jTextFieldApel.grabFocus(); 
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener números ni carácteres extraños \n y no puede superar los 15 caracteres","Error en el Nombre", WIDTH);
+                    jTextFieldNombre.grabFocus(); 
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rootPane, "El NIF tiene que llevar 8 dígitos","Error en el NIF", WIDTH);
+                jTextFieldNif.grabFocus(); 
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rootPane, "El código solo puede contener letras o números","Error en el código", WIDTH);
+            jTextFieldCod.grabFocus(); 
+        }
+        
+    }
+    private void rellenarCodigo() throws Exception
+    {
+        String cod=jTextFieldCod.getText();
+        if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}"))
+        {
+            while(cod.length()!=6)
+            {
+                cod="0"+cod;
+            }
+            jTextFieldCod.setText(cod);
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "El código tiene que tener como mucho 6 números/letras.", cod, WIDTH);
+            throw new Exception("");
+        }
     }
 }
 

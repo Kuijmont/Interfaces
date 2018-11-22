@@ -18,12 +18,13 @@ public class Cliente {
     private String dom;
     private String cp;
     private String local;
+    private String telf;
     private String movil;
     private String fax;
     private String email;
     private String total;
 
-    public Cliente(String cod, String nif, String letra, String nombre, String apell, String dom, String cp, String local, String movil, String fax, String email, String total) {
+    public Cliente(String cod, String nif, String letra, String nombre, String apell, String dom, String cp, String local, String telf, String movil, String fax, String email, String total) {
         this.cod = cod;
         this.nif = nif;
         this.letra = letra;
@@ -32,10 +33,19 @@ public class Cliente {
         this.dom = dom;
         this.cp = cp;
         this.local = local;
+        this.telf = telf;
         this.movil = movil;
         this.fax = fax;
         this.email = email;
         this.total = total;
+    }
+
+    public String getTelf() {
+        return telf;
+    }
+
+    public void setTelf(String telf) {
+        this.telf = telf;
     }
 
 
