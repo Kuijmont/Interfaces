@@ -28,8 +28,8 @@ public class GestorBD {
             
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
+            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
         } catch (Exception e) {
             System.out.println("Error en driver");
             System.out.println(e.getMessage());
@@ -60,7 +60,7 @@ public class GestorBD {
         return false;
     }              
 
-    public void darAlta(String cod, String nif, String nombre, String apell, String dom, String cp, 
+    public void darAlta(String cod, String nif,  String apell,String nombre, String dom, String cp, 
             String loc, String telf, String movil, String fax, String email, String total) throws SQLException { 
         
         st = cn.createStatement();
@@ -107,7 +107,7 @@ public class GestorBD {
         return client;
     }
     
-    public void modificar(String cod, String nif, String nombre, String apell, String dom, String cp, 
+    public void modificar(String cod, String nif,String apell, String nombre,  String dom, String cp, 
             String loc, String telf, String movil, String fax, String email, String total) throws SQLException { 
         
         st = cn.createStatement();
