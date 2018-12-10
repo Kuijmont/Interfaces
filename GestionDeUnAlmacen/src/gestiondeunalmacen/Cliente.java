@@ -13,8 +13,8 @@ public class Cliente {
     private String cod;
     private String nif;
     private String letra;
-    private String nombre;
     private String apell;
+    private String nombre;
     private String dom;
     private String cp;
     private String local;
@@ -24,12 +24,12 @@ public class Cliente {
     private String email;
     private String total;
 
-    public Cliente(String cod, String nif, String letra, String nombre, String apell, String dom, String cp, String local, String telf, String movil, String fax, String email, String total) {
+    public Cliente(String cod, String nif, String letra,  String apell, String nombre, String dom, String cp, String local, String telf, String movil, String fax, String email, String total) {
         this.cod = cod;
         this.nif = nif;
         this.letra = letra;
-        this.nombre = nombre;
-        this.apell = apell;
+        this.apell = apell;       
+        this.nombre = nombre;        
         this.dom = dom;
         this.cp = cp;
         this.local = local;

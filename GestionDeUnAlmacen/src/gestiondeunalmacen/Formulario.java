@@ -306,6 +306,11 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItemCod.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCod.setMnemonic('p');
         jMenuItemCod.setText("Por Código");
+        jMenuItemCod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCodActionPerformed(evt);
+            }
+        });
         jMenuCon.add(jMenuItemCod);
 
         jMenuList.setMnemonic('l');
@@ -314,16 +319,31 @@ public class Formulario extends javax.swing.JFrame {
         jMenuItemCodigo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCodigo.setMnemonic('p');
         jMenuItemCodigo.setText("Por Código");
+        jMenuItemCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCodigoActionPerformed(evt);
+            }
+        });
         jMenuList.add(jMenuItemCodigo);
 
         jMenuItemEntre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemEntre.setMnemonic('e');
         jMenuItemEntre.setText("Entre Códigos");
+        jMenuItemEntre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEntreActionPerformed(evt);
+            }
+        });
         jMenuList.add(jMenuItemEntre);
 
         jMenuItemGraf.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGraf.setMnemonic('g');
         jMenuItemGraf.setText("Gráficos");
+        jMenuItemGraf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGrafActionPerformed(evt);
+            }
+        });
         jMenuList.add(jMenuItemGraf);
 
         jMenuCon.add(jMenuList);
@@ -531,14 +551,16 @@ public class Formulario extends javax.swing.JFrame {
                 try {
                     switch (op) {
                         case "altas":
-                            if(bd.valCod(jTextFieldCod.getText()))
+                            if(bd.valCod(jTextFieldCod.getText())){
+                                setTitle("Gestión de Almacén - Clientes - Altas");
                                 estadoA();
-                            else{
+                            } else{
                                 JOptionPane.showMessageDialog(null, "El código introducido ya existe.", "Código incorrecto", 0);
                                 estadoABMC();
                             }   break;
                         case "bajas":
                             if(!bd.valCod(jTextFieldCod.getText())){
+                                setTitle("Gestión de Almacén - Clientes - Bajas");
                                 Cliente c=bd.consulta(jTextFieldCod.getText());
                                 jTextFieldNif.setText(c.getNif());
                                 jTextFieldLetra.setText(c.getLetra());
@@ -559,6 +581,7 @@ public class Formulario extends javax.swing.JFrame {
                             }   break;
                         case "mod":
                             if(!bd.valCod(jTextFieldCod.getText())){
+                                setTitle("Gestión de Almacén - Clientes - Modificación");
                                 Cliente c=bd.consulta(jTextFieldCod.getText());
                                 jTextFieldNif.setText(c.getNif());
                                 jTextFieldLetra.setText(c.getLetra());
@@ -766,17 +789,37 @@ public class Formulario extends javax.swing.JFrame {
     private void jMenuItemAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltasActionPerformed
         estadoABMC();
         op="altas";
+        setTitle("Gestión de Almacén - Clientes - Altas");
     }//GEN-LAST:event_jMenuItemAltasActionPerformed
 
     private void jMenuItemBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBajasActionPerformed
         estadoABMC();
         op="bajas";
+        setTitle("Gestión de Almacén - Clientes - Bajas");
     }//GEN-LAST:event_jMenuItemBajasActionPerformed
 
     private void jMenuItemModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModActionPerformed
         estadoABMC();   
         op="mod";
+        setTitle("Gestión de Almacén - Clientes - Modificación");
     }//GEN-LAST:event_jMenuItemModActionPerformed
+
+    private void jMenuItemCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCodigoActionPerformed
+            bd.ejecutarInforme();
+    }//GEN-LAST:event_jMenuItemCodigoActionPerformed
+
+    private void jMenuItemEntreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntreActionPerformed
+        VentanaEntreCod e = new VentanaEntreCod();
+        e.show();
+    }//GEN-LAST:event_jMenuItemEntreActionPerformed
+
+    private void jMenuItemGrafActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGrafActionPerformed
+        bd.ejecutarGráfica();
+    }//GEN-LAST:event_jMenuItemGrafActionPerformed
+
+    private void jMenuItemCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCodActionPerformed
+        JOptionPane.showMessageDialog(null, "En proceso, disculpe por las molestias.", "Por Código", 1);
+    }//GEN-LAST:event_jMenuItemCodActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1060,6 +1103,7 @@ public class Formulario extends javax.swing.JFrame {
         }
     }
     private void estadoInicial() {
+        setTitle("Gestión de Almacén - Clientes");
         jTextFieldCod.setText("");
         jTextFieldCod.setEnabled(false);
         jTextFieldNif.setEnabled(false);
@@ -1223,8 +1267,8 @@ public class Formulario extends javax.swing.JFrame {
                                                 {
                                                     JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
                                                    try { 
-                                                        bd.darAlta(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
-                                                                jTextFieldApel.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
+                                                        bd.darAlta(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldApel.getText(),
+                                                                jTextFieldNombre.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
                                                                 jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
                                                                 jTextFieldTotal.getText());
                                                         estadoABMC();
@@ -1330,7 +1374,7 @@ public class Formulario extends javax.swing.JFrame {
                                                     JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
                                                     try {
                                                         bd.modificar(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
-                                                                jTextFieldApel.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
+                                                                jTextFieldApel.getText(),jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
                                                                 jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
                                                                 jTextFieldTotal.getText());
                                                      } catch (SQLException ex) {

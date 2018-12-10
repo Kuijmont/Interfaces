@@ -10,9 +10,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
-
+// Clases de JasperReports.
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.*;
 /**
  *
  * @author Frans
@@ -28,8 +33,8 @@ public class GestorBD {
             
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
-            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
+            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
         } catch (Exception e) {
             System.out.println("Error en driver");
             System.out.println(e.getMessage());
@@ -122,4 +127,153 @@ public class GestorBD {
 
     }
     
+    //Crear TABLA
+    /*
+       create table clientes(Código char(6),nif char(9),apellidos varchar(35),nombre varchar(15),domicilio varchar(40),
+       Código_Postal char(5),localidad varchar(20),teléfono char(9),móvil char(9),fax char(9),e_mail varchar(20),total_ventas float(7,2),
+       CONSTRAINT PK_cod primary key(codigo));
+    */
+    
+   public JasperViewer ejecutarInforme() {
+        /* Se crea el objeto JasperViewer que devolverá el método.
+         * Este objeto contendrá la ventana de la vista previa del informe. */
+        JasperViewer vistaInforme=null;
+        try {
+            /* Creamos una cadena que contendrá la ruta completa donde está
+             * almacenado el archivo report1.jasper. */
+            String archivoJasper = System.getProperty("user.dir") + ("/dist/report1.jasper");
+                if (archivoJasper == null)
+                {
+                    System.out.println("El archivo report1.jasper no está en /dist.");
+                }
+                // Se crea un objeto para cargar el informe.
+                JasperReport informeCargado = null;
+                try
+                {
+                    informeCargado = (JasperReport) JRLoader.loadObjectFromFile(archivoJasper);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Error al cargar el informe: " + e.getMessage());
+                }
+                /* El parámetro del informe toma valor del parámetro que recibe este
+                 * método, que es el contenido de la caja de texto en la que se introduce
+                 * el total. */
+                Map parametro = new HashMap();
+
+                /* Se crea un objeto de tipo JasperPrint que contendrá el informe
+                 * cargado previamente con el filtrado del parámetro definido y con
+                 * la conexión a la base de datos. */
+                JasperPrint informe = JasperFillManager.fillReport(informeCargado,parametro,cn);
+               /* Se asigna valor al objeto JasperViewer que devuelve este método con
+                * el informe almacenado previamente en el objeto JasperPrint. El valor
+                * false del constructor indica que, al cerrar la vista previa, la
+                * aplicación desde la que se ha llamado a esta vista previa continuará
+                * ejecutándose. */
+                vistaInforme = new JasperViewer(informe,false);
+                vistaInforme.setTitle("Ejemplo de iReport");
+                vistaInforme.show();
+            }       
+            catch (Exception e)
+            {
+                System.out.println("Error: "+e.getMessage());
+            }
+            return vistaInforme;
+    }
+
+   public JasperViewer ejecutarInforme(String cadena1, String cadena2) {
+    /* Se crea el objeto JasperViewer que devolverá el método.
+     * Este objeto contendrá la ventana de la vista previa del informe. */
+        JasperViewer vistaInforme=null;
+        try {
+            /* Creamos una cadena que contendrá la ruta completa donde está
+             * almacenado el archivo report1.jasper. */
+            String archivoJasper = System.getProperty("user.dir") + ("/dist/report2.jasper");
+                if (archivoJasper == null)
+                {
+                    System.out.println("El archivo report2.jasper no está en /dist.");
+                }
+                // Se crea un objeto para cargar el informe.
+                JasperReport informeCargado = null;
+                try
+                {
+                    informeCargado = (JasperReport) JRLoader.loadObjectFromFile(archivoJasper);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Error al cargar el informe: " + e.getMessage());
+                }
+                /* El parámetro del informe toma valor del parámetro que recibe este
+                 * método, que es el contenido de la caja de texto en la que se introduce
+                 * el total. */
+                Map parametro = new HashMap();
+                parametro.put("parameter1",cadena1);
+                parametro.put("parameter2",cadena2);
+
+                /* Se crea un objeto de tipo JasperPrint que contendrá el informe
+                 * cargado previamente con el filtrado del parámetro definido y con
+                 * la conexión a la base de datos. */
+                JasperPrint informe = JasperFillManager.fillReport(informeCargado,parametro,cn);
+               /* Se asigna valor al objeto JasperViewer que devuelve este método con
+                * el informe almacenado previamente en el objeto JasperPrint. El valor
+                * false del constructor indica que, al cerrar la vista previa, la
+                * aplicación desde la que se ha llamado a esta vista previa continuará
+                * ejecutándose. */
+                vistaInforme = new JasperViewer(informe,false);
+                vistaInforme.setTitle("Ejemplo de iReport");
+                vistaInforme.show();
+        }       
+        catch (Exception e)
+        {
+            System.out.println("Error: "+e.getMessage());
+        }
+        return vistaInforme;
+    }      
+   
+   public JasperViewer ejecutarGráfica() {
+    /* Se crea el objeto JasperViewer que devolverá el método.
+     * Este objeto contendrá la ventana de la vista previa del informe. */
+    JasperViewer vistaInforme=null;
+    try {
+        /* Creamos una cadena que contendrá la ruta completa donde está
+         * almacenado el archivo report1.jasper. */
+        String archivoJasper = System.getProperty("user.dir") + ("/dist/report1.jasper");
+            if (archivoJasper == null)
+            {
+                System.out.println("El archivo report1.jrxml no está en /dist.");
+            }
+            // Se crea un objeto para cargar el informe.
+            JasperReport informeCargado = null;
+            try
+            {
+                informeCargado = (JasperReport) JRLoader.loadObjectFromFile(archivoJasper);
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error al cargar el informe: " + e.getMessage());
+            }
+            /* El parámetro del informe toma valor del parámetro que recibe este
+             * método, que es el contenido de la caja de texto en la que se introduce
+             * el total. */
+            Map parametro = new HashMap();
+           
+            /* Se crea un objeto de tipo JasperPrint que contendrá el informe
+             * cargado previamente con el filtrado del parámetro definido y con
+             * la conexión a la base de datos. */
+            JasperPrint informe = JasperFillManager.fillReport(informeCargado,parametro,cn);
+           /* Se asigna valor al objeto JasperViewer que devuelve este método con
+            * el informe almacenado previamente en el objeto JasperPrint. El valor
+            * false del constructor indica que, al cerrar la vista previa, la
+            * aplicación desde la que se ha llamado a esta vista previa continuará
+            * ejecutándose. */
+            vistaInforme = new JasperViewer(informe,false);
+            vistaInforme.setTitle("Ejemplo de iReport");
+            vistaInforme.show();
+        }       
+        catch (Exception e)
+        {
+            System.out.println("Error: "+e.getMessage());
+        }
+        return vistaInforme;
+}
 }
