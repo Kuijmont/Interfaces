@@ -23,7 +23,7 @@ import net.sf.jasperreports.view.*;
  * @author Frans
  */
 public class GestorBD {
-    static Connection cn;
+    private Connection cn;
     private Statement st;
     private ResultSet result = null;
  
@@ -33,9 +33,9 @@ public class GestorBD {
             
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
-            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
-        } catch (Exception e) {
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
+            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
+        } catch (Exception e) {           
             System.out.println("Error en driver");
             System.out.println(e.getMessage());
         } 
@@ -113,16 +113,16 @@ public class GestorBD {
     }
     
     public void modificar(String cod, String nif,String apell, String nombre,  String dom, String cp, 
-            String loc, String telf, String movil, String fax, String email, String total) throws SQLException { 
+            String loc, String telf, String movil, String fax, String email) throws SQLException { 
         
         st = cn.createStatement();
-        String sql = "update clientes set Código='"+cod+"', nif='"+nif+"', nombre='"+nombre+"', apellido='"+apell+"', domicilio='"+dom+"', cp='"+cp+"', localidad='"+loc+"', telf='"+telf+"', movil='"+movil+"', fax='"+fax+"', email='"+email+"', total='"+total+"'";
+        String sql = "update clientes set NIF='"+nif+"', Apellidos='"+apell+"',Nombre='"+nombre+"',  Domicilio='"+dom+"', Código_Postal='"+cp+"', localidad='"+loc+"', Teléfono='"+telf+"', Móvil='"+movil+"', Fax='"+fax+"', E_mail='"+email+"' where Código='"+cod+"'";
         try {
             st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Cliente modificado correctamente.","Mensaje", 1);                        
             st.close(); // Cierra el statement
         } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null,"Error al modificar el cliente.","Error", 0);
+                        JOptionPane.showMessageDialog(null,e.getMessage(),"Error", 0);
         }
 
     }
@@ -182,6 +182,16 @@ public class GestorBD {
     }
 
    public JasperViewer ejecutarInforme(String cadena1, String cadena2) {
+       try {
+            
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+            cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
+            //cn = DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
+        } catch (Exception e) {           
+            System.out.println("Error en driver");
+            System.out.println(e.getMessage());
+        } 
     /* Se crea el objeto JasperViewer que devolverá el método.
      * Este objeto contendrá la ventana de la vista previa del informe. */
         JasperViewer vistaInforme=null;
@@ -207,8 +217,8 @@ public class GestorBD {
                  * método, que es el contenido de la caja de texto en la que se introduce
                  * el total. */
                 Map parametro = new HashMap();
-                parametro.put("parameter1",cadena1);
-                parametro.put("parameter2",cadena2);
+                parametro.put("c1",cadena1);
+                parametro.put("c2",cadena2);
 
                 /* Se crea un objeto de tipo JasperPrint que contendrá el informe
                  * cargado previamente con el filtrado del parámetro definido y con
@@ -237,10 +247,10 @@ public class GestorBD {
     try {
         /* Creamos una cadena que contendrá la ruta completa donde está
          * almacenado el archivo report1.jasper. */
-        String archivoJasper = System.getProperty("user.dir") + ("/dist/report1.jasper");
+        String archivoJasper = System.getProperty("user.dir") + ("/dist/report4.jasper");
             if (archivoJasper == null)
             {
-                System.out.println("El archivo report1.jrxml no está en /dist.");
+                System.out.println("El archivo report4.jrxml no está en /dist.");
             }
             // Se crea un objeto para cargar el informe.
             JasperReport informeCargado = null;

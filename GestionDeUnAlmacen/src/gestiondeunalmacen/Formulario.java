@@ -600,6 +600,30 @@ public class Formulario extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
                                 estadoABMC();
                             }   break;
+                        case "consulta":
+                        if(!bd.valCod(jTextFieldCod.getText())){
+                                setTitle("Gestión de Almacén - Clientes - Consulta");
+                                Cliente c=bd.consulta(jTextFieldCod.getText());
+                                jTextFieldNif.setText(c.getNif());
+                                jTextFieldLetra.setText(c.getLetra());
+                                jTextFieldNombre.setText(c.getNombre());
+                                jTextFieldApel.setText(c.getApell());
+                                jTextFieldDom.setText(c.getDom());
+                                jTextFieldCP.setText(c.getCp());
+                                jTextFieldLoc.setText(c.getLocal());
+                                jTextFieldTelf.setText(c.getTelf());
+                                jTextFieldMov.setText(c.getMovil());
+                                jTextFieldFax.setText(c.getFax());
+                                jTextFieldEmail.setText(c.getEmail());
+                                jTextFieldTotal.setText(c.getTotal());
+                                estadoB();
+                                jTextFieldCod.setEnabled(false);
+                                jButtonAceptar.setEnabled(false);
+                                
+                            }else{
+                                JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
+                                estadoABMC();
+                            }   break;
                     }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error en la base de datos.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -778,6 +802,9 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
        estadoInicial();
+       jMenuBar1.setEnabled(true);
+       jMenuMan.setEnabled(true);
+       jMenuCon.setEnabled(true);
     }//GEN-LAST:event_jButtonExitActionPerformed
 
     private void jMenuItemVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVolverActionPerformed
@@ -790,18 +817,27 @@ public class Formulario extends javax.swing.JFrame {
         estadoABMC();
         op="altas";
         setTitle("Gestión de Almacén - Clientes - Altas");
+        jMenuBar1.setEnabled(false);
+        jMenuMan.setEnabled(false);
+       jMenuCon.setEnabled(false);
     }//GEN-LAST:event_jMenuItemAltasActionPerformed
 
     private void jMenuItemBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBajasActionPerformed
         estadoABMC();
         op="bajas";
         setTitle("Gestión de Almacén - Clientes - Bajas");
+        jMenuBar1.setEnabled(false);
+        jMenuMan.setEnabled(false);
+       jMenuCon.setEnabled(false);
     }//GEN-LAST:event_jMenuItemBajasActionPerformed
 
     private void jMenuItemModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModActionPerformed
         estadoABMC();   
         op="mod";
         setTitle("Gestión de Almacén - Clientes - Modificación");
+        jMenuBar1.setEnabled(false);
+        jMenuMan.setEnabled(false);
+       jMenuCon.setEnabled(false);
     }//GEN-LAST:event_jMenuItemModActionPerformed
 
     private void jMenuItemCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCodigoActionPerformed
@@ -818,7 +854,12 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemGrafActionPerformed
 
     private void jMenuItemCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCodActionPerformed
-        JOptionPane.showMessageDialog(null, "En proceso, disculpe por las molestias.", "Por Código", 1);
+        estadoABMC();   
+        op="consulta";
+        setTitle("Gestión de Almacén - Clientes - Consulta");
+        jMenuBar1.setEnabled(false);
+        jMenuCon.setEnabled(false);
+        jMenuMan.setEnabled(false);
     }//GEN-LAST:event_jMenuItemCodActionPerformed
 
     /**
@@ -1375,8 +1416,8 @@ public class Formulario extends javax.swing.JFrame {
                                                     try {
                                                         bd.modificar(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
                                                                 jTextFieldApel.getText(),jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
-                                                                jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
-                                                                jTextFieldTotal.getText());
+                                                                jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText()
+                                                                );
                                                      } catch (SQLException ex) {
                                                         JOptionPane.showMessageDialog(null, "ERROR en la modificación.", "ERROR.", JOptionPane.ERROR_MESSAGE);
                                                     }
