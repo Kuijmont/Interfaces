@@ -37,6 +37,7 @@ public class VentanaEntreCod extends javax.swing.JFrame {
         jTextFieldCod2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Introduzca los 2 códigos");
 
@@ -101,7 +102,15 @@ public class VentanaEntreCod extends javax.swing.JFrame {
         if(rellenarCodigo(jTextFieldCod1,"izquierda"))
         {
             if(rellenarCodigo(jTextFieldCod2,"derecha")){
-                i.ejecutarInforme(jTextFieldCod1.getText(),jTextFieldCod2.getText());
+                if(jTextFieldCod1.getText().compareTo(jTextFieldCod2.getText())<0){
+                    i.ejecutarInforme(jTextFieldCod1.getText(),jTextFieldCod2.getText());
+                }else{
+                    String cad =jTextFieldCod1.getText();
+                    jTextFieldCod1.setText(jTextFieldCod2.getText());
+                    jTextFieldCod2.setText(cad);
+                    i.ejecutarInforme(jTextFieldCod1.getText(),jTextFieldCod2.getText());
+                }
+                      
             }
             else
             {

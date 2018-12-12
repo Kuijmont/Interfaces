@@ -619,6 +619,7 @@ public class Formulario extends javax.swing.JFrame {
                                 estadoB();
                                 jTextFieldCod.setEnabled(false);
                                 jButtonAceptar.setEnabled(false);
+                                jButtonCancel.grabFocus();
                                 
                             }else{
                                 JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
@@ -842,15 +843,18 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jMenuItemCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCodigoActionPerformed
             bd.ejecutarInforme();
+            estadoInicial();
     }//GEN-LAST:event_jMenuItemCodigoActionPerformed
 
     private void jMenuItemEntreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEntreActionPerformed
         VentanaEntreCod e = new VentanaEntreCod();
         e.show();
+        estadoInicial();
     }//GEN-LAST:event_jMenuItemEntreActionPerformed
 
     private void jMenuItemGrafActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGrafActionPerformed
         bd.ejecutarGráfica();
+        estadoInicial();
     }//GEN-LAST:event_jMenuItemGrafActionPerformed
 
     private void jMenuItemCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCodActionPerformed
@@ -860,6 +864,7 @@ public class Formulario extends javax.swing.JFrame {
         jMenuBar1.setEnabled(false);
         jMenuCon.setEnabled(false);
         jMenuMan.setEnabled(false);
+        
     }//GEN-LAST:event_jMenuItemCodActionPerformed
 
     /**
