@@ -481,21 +481,20 @@ public class Formulario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
         boolean verdadero=true;
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        if(op.equals("altas")){
-            try {
-                comprobarTextFields_Altas();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "ERROR");
-            }
-        }
-        else
-        {
-            if(op.equals("mod")){
+        switch (op) {
+            case "altas":
+                try {
+                    comprobarTextFields_Altas();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "ERROR");
+                }   break;
+            case "mod":
                 try {
                     comprobarTextFields_Mod();
                 } catch (Exception ex) {
-                     JOptionPane.showMessageDialog(null, "ERROR");
+                    JOptionPane.showMessageDialog(null, "ERROR");
                 }
+<<<<<<< HEAD
             }
             else
             {
@@ -503,6 +502,13 @@ public class Formulario extends javax.swing.JFrame {
                     jMenuBar1.setEnabled(false);
                             jMenuMan.setEnabled(false);
                             jMenuCon.setEnabled(false);
+=======
+                break;
+            case "bajas":
+                jMenuBar1.setEnabled(false);
+                jMenuMan.setEnabled(false);
+                jMenuCon.setEnabled(false);
+>>>>>>> master
                 int num = JOptionPane.showConfirmDialog(rootPane,"¿Seguro que quieres borrar ese cliente?", "Borrar cliente", JOptionPane.OK_CANCEL_OPTION);
                 switch(num)
                 {
@@ -523,11 +529,17 @@ public class Formulario extends javax.swing.JFrame {
                         
                         break;
                 }
+<<<<<<< HEAD
                 }
                 else{
                     
                 }
             }
+=======
+                break;
+            default:
+                break;
+>>>>>>> master
         }
   
         
@@ -958,200 +970,15 @@ public class Formulario extends javax.swing.JFrame {
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    private void validacionCodigo() {
-        String Codigo=jTextFieldCod.getText();
-        if(Codigo.matches("([A-Z]*[a-z]*[0-9]*){6}") || Codigo==""){
-            verdadero=true;
-            if(Codigo.length()<6){
-                int longitud=6-Codigo.length();
-                    String ceros="";
-                    if(longitud==1){
-                        ceros=ceros+"0";
-                    }
-                    if(longitud==2){
-                        ceros=ceros+"00";
-                    }
-                    if(longitud==3){
-                        ceros=ceros+"000";
-                    }
-                    if(longitud==4){
-                        ceros=ceros+"0000";
-                    }
-                    if(longitud==5){
-                        ceros=ceros+"00000";
-                    }
-                    if(longitud==6){
-                        JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Código", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                        jTextFieldCod.setText(null);
-                        jTextFieldCod.grabFocus();
-                        verdadero=false;
-                    }
-            Codigo=ceros.concat(Codigo);
-            jTextFieldCod.setText(Codigo);
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Código", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldCod.setText(null);
-            jTextFieldCod.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionNIF() {
-        String NIF=jTextFieldNif.getText();
-        if(NIF.matches("[0-9]{8}") || NIF==null){
-            if(NIF==null){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en NIF", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldNif.setText(null);
-                jTextFieldNif.grabFocus();
-                verdadero=false;
-            }
-            verdadero=true;
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en NIF", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldNif.setText(null);
-            jTextFieldNif.grabFocus();
-            verdadero=false;
-        }
-    }   
+    
+   
     private void sacarletra() {
         String NIF_STRING_ASOCIATION = "TRWAGMYFPDXBNJZSQVHLCKE";
         int letra=Integer.valueOf(jTextFieldNif.getText()) % 23;
         jTextFieldLetra.setText(""+NIF_STRING_ASOCIATION.charAt(letra));
         
     }
-    private void validacionNombre() {
-        String Nombre=jTextFieldNombre.getText();
-        if(Nombre.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù]*){15}") || Nombre.equals("")){
-            verdadero=true;
-            if(Nombre.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Nombre", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldNombre.setText(null);
-                jTextFieldNombre.grabFocus();
-                verdadero=false;
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Nombre", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldNombre.setText(null);
-            jTextFieldNombre.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionApellidos() {
-        String Apellidos=jTextFieldApel.getText();
-        if(Apellidos.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*){35}") || Apellidos.equals("")){
-            verdadero=true;
-            if(Apellidos.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Apellidos", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldApel.setText(null);
-                jTextFieldApel.grabFocus();
-                verdadero=false;
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Apellidos", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldApel.setText(null);
-            jTextFieldApel.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionDomicilio() {
-        String Domicilio=jTextFieldDom.getText();
-        if(Domicilio.matches("([A-Z]*[a-z]*[0-9]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*[ºª/,]*){35}") || Domicilio.equals("")){
-            verdadero=true;
-            if(Domicilio.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Domicilio", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldDom.setText(null);
-                jTextFieldDom.grabFocus();
-                verdadero=false;
-            }
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Domicilio", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldDom.setText(null);
-            jTextFieldDom.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionCP() {
-        String CP=jTextFieldCP.getText();
-        if(CP.matches("[0-9]{5}") || CP.equals("")){
-            verdadero=true;
-            if(CP.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en C.P.", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldCP.setText(null);
-                jTextFieldCP.grabFocus();
-                verdadero=false;
-            }  
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en C.P.", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldCP.setText(null);
-            jTextFieldCP.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionLocalidad() {
-        String Localidad=jTextFieldLoc.getText();
-        if(Localidad.matches("([A-Z]*[a-z]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*){20}") || Localidad.equals("")){
-            verdadero=true;
-            if(Localidad.equals("")){
-                JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Localidad", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-                jTextFieldLoc.setText(null);
-                jTextFieldLoc.grabFocus();
-                verdadero=false;
-            }  
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos vacios o erroneos en Localidad", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldLoc.setText(null);
-            jTextFieldLoc.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionTelefono() {
-        String Tlf=jTextFieldTelf.getText();
-        if(Tlf.matches("[0-9]{9}") || Tlf.equals("")){
-            verdadero=true;
-             
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en Teléfono", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldTelf.setText(null);
-            jTextFieldTelf.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionMovil() {
-        String Movil=jTextFieldMov.getText();
-        if(Movil.matches("[0-9]{9}") || Movil.equals("")){
-            verdadero=true;
-            
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en Móvil", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldMov.setText(null);
-            jTextFieldMov.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionFax() {
-        String Fax=jTextFieldFax.getText();
-        if(Fax.matches("[0-9]{9}") || Fax.equals("")){
-            verdadero=true;
-            
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en Fax", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldFax.setText(null);
-            jTextFieldFax.grabFocus();
-            verdadero=false;
-        }
-    }
-    private void validacionCorreo() {
-        String Email=jTextFieldEmail.getText();
-        if(Email.matches("([A-Z]*[a-z]*[0-9]*[ñÑ .ÁÉÍÓÚáéíóúÀÈÌÒÙàèìòù-]*[_@]*){20}") || Email.equals("")){
-            verdadero=true;
-            
-        }else{
-            JOptionPane.showMessageDialog(this, "Aviso, datos erroneos en E-mail", "Datos incorrectos", JOptionPane.INFORMATION_MESSAGE);
-            jTextFieldEmail.setText(null);
-            jTextFieldEmail.grabFocus();
-            verdadero=false;
-        }
-    }
+    
     private void estadoInicial() {
         setTitle("Gestión de Almacén - Clientes");
         jTextFieldCod.setText("");
@@ -1201,7 +1028,9 @@ public class Formulario extends javax.swing.JFrame {
         jMenuCon.setEnabled(true);
     }
     private void estadoABMC() {
+        //Cod habilitado
         jTextFieldCod.setEnabled(true);
+        //Resto de Campos Deshabilitados
         jTextFieldNif.setEnabled(false);
         jTextFieldLetra.setEnabled(false);
         jTextFieldNombre.setEnabled(false);
@@ -1214,23 +1043,14 @@ public class Formulario extends javax.swing.JFrame {
         jTextFieldFax.setEnabled(false);
         jTextFieldEmail.setEnabled(false);
         jTextFieldTotal.setEnabled(false);
+        //Boton Aceptar y Cancelar Deshabilitados
         jButtonAceptar.setEnabled(false);
         jButtonCancel.setEnabled(false);
+        //Boton Salir Habilitado
         jButtonExit.setEnabled(true);
-        jMenuBar1.setEnabled(true);
-        jMenuCon.setEnabled(true);
-        jMenuItemAltas.setEnabled(true);
-        jMenuItemBajas.setEnabled(true);
-        jMenuItemCod.setEnabled(true);
-        jMenuItemCodigo.setEnabled(true);
-        jMenuItemEntre.setEnabled(true);
-        jMenuItemGraf.setEnabled(true);
-        jMenuItemMod.setEnabled(true);
-        jMenuItemVolver.setEnabled(true);
-        jMenuList.setEnabled(true);
-        jMenuMan.setEnabled(true);
-        jTextFieldCod.grabFocus();
+        //Todos los campos vacíos
         jTextFieldCod.setText("");
+<<<<<<< HEAD
         jTextFieldCod.setText(null);
         jTextFieldNif.setText(null);
         jTextFieldLetra.setText(null);
@@ -1248,6 +1068,25 @@ public class Formulario extends javax.swing.JFrame {
         jMenuCon.setEnabled(false);
         jTextFieldCod.grabFocus();
                             
+=======
+        jTextFieldNif.setText("");
+        jTextFieldLetra.setText("");
+        jTextFieldNombre.setText("");
+        jTextFieldApel.setText("");
+        jTextFieldDom.setText("");
+        jTextFieldCP.setText("");
+        jTextFieldLoc.setText("");
+        jTextFieldTelf.setText("");
+        jTextFieldMov.setText("");
+        jTextFieldFax.setText("");
+        jTextFieldEmail.setText("");
+        //Menu Deshabilitado
+        jMenuBar1.setEnabled(false);
+        jMenuMan.setEnabled(false);
+        jMenuCon.setEnabled(false);
+        //Focus en cod
+        jTextFieldCod.grabFocus();    
+>>>>>>> master
     }
     private void estadoA() {
         jTextFieldCod.setEnabled(false);
@@ -1454,6 +1293,7 @@ public class Formulario extends javax.swing.JFrame {
                                                         JOptionPane.showMessageDialog(null, "ERROR en la modificación.", "ERROR.", JOptionPane.ERROR_MESSAGE);
                                                     }
                                                     estadoABMC();
+<<<<<<< HEAD
                                                     System.out.println("is enable "+jTextFieldCod.isEnabled());
                                                                                                         System.out.println("is editable "+jTextFieldCod.isEditable());
                                                     System.out.println("is focuseable "+jTextFieldCod.isFocusable());
@@ -1464,6 +1304,9 @@ public class Formulario extends javax.swing.JFrame {
                                                         jTextFieldCod.grabFocus();
                                                     }
                                                     System.out.println("tiene focus  "+jTextFieldCod.isFocusOwner());
+=======
+                                                    
+>>>>>>> master
                                                 }
                                                 else
                                                 {
@@ -1548,6 +1391,6 @@ public class Formulario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "El código tiene que tener como mucho 6 números/letras.", cod, WIDTH);
             throw new Exception("");
         }
-    }
+    }   
 }
 
