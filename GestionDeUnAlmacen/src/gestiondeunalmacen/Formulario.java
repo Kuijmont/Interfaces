@@ -232,6 +232,7 @@ public class Formulario extends javax.swing.JFrame {
 
         jButtonAceptar.setMnemonic('a');
         jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAceptarActionPerformed(evt);
@@ -499,26 +500,32 @@ public class Formulario extends javax.swing.JFrame {
             else
             {
                 if(op.equals("bajas")){
-                int num = JOptionPane.showConfirmDialog(rootPane,"¿Seguro que quieres borrar ese cliente?", "ERROR.", JOptionPane.OK_CANCEL_OPTION);
+                    jMenuBar1.setEnabled(false);
+                            jMenuMan.setEnabled(false);
+                            jMenuCon.setEnabled(false);
+                int num = JOptionPane.showConfirmDialog(rootPane,"¿Seguro que quieres borrar ese cliente?", "Borrar cliente", JOptionPane.OK_CANCEL_OPTION);
                 switch(num)
                 {
                     case JOptionPane.OK_OPTION:
                         try {
                             bd.darBaja(jTextFieldCod.getText());
                             estadoABMC();
+                          
                         } catch (SQLException ex) {
                             JOptionPane.showMessageDialog(null, "ERROR AL BORRAR.", "ERROR", JOptionPane.ERROR_MESSAGE);
                         }
                         break;
                     case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
                         estadoABMC();
+                      
                     case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
                         estadoABMC();
+                        
                         break;
                 }
                 }
                 else{
-                    //comprobarTextFields();
+                    
                 }
             }
         }
@@ -528,23 +535,13 @@ public class Formulario extends javax.swing.JFrame {
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // Reset
-        jTextFieldCod.setText(null);
-        jTextFieldNif.setText(null);
-        jTextFieldLetra.setText(null);
-        jTextFieldNombre.setText(null);
-        jTextFieldApel.setText(null);
-        jTextFieldDom.setText(null);
-        jTextFieldCP.setText(null);
-        jTextFieldLoc.setText(null);
-        jTextFieldTelf.setText(null);
-        jTextFieldMov.setText(null);
-        jTextFieldFax.setText(null);
-        jTextFieldEmail.setText(null);
         estadoABMC();
+        
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void jTextFieldCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodKeyPressed
         if(evt.getKeyCode()==10){
+            
             try {
                 if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}")){
                     rellenarCodigo();
@@ -620,7 +617,7 @@ public class Formulario extends javax.swing.JFrame {
                                 jTextFieldCod.setEnabled(false);
                                 jButtonAceptar.setEnabled(false);
                                 jButtonCancel.grabFocus();
-                                
+                           
                             }else{
                                 JOptionPane.showMessageDialog(null, "El código introducido no existe.", "Código incorrecto", 0);
                                 estadoABMC();
@@ -636,6 +633,10 @@ public class Formulario extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(Formulario.class.getName()).log(Level.SEVERE, null, ex);
             }
+        
+             jMenuBar1.setEnabled(false);
+                            jMenuMan.setEnabled(false);
+                            jMenuCon.setEnabled(false);
         }
     }//GEN-LAST:event_jTextFieldCodKeyPressed
 
@@ -644,6 +645,9 @@ public class Formulario extends javax.swing.JFrame {
         int limite=6;
         if(jTextFieldCod.getText().length()==limite){
             evt.consume();
+            jMenuBar1.setEnabled(false);
+                            jMenuMan.setEnabled(false);
+                            jMenuCon.setEnabled(false);
         }
   
     }//GEN-LAST:event_jTextFieldCodKeyTyped
@@ -1180,6 +1184,21 @@ public class Formulario extends javax.swing.JFrame {
         jMenuList.setEnabled(true);
         jMenuMan.setEnabled(true);
         jMenuBar1.grabFocus();
+        jTextFieldNif.setText("");
+        jTextFieldLetra.setText("");
+        jTextFieldNombre.setText("");
+        jTextFieldApel.setText("");
+        jTextFieldDom.setText("");
+        jTextFieldCP.setText("");
+        jTextFieldLoc.setText("");
+        jTextFieldTelf.setText("");
+        jTextFieldMov.setText("");
+        jTextFieldFax.setText("");
+        jTextFieldEmail.setText("");
+        jTextFieldTotal.setText("");
+        jMenuBar1.setEnabled(true);
+        jMenuMan.setEnabled(true);
+        jMenuCon.setEnabled(true);
     }
     private void estadoABMC() {
         jTextFieldCod.setEnabled(true);
@@ -1224,6 +1243,11 @@ public class Formulario extends javax.swing.JFrame {
         jTextFieldMov.setText(null);
         jTextFieldFax.setText(null);
         jTextFieldEmail.setText(null);
+        jMenuBar1.setEnabled(false);
+        jMenuMan.setEnabled(false);
+        jMenuCon.setEnabled(false);
+        jTextFieldCod.grabFocus();
+                            
     }
     private void estadoA() {
         jTextFieldCod.setEnabled(false);
@@ -1288,6 +1312,7 @@ public class Formulario extends javax.swing.JFrame {
         jButtonAceptar.grabFocus();
     }
     private void comprobarTextFields_Altas() {
+        
         if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}"))
         {
             if(jTextFieldNif.getText().matches("[0-9]{8}"))
@@ -1311,17 +1336,17 @@ public class Formulario extends javax.swing.JFrame {
                                             {
                                                 if(jTextFieldEmail.getText().matches("[a-zA-z0-9@_.-]{1,20}") || jTextFieldEmail.getText().equals(""))
                                                 {
-                                                    JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
+                                                    //JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
                                                    try { 
                                                         bd.darAlta(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldApel.getText(),
                                                                 jTextFieldNombre.getText(), jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
                                                                 jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText(),
                                                                 jTextFieldTotal.getText());
-                                                        estadoABMC();
+                                                        
                                                     } catch (SQLException ex) {
                                                         JOptionPane.showMessageDialog(null, "ERROR en el dado de alta.", "ERROR.", JOptionPane.ERROR_MESSAGE);                       
                                                     }
-                                                    
+                                                    estadoABMC();
                                                     
                                                 }
                                                 else
@@ -1393,7 +1418,7 @@ public class Formulario extends javax.swing.JFrame {
     }
 
     private void comprobarTextFields_Mod() {
-
+                            
         if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}"))
         {
             if(jTextFieldNif.getText().matches("[0-9]{8}"))
@@ -1417,16 +1442,28 @@ public class Formulario extends javax.swing.JFrame {
                                             {
                                                 if(jTextFieldEmail.getText().matches("[a-zA-z0-9@_.-]{1,20}") || jTextFieldEmail.getText().equals(""))
                                                 {
-                                                    JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
+                                                    //JOptionPane.showMessageDialog(rootPane, "El formulario ha sido rellenado correctamente.","Formulario correcto.", WIDTH);
                                                     try {
                                                         bd.modificar(jTextFieldCod.getText(),jTextFieldNif.getText()+jTextFieldLetra.getText(),jTextFieldNombre.getText(),
                                                                 jTextFieldApel.getText(),jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
                                                                 jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText()
                                                                 );
+                                                                              
+                               
                                                      } catch (SQLException ex) {
                                                         JOptionPane.showMessageDialog(null, "ERROR en la modificación.", "ERROR.", JOptionPane.ERROR_MESSAGE);
                                                     }
                                                     estadoABMC();
+                                                    System.out.println("is enable "+jTextFieldCod.isEnabled());
+                                                                                                        System.out.println("is editable "+jTextFieldCod.isEditable());
+                                                    System.out.println("is focuseable "+jTextFieldCod.isFocusable());
+
+                                                                                                        System.out.println("is enable "+jTextFieldCod.isEnabled());
+                                                    System.out.println("tiene focus  "+jTextFieldCod.isFocusOwner());
+                                                    if (jTextFieldCod.isFocusOwner()) {
+                                                        jTextFieldCod.grabFocus();
+                                                    }
+                                                    System.out.println("tiene focus  "+jTextFieldCod.isFocusOwner());
                                                 }
                                                 else
                                                 {
