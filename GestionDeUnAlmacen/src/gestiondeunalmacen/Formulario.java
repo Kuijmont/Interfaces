@@ -37,13 +37,11 @@ public class Formulario extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldCod = new javax.swing.JTextField();
-        jTextFieldNif = new javax.swing.JTextField();
         jTextFieldLetra = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -67,6 +65,7 @@ public class Formulario extends javax.swing.JFrame {
         jButtonAceptar = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
         jButtonExit = new javax.swing.JButton();
+        jTextFieldNif = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuMan = new javax.swing.JMenu();
         jMenuItemAltas = new javax.swing.JMenuItem();
@@ -100,23 +99,10 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldNif.setColumns(7);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTextFieldNombre, org.jdesktop.beansbinding.ObjectProperty.create(), jTextFieldNif, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
-        bindingGroup.addBinding(binding);
-
-        jTextFieldNif.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldNifKeyTyped(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldNifKeyPressed(evt);
-            }
-        });
-
         jTextFieldLetra.setEditable(false);
         jTextFieldLetra.setColumns(1);
         jTextFieldLetra.setEnabled(false);
+        jTextFieldLetra.setFocusable(false);
 
         jTextFieldNombre.setColumns(15);
         jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -252,6 +238,15 @@ public class Formulario extends javax.swing.JFrame {
         jButtonExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExitActionPerformed(evt);
+            }
+        });
+
+        jTextFieldNif.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNifKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNifKeyTyped(evt);
             }
         });
 
@@ -400,8 +395,8 @@ public class Formulario extends javax.swing.JFrame {
                                         .addGap(43, 43, 43)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextFieldNif, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTextFieldNif, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextFieldLetra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jLabel2))
                                         .addGap(43, 43, 43)
@@ -430,9 +425,9 @@ public class Formulario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldLetra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -474,8 +469,6 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(jButtonExit))
                 .addGap(20, 20, 20))
         );
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -664,16 +657,6 @@ public class Formulario extends javax.swing.JFrame {
   
     }//GEN-LAST:event_jTextFieldCodKeyTyped
 
-    private void jTextFieldNifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyTyped
-        // TODO add your handling code here:
-        int limite=8;
-        if(jTextFieldNif.getText().length()==limite){
-            evt.consume();
-           // sacarletra();
-            jTextFieldNombre.grabFocus();
-        }
-    }//GEN-LAST:event_jTextFieldNifKeyTyped
-
     private void jTextFieldApelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApelKeyTyped
         // TODO add your handling code here:
         int limite=35;
@@ -745,14 +728,6 @@ public class Formulario extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldEmailKeyTyped
-
-    private void jTextFieldNifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode()==10){
-            
-            jTextFieldNombre.grabFocus();
-        }//sacarletra();
-    }//GEN-LAST:event_jTextFieldNifKeyPressed
 
     private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
         // TODO add your handling code here:
@@ -883,6 +858,19 @@ public class Formulario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenuItemCodActionPerformed
 
+    private void jTextFieldNifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyPressed
+       if(evt.getKeyCode()==10)
+        jTextFieldNombre.grabFocus();
+    }//GEN-LAST:event_jTextFieldNifKeyPressed
+
+    private void jTextFieldNifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNifKeyTyped
+        int limite=8;
+        if(jTextFieldNif.getText().length()==limite){
+            evt.consume();
+            jTextFieldNombre.grabFocus();
+        }
+    }//GEN-LAST:event_jTextFieldNifKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -967,15 +955,17 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTelf;
     private javax.swing.JTextField jTextFieldTotal;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     
    
     private void sacarletra() {
-        String NIF_STRING_ASOCIATION = "TRWAGMYFPDXBNJZSQVHLCKE";
-        int letra=Integer.valueOf(jTextFieldNif.getText()) % 23;
-        jTextFieldLetra.setText(""+NIF_STRING_ASOCIATION.charAt(letra));
+       // String NIF_STRING_ASOCIATION = "TRWAGMYFPDXBNJZSQVHLCKE";
+       // int letra=Integer.valueOf(jTextFieldNif.getText()) % 23;
+       // jTextFieldLetra.setText(""+NIF_STRING_ASOCIATION.charAt(letra));
+        
+        char letra = calcularLetraDni(jTextFieldNif.getText());
+        jTextFieldLetra.setText(String.valueOf(letra));
         
     }
     
@@ -1028,9 +1018,9 @@ public class Formulario extends javax.swing.JFrame {
         jMenuCon.setEnabled(true);
     }
     private void estadoABMC() {
-        //Cod habilitado
+        // Cod habilitado
         jTextFieldCod.setEnabled(true);
-        //Resto de Campos Deshabilitados
+        // Resto de Campos Deshabilitados
         jTextFieldNif.setEnabled(false);
         jTextFieldLetra.setEnabled(false);
         jTextFieldNombre.setEnabled(false);
@@ -1043,12 +1033,12 @@ public class Formulario extends javax.swing.JFrame {
         jTextFieldFax.setEnabled(false);
         jTextFieldEmail.setEnabled(false);
         jTextFieldTotal.setEnabled(false);
-        //Boton Aceptar y Cancelar Deshabilitados
+        // Boton Aceptar y Cancelar Deshabilitados
         jButtonAceptar.setEnabled(false);
         jButtonCancel.setEnabled(false);
-        //Boton Salir Habilitado
+        // Boton Salir Habilitado
         jButtonExit.setEnabled(true);
-        //Todos los campos vacíos
+        // Todos los campos vacíos
         jTextFieldCod.setText("");
 <<<<<<< HEAD
         jTextFieldCod.setText(null);
@@ -1080,12 +1070,17 @@ public class Formulario extends javax.swing.JFrame {
         jTextFieldMov.setText("");
         jTextFieldFax.setText("");
         jTextFieldEmail.setText("");
-        //Menu Deshabilitado
+        // Menu Deshabilitado
         jMenuBar1.setEnabled(false);
         jMenuMan.setEnabled(false);
         jMenuCon.setEnabled(false);
+<<<<<<< HEAD
         //Focus en cod
         jTextFieldCod.grabFocus();    
+>>>>>>> master
+=======
+        // Focus en cod
+        jTextFieldCod.grabFocus();
 >>>>>>> master
     }
     private void estadoA() {
@@ -1287,11 +1282,13 @@ public class Formulario extends javax.swing.JFrame {
                                                                 jTextFieldApel.getText(),jTextFieldDom.getText(),jTextFieldCP.getText(),jTextFieldLoc.getText(),
                                                                 jTextFieldTelf.getText(),jTextFieldMov.getText(),jTextFieldFax.getText(),jTextFieldEmail.getText()
                                                                 );
-                                                                              
-                               
+                                                        
+                                                        //JOptionPane.showMessageDialog(rootPane,"Cliente modificado correctamente.","Mensaje", JOptionPane.INFORMATION_MESSAGE);              
+                             
                                                      } catch (SQLException ex) {
                                                         JOptionPane.showMessageDialog(null, "ERROR en la modificación.", "ERROR.", JOptionPane.ERROR_MESSAGE);
                                                     }
+                                                    
                                                     estadoABMC();
 <<<<<<< HEAD
                                                     System.out.println("is enable "+jTextFieldCod.isEnabled());
@@ -1391,6 +1388,16 @@ public class Formulario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "El código tiene que tener como mucho 6 números/letras.", cod, WIDTH);
             throw new Exception("");
         }
-    }   
+    }  
+    //Calcula la letra que corresponde a los 8 dígitos de un DNI
+    public static char calcularLetraDni(String digitosDni){
+	if (!digitosDni.matches("[0-9]{8}"))
+            return ' '; //Devuelve espacio en blanco si no llegan 8 digitos 
+	char letras[]={'T', 'R', 'W', 'A', 'G', 'M', 'Y',
+		       'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z',
+		       'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+
+	return letras[Integer.valueOf(digitosDni)%23];
+    }
 }
 

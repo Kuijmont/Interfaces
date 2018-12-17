@@ -69,7 +69,7 @@ public class GestorBD {
             String loc, String telf, String movil, String fax, String email, String total) throws SQLException { 
         
         st = cn.createStatement();
-        String sql = "INSERT INTO clientes VALUES('"+cod+"','"+nif+"','"+nombre+"','"+apell+"','"+dom+"','"+cp+"','"+loc+"','"+telf+"','"+movil+"','"+fax+"','"+email+"', '"+total+"')";
+        String sql = "INSERT INTO clientes VALUES('"+cod+"','"+nif+"','"+nombre+"','"+apell+"','"+dom+"','"+cp+"','"+loc+"','"+telf+"','"+movil+"','"+fax+"','"+email+"')";
         try {
             st.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"Persona insertada correctamente.","Mensaje", 1);                        
@@ -119,7 +119,7 @@ public class GestorBD {
         String sql = "update clientes set NIF='"+nif+"', Apellidos='"+apell+"',Nombre='"+nombre+"',  Domicilio='"+dom+"', Código_Postal='"+cp+"', localidad='"+loc+"', Teléfono='"+telf+"', Móvil='"+movil+"', Fax='"+fax+"', E_mail='"+email+"' where Código='"+cod+"'";
         try {
             st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null,"Cliente modificado correctamente.","Mensaje", 1);                        
+            //JOptionPane.showMessageDialog(null,"Cliente modificado correctamente.","Mensaje", 1);                        
             st.close(); // Cierra el statement
         } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null,e.getMessage(),"Error", 0);

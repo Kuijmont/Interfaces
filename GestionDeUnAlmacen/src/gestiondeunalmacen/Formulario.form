@@ -203,8 +203,8 @@
                                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="jTextFieldNif" min="-2" pref="80" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jTextFieldNif" min="-2" pref="86" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jTextFieldLetra" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -247,9 +247,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextFieldCod" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextFieldNif" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldLetra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTextFieldNif" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -327,23 +327,12 @@
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldCodKeyPressed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextFieldNif">
-      <Properties>
-        <Property name="columns" type="int" value="7"/>
-      </Properties>
-      <BindingProperties>
-        <BindingProperty name="nextFocusableComponent" source="jTextFieldNombre" target="jTextFieldNif" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldNifKeyTyped"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldNifKeyPressed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldLetra">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="columns" type="int" value="1"/>
         <Property name="enabled" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldNombre">
@@ -507,6 +496,12 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonExitActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldNif">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldNifKeyPressed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldNifKeyTyped"/>
       </Events>
     </Component>
   </SubComponents>
