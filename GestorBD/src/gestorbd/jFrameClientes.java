@@ -102,6 +102,7 @@ public class jFrameClientes extends javax.swing.JFrame {
         inf2 = new javax.swing.JMenuItem();
         inf3 = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Entrada de Datos");
         setResizable(false);
 
@@ -578,11 +579,11 @@ public class jFrameClientes extends javax.swing.JFrame {
                                         
                                 break;
                             case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
-                               
+                                resetFields2();
                                 fieldCodigo.grabFocus();
                                 break;
                             case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
-                               
+                                resetFields2();
                                 fieldCodigo.grabFocus();
                                 break;
                             
@@ -1234,38 +1235,38 @@ Grafico g = new Grafico();
                                                     fieldCodigo.grabFocus();                                                }
                                                 else
                                                 {
-                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el email", WIDTH);
                                                     fieldMail.grabFocus();
                                                 }
                                                 
                                             }
                                             else
                                             {
-                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el fax", WIDTH);
                                                 fieldFax.grabFocus();
                                             }
                                         }
                                         else
                                         {
-                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el móvil", WIDTH);
                                             fieldMovil.grabFocus();
                                         }
                                     }
                                     else
                                     {
-                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el teléfono", WIDTH);
                                         fieldTlfn.grabFocus();
                                     }
                                 }
                                 else
                                 {
-                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en la localidad", WIDTH);
                                     fieldLocalidad.grabFocus();
                                 }
                             }
                             else
                             {
-                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el domicilio", WIDTH);
+                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el código postal", WIDTH);
                                 fieldCP.grabFocus();
                             }
                         }
@@ -1387,38 +1388,38 @@ Grafico g = new Grafico();
                                                 }
                                                 else
                                                 {
-                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el email", WIDTH);
                                                     fieldMail.grabFocus();
                                                 }
                                                 
                                             }
                                             else
                                             {
-                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el fax", WIDTH);
                                                 fieldFax.grabFocus();
                                             }
                                         }
                                         else
                                         {
-                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el móvil", WIDTH);
                                             fieldMovil.grabFocus();
                                         }
                                     }
                                     else
                                     {
-                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el teléfono", WIDTH);
                                         fieldTlfn.grabFocus();
                                     }
                                 }
                                 else
                                 {
-                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en la localidad", WIDTH);
                                     fieldLocalidad.grabFocus();
                                 }
                             }
                             else
                             {
-                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el domicilio", WIDTH);
+                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el Código postal", WIDTH);
                                 fieldCP.grabFocus();
                             }
                         }
@@ -1436,7 +1437,7 @@ Grafico g = new Grafico();
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener números ni carácteres extraños \n y no puede superar los 15 caracteres","Error en el Nombre", WIDTH);
+                    JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener números ni caracteres extraños \n y no puede superar los 15 caracteres","Error en el Nombre", WIDTH);
                     fieldNombre.grabFocus(); 
                 }
             }
@@ -1485,38 +1486,38 @@ Grafico g = new Grafico();
                                                 }
                                                 else
                                                 {
-                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                                    JOptionPane.showMessageDialog(rootPane, "El email no puede contener acentos ni 'ñ' ni '/' \n y no puede superar los 20 caracteres","Error en el email", WIDTH);
                                                     fieldMail.grabFocus();
                                                 }
                                                 
                                             }
                                             else
                                             {
-                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                                JOptionPane.showMessageDialog(rootPane, "El fax debe contener 9 dígitos numéricos","Error en el fax", WIDTH);
                                                 fieldFax.grabFocus();
                                             }
                                         }
                                         else
                                         {
-                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                            JOptionPane.showMessageDialog(rootPane, "El móvil debe contener 9 dígitos numéricos","Error en el móvil", WIDTH);
                                             fieldMovil.grabFocus();
                                         }
                                     }
                                     else
                                     {
-                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el domicilio", WIDTH);
+                                        JOptionPane.showMessageDialog(rootPane, "El teléfono debe contener 9 dígitos numéricos","Error en el teléfono", WIDTH);
                                         fieldTlfn.grabFocus();
                                     }
                                 }
                                 else
                                 {
-                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en el domicilio", WIDTH);
+                                    JOptionPane.showMessageDialog(rootPane, "La localidad no puede contener números ni '_' \n y no puede superar los 20 caracteres","Error en la localidad", WIDTH);
                                     fieldLocalidad.grabFocus();
                                 }
                             }
                             else
                             {
-                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el domicilio", WIDTH);
+                                JOptionPane.showMessageDialog(rootPane, "El Código postal debe contener 5 números","Error en el Código postal", WIDTH);
                                 fieldCP.grabFocus();
                             }
                         }
@@ -1534,7 +1535,7 @@ Grafico g = new Grafico();
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener números ni carácteres extraños \n y no puede superar los 15 caracteres","Error en el Nombre", WIDTH);
+                    JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener números ni caracteres extraños \n y no puede superar los 15 caracteres","Error en el Nombre", WIDTH);
                     fieldNombre.grabFocus(); 
                 }
             }

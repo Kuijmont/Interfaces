@@ -31,7 +31,7 @@ public Grafico() {
       return;
     }
     try {
-      con=DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
+      con=DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
     }catch (SQLException e) {
       System.out.println("Error en la conexión");
             System.out.println(e.getMessage());

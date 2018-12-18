@@ -22,7 +22,7 @@ public class ConectorSQL {
     
     public void conectarDB() throws Exception{
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        con=DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","");
+        con=DriverManager.getConnection("jdbc:mysql://localhost/interfaces","root","manager");
         con.setAutoCommit(true); //Cada vez que hagamos una operación, necesitmaos hacer un commit() para guardar.
         st=con.createStatement();
     }
