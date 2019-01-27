@@ -579,7 +579,11 @@ public class jFrameClientes extends javax.swing.JFrame {
                                         
                                 break;
                             case JOptionPane.CANCEL_OPTION://Si das a "cancelar" en la ventana anterior muestra este mensaje.
+
                                 resetFields2();
+
+                              
+
                                 fieldCodigo.grabFocus();
                                 break;
                             case JOptionPane.CLOSED_OPTION://Si cierras la ventana anterior muestra este mensaje.
