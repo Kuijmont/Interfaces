@@ -5,20 +5,46 @@
  */
 package gestiónpedidos;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author alumno
+ * @author Frans
  */
 public class GestionPedidos extends javax.swing.JFrame {
 
+    static javax.swing.JFrame Principal;
+    private Vector vArticulos = new Vector();
+    String op="";
+    public Statement st;
+    GestorBD bd = new GestorBD();
+    
+    
     /**
      * Creates new form GestionPedidos
      */
-    public GestionPedidos() {
-        initComponents();
+    public GestionPedidos(javax.swing.JFrame padre) {
+            GestionPedidos.Principal=padre;
+            initComponents();
+            enableEvents(java.awt.AWTEvent.WINDOW_EVENT_MASK);
+            this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+            
+            setTitle("Gestión de Almacén - Pedidos");
+        try {
+            bd.conectarDB();
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "ERROR AL CONECTAR.");
+        } 
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,11 +94,11 @@ public class GestionPedidos extends javax.swing.JFrame {
         jScrollBarArticulos = new javax.swing.JScrollBar();
         jButtonGrid = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuPedidos = new javax.swing.JMenu();
+        jMenuItemClientes = new javax.swing.JMenuItem();
+        jMenuItemProve = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItemReturn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestión de Almacén - Pedidos");
@@ -83,44 +109,82 @@ public class GestionPedidos extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre");
 
+        jTextFieldCod.setEnabled(false);
+        jTextFieldCod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldCodKeyPressed(evt);
+            }
+        });
+
+        jTextFieldNif.setEnabled(false);
+
+        jTextFieldNombre.setEnabled(false);
+
+        jTextFieldApe.setEnabled(false);
+
         jLabel4.setText("Apellidos");
 
         jLabel5.setText("Domicilio");
 
+        jTextFieldDom.setEnabled(false);
+
         jLabel6.setText("Código Postal");
+
+        jTextFieldCp.setEnabled(false);
 
         jLabel7.setText("Localidad");
 
+        jTextFieldLoc.setEnabled(false);
+
         jLabel8.setText("Total");
+
+        jTextFieldTotal.setEnabled(false);
 
         jLabel9.setText("--------------------------------------------------------------------------------------------------------------");
 
         jLabel10.setText("Artículo");
 
+        jTextFieldArt.setEnabled(false);
+
         jLabel11.setText("Descripción");
+
+        jTextFieldDesc.setEnabled(false);
 
         jLabel12.setText("Unidades");
 
+        jTextFieldUnid.setEnabled(false);
+
         jLabel13.setText("Stock");
+
+        jTextFieldStock.setEnabled(false);
 
         jLabel14.setText("Precio");
 
+        jTextFieldPrecio.setEnabled(false);
+
         jLabel15.setText("Importe");
+
+        jTextFieldImp.setEnabled(false);
 
         jButtonFactura.setMnemonic('f');
         jButtonFactura.setText("Factura");
+        jButtonFactura.setEnabled(false);
 
         jButtonAcept.setMnemonic('a');
         jButtonAcept.setText("Aceptar");
+        jButtonAcept.setEnabled(false);
 
         jButtonExit.setMnemonic('s');
         jButtonExit.setText("Salir");
+        jButtonExit.setEnabled(false);
 
         jButtonCancelPed.setMnemonic('p');
         jButtonCancelPed.setText("Cancelar Pedido");
+        jButtonCancelPed.setEnabled(false);
 
         jButtonCancel.setMnemonic('c');
         jButtonCancel.setText("Cancelar Todo");
+        jButtonCancel.setEnabled(false);
 
         jScrollPaneArticulos.setHorizontalScrollBar(jScrollBarArticulos);
         jScrollPaneArticulos.setVerticalScrollBar(jScrollBarArticulos);
@@ -136,35 +200,47 @@ public class GestionPedidos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPaneArticulos.setViewportView(jTable1);
 
         jButtonGrid.setText("...");
+        jButtonGrid.setEnabled(false);
         jButtonGrid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGridActionPerformed(evt);
             }
         });
 
-        jMenu1.setMnemonic('p');
-        jMenu1.setText("Pedidos");
+        jMenuPedidos.setMnemonic('p');
+        jMenuPedidos.setText("Pedidos");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setMnemonic('c');
-        jMenuItem1.setText("Clientes");
-        jMenu1.add(jMenuItem1);
+        jMenuItemClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemClientes.setMnemonic('c');
+        jMenuItemClientes.setText("Clientes");
+        jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClientesActionPerformed(evt);
+            }
+        });
+        jMenuPedidos.add(jMenuItemClientes);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setMnemonic('p');
-        jMenuItem2.setText("Proveedores");
-        jMenu1.add(jMenuItem2);
-        jMenu1.add(jSeparator1);
+        jMenuItemProve.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemProve.setMnemonic('p');
+        jMenuItemProve.setText("Proveedores");
+        jMenuItemProve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProveActionPerformed(evt);
+            }
+        });
+        jMenuPedidos.add(jMenuItemProve);
+        jMenuPedidos.add(jSeparator1);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setMnemonic('v');
-        jMenuItem3.setText("Volver");
-        jMenu1.add(jMenuItem3);
+        jMenuItemReturn.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemReturn.setMnemonic('v');
+        jMenuItemReturn.setText("Volver");
+        jMenuPedidos.add(jMenuItemReturn);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuPedidos);
 
         setJMenuBar(jMenuBar1);
 
@@ -350,44 +426,190 @@ public class GestionPedidos extends javax.swing.JFrame {
         vTitColum.addElement("Descripción");
         vTitColum.addElement("Stock");
         vTitColum.addElement("Precio");
-        //vArticulos=gestor.getTodosLosArticulos();
+        vArticulos=GestorBD.getTodosLosArticulos();
     }//GEN-LAST:event_jButtonGridActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
+        op = "clientes";
+        jTextFieldCod.setEnabled(true);
+        jTextFieldCod.grabFocus();
+    }//GEN-LAST:event_jMenuItemClientesActionPerformed
+
+    private void jMenuItemProveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProveActionPerformed
+       op = "proveedores";
+       jTextFieldCod.setEnabled(true);
+       jTextFieldCod.grabFocus();
+    }//GEN-LAST:event_jMenuItemProveActionPerformed
+
+    private void jTextFieldCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodKeyPressed
+        if(evt.getKeyCode()==10){
+            try {
+                rellenarCodigo();
+                if(op.equals("clientes")){
+                    try {
+                        if(consultaCodigoClientes()){
+                            estadoHabilitar();
+                            String [] datos = bd.sacarDatos(jTextFieldCod.getText(), op);
+                            jTextFieldNif.setText(datos[0]);
+                            jTextFieldApe.setText(datos[1]);
+                            jTextFieldNombre.setText(datos[2]);
+                            jTextFieldDom.setText(datos[3]);
+                            jTextFieldCp.setText(datos[4]);
+                            jTextFieldLoc.setText(datos[5]);                              
+                            jTextFieldArt.grabFocus();
+                            jTextFieldCod.setEnabled(false);
+                        }else{
+                            JOptionPane.showMessageDialog(rootPane,"El código del cliente no existe.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            jTextFieldCod.setText("");
+                            jTextFieldCod.grabFocus();
+                        }
+                    } catch (SQLException ex) {
+                        System.out.print(ex.getMessage());
+                    }
+                }else if(op.equals("proveedores")){
+                    try {
+                        if(consultaCodigoProveedores()){
+                            estadoHabilitar();
+                            String [] datos = bd.sacarDatos(jTextFieldCod.getText(), op);
+                            jTextFieldNif.setText(datos[0]);
+                            jTextFieldApe.setText(datos[1]);
+                            jTextFieldNombre.setText(datos[2]);
+                            jTextFieldDom.setText(datos[3]);
+                            jTextFieldCp.setText(datos[4]);
+                            jTextFieldLoc.setText(datos[5]);  
+                            jTextFieldArt.grabFocus();
+                            jTextFieldCod.setEnabled(false);
+                        }else{
+                            JOptionPane.showMessageDialog(rootPane,"El código del proveedor no existe.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                            jTextFieldCod.setText("");
+                            jTextFieldCod.grabFocus();
+                        }
+                    } catch (SQLException ex) {
+                        System.out.print(ex.getMessage());
+                    }
                 }
+            } catch (Exception ex) {
+                System.out.print(ex.getMessage());
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_jTextFieldCodKeyPressed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GestionPedidos().setVisible(true);
-            }
-        });
+    
+
+    // Initial state
+    private void estadoInicial(){
+        // Disable buttons
+        jButtonAcept.setEnabled(false);
+        jButtonCancel.setEnabled(false);
+        jButtonCancelPed.setEnabled(false);
+        jButtonExit.setEnabled(false);
+        jButtonFactura.setEnabled(false);
+        jButtonGrid.setEnabled(false);
+      
+        // Disable TextFields
+        jTextFieldApe.setEnabled(false);
+        jTextFieldArt.setEnabled(false);
+        jTextFieldCod.setEnabled(false);
+        jTextFieldCp.setEnabled(false);
+        jTextFieldDesc.setEnabled(false);
+        jTextFieldDom.setEnabled(false);
+        jTextFieldImp.setEnabled(false);
+        jTextFieldLoc.setEnabled(false);
+        jTextFieldNif.setEnabled(false);
+        jTextFieldNombre.setEnabled(false);
+        jTextFieldPrecio.setEnabled(false);
+        jTextFieldStock.setEnabled(false);
+        jTextFieldTotal.setEnabled(false);
+        jTextFieldUnid.setEnabled(false);
+        
+        // Disable Table
+        jTable1.setEnabled(false);
+        
+        // Enable Menu
+        jMenuBar1.setEnabled(true);
+        jMenuItemClientes.setEnabled(true);
+        jMenuItemProve.setEnabled(true);
+        jMenuItemReturn.setEnabled(true);
     }
-
+    
+    // Enable state
+    private void estadoHabilitar(){
+         // Disable buttons
+        jButtonAcept.setEnabled(true);
+        jButtonCancel.setEnabled(true);
+        jButtonCancelPed.setEnabled(true);
+        jButtonExit.setEnabled(true);
+        jButtonFactura.setEnabled(true);
+        jButtonGrid.setEnabled(true);
+      
+        // Disable Client/Prov TextFields and Enable Articles TextFields
+        jTextFieldApe.setEnabled(false);
+        jTextFieldArt.setEnabled(true);
+        jTextFieldCod.setEnabled(false);
+        jTextFieldCp.setEnabled(false);
+        jTextFieldDesc.setEnabled(true);
+        jTextFieldDom.setEnabled(false);
+        jTextFieldImp.setEnabled(true);
+        jTextFieldLoc.setEnabled(false);
+        jTextFieldNif.setEnabled(false);
+        jTextFieldNombre.setEnabled(false);
+        jTextFieldPrecio.setEnabled(true);
+        jTextFieldStock.setEnabled(true);
+        jTextFieldTotal.setEnabled(false);
+        jTextFieldUnid.setEnabled(true);
+        
+        // Enable Table
+        jTable1.setEnabled(true);
+        
+        // Disable Menu
+        jMenuBar1.setEnabled(false);
+        jMenuItemClientes.setEnabled(false);
+        jMenuItemProve.setEnabled(false);
+        jMenuItemReturn.setEnabled(false);
+    }
+    
+    // Consult table code "Clientes"
+    private boolean consultaCodigoClientes() throws SQLException {
+        String sentencia = "select Código from clientes;";
+        ResultSet listaMovimientos = st.executeQuery(sentencia);
+        while (listaMovimientos.next()) {
+            String cod = listaMovimientos.getString("Código");
+            //JOptionPane.showMessageDialog(null, cod);
+            if(cod.equals(jTextFieldCod.getText())){
+                return true;
+            }
+        }
+        return false;    
+    }
+    
+    // Consult table code "Proveedores"
+    private boolean consultaCodigoProveedores() throws SQLException {
+        String sentencia = "select Código from proveedores;";
+        ResultSet listaMovimientos = st.executeQuery(sentencia);
+        while (listaMovimientos.next()) {
+            String cod = listaMovimientos.getString("Código");
+            //JOptionPane.showMessageDialog(null, cod);
+            if(cod.equals(jTextFieldCod.getText())){
+                return true;
+            }
+        }
+        return false;    
+    }
+    
+    // Fill code
+    private void rellenarCodigo() throws Exception {
+        String code=jTextFieldCod.getText();
+        if(jTextFieldCod.getText().matches("[a-zA-Z0-9]{1,6}")){
+            while(code.length()!=6)
+            {
+                code="0"+code;
+            }
+            jTextFieldCod.setText(code);
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "El código tiene que tener como mucho 6 números/letras.", code, WIDTH);
+            throw new Exception("");
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAcept;
     private javax.swing.JButton jButtonCancel;
@@ -410,11 +632,11 @@ public class GestionPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItemClientes;
+    private javax.swing.JMenuItem jMenuItemProve;
+    private javax.swing.JMenuItem jMenuItemReturn;
+    private javax.swing.JMenu jMenuPedidos;
     private javax.swing.JScrollBar jScrollBarArticulos;
     private javax.swing.JScrollPane jScrollPaneArticulos;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -434,4 +656,6 @@ public class GestionPedidos extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldTotal;
     private javax.swing.JTextField jTextFieldUnid;
     // End of variables declaration//GEN-END:variables
+
+    
 }

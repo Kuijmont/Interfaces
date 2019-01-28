@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.sql.Statement;
  */
 
 public class GestorBD {
-    
+
     // Creation of variables
     private Connection con;
     public Statement st; 
@@ -155,17 +156,42 @@ public class GestorBD {
         return datos;
     }
     
-    private boolean consultaCodigo() throws SQLException {
-        String sentencia = "select Código from clientes;";
-        ResultSet listaMovimientos = st.executeQuery(sentencia);
-        while (listaMovimientos.next()) {
-            String cod = listaMovimientos.getString("Código");
-            //JOptionPane.showMessageDialog(null, cod);
-            if(cod.equals(fieldCodigo.getText()))
-            {
-                return false;
-            }
-        }
-        return true;    
+    // Get all articles
+    public static Vector getTodosLosArticulos() {
+        Vector v = new Vector();
+        
+        return v;
     }
+    
+    public String[] sacarDatos(String codigo, String table) throws SQLException{
+        String all = "select * from "+table+" where Código="+codigo;
+        String nif = null;
+        String   ape = null;
+        String nom = null;
+        String dom = null;
+        String  cp = null;
+        String  loc = null;
+        String  tel = null;
+        String  movil = null;
+        String  fax = null;
+        String  email = null;
+        ResultSet listaMovimientos = st.executeQuery(all);
+        while (listaMovimientos.next()) {
+        nif = listaMovimientos.getString("nif");
+        ape = listaMovimientos.getString("apellidos");
+        nom = listaMovimientos.getString("nombre");
+        dom = listaMovimientos.getString("domicilio");
+        cp = listaMovimientos.getString("Código_Postal");
+        loc = listaMovimientos.getString("localidad");
+        tel = listaMovimientos.getString("teléfono");
+        movil = listaMovimientos.getString("móvil");
+        fax = listaMovimientos.getString("fax");
+        email = listaMovimientos.getString("e_mail");
+        }
+        nif = nif.substring(0, 8);
+        String [] datos = {nif,ape,nom,dom,cp,loc,tel,movil,fax,email};
+        return datos;
+    
+    }
+ 
 }
