@@ -133,7 +133,7 @@ import java.util.logging.Logger;
     }
 
    // To check that codes there are not duplicates
-    static boolean checkCode(String codigo) {
+    public boolean checkCode(String codigo) {
         try {
             codes=listCodes();
             for(int i=0; i<codes.size();i++){

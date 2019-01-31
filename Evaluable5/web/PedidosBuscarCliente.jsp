@@ -4,13 +4,13 @@
     Author     : Frans
 --%>
 
-<!-- 
+<%-- 
 <
 <
 <            P E D I D O S B U S C A R C L I E N T E . J S P
 <
 <
--->
+--%>
 <!-- Página que busca el código de cliente introducido en la página 
         PedExtCodCli.jsp. Si el cliente existe, en esta página se solicita
         el código de artículo. -->
@@ -21,7 +21,7 @@
     <head><title>Gesti&oacute;n de pedidos</title></head>
 <h1>Gesti&oacute;n de pedidos</h1>        
 <%  
-    boolean existe=true;
+    boolean existe;
     HttpSession s=request.getSession();
     Client c=(Client) s.getAttribute("Cliente");
     /* Si el código de cliente del objeto HttpSession está vacío,
@@ -30,20 +30,12 @@
        primera vez que ejecuta esta página para un determinado cliente
         y, por lo tanto, no busca el cliente en la base de datos. 
     */
-    if (c.getCodigo()!="") {
-        ConectorSQL g=new ConectorSQL();
-        g.conectBd();
-        c=new Client(request.getParameter("txtCodigo"),"","","","","","","","","","",0);
-        c=g.showClient(request.getParameter("txtCodigo"));
-    if (c.getCodigo()=="") {
-%>
-<body>
-    <h2>El cliente con c&oacute;digo <%= request.getParameter("txtCodigo")%> no existe</h2>
-<%  
-    existe=false;
-    }
-}
-    if (existe==true) {
+    ConectorSQL cn = new ConectorSQL();
+    cn.conectBd();
+    
+    if(existe=cn.checkCode(request.getParameter("txtCodigo"))) {
+       c = new Client(request.getParameter("txtCodigo"), "", "", "", "", "", "", "", "", "", "", 0);
+       c=cn.showClient(c.getCodigo());
 %>
 <body onload="document.formPedidos.txtArticulo.focus()">
 <%
@@ -89,11 +81,10 @@
 <br>
 <form name="formPedidos" action="PedidosBuscarArticulo.jsp" 
     method="post" onsubmit="return TodoCorrecto_submit()">
-<!-- Paso la opción que el usuario ha elegido en la página 
+<%-- Paso la opción que el usuario ha elegido en la página 
                         index.jsp como una caja de texto, porque en la etiqueta 
                         form utilizo el método get para que se visualicen bien 
-                        los acentos de los campos de la tabla en la siguiente 
-página. -->
+                        los acentos de los campos de la tabla en la siguiente página. --%>
                     <input type=hidden name=opcion 
                         value="<%= request.getParameter("opcion") %>">
                     <input type="text" name="txtArticulo" size="4" maxlength="6">
@@ -105,11 +96,11 @@ onclick="document.formPedidos.txtArticulo.focus()">
 <br><br>
                     <hr>
                 </form>
-         <%   } %>
-         <a href="PedExtCodCli.jsp?opcion=<%=request.getParameter("opcion")%>">
-Nuevo cliente
-         </a>
-|
+         <%   } else{%>
+        <body>
+            <h2>El cliente con c&oacute;digo <%= request.getParameter("txtCodigo")%> no existe</h2>
+        <% }%>
+         <a href="PedExtCodCli.jsp?opcion=<%=request.getParameter("opcion")%>">Nuevo cliente</a>
          <a href="index.jsp">P&aacute;gina principal</a>         
         <%-- <jsp:useBean id="beanInstanceName" scope="session" 
                 class="beanPackage.BeanClassName" /> --%>
@@ -121,14 +112,15 @@ Nuevo cliente
                     dato, no se envía nada. */
                 with (document.formPedidos.txtArticulo) {
                     if (value=="") {
-                        alert("No ha introducido el artículo")
-focus()
+                        alert("No ha introducido el artículo");
+                        focus();
                         return false
                     }
                     else {
                         for (i=1; value.length<6; i++) {
                             value="0"+value
                         }
+                        
                         return true
 }
                 }
