@@ -214,7 +214,7 @@ import java.util.logging.Logger;
     
     // This method is used to choose clients, suppliers and articles from a sentence that is passed
     public ResultSet select(String sql) throws SQLException {
-       Statement st = con.createStatement();
+       st = con.createStatement();
        ResultSet rs = st.executeQuery(sql);
        return rs;
     }
@@ -249,5 +249,21 @@ import java.util.logging.Logger;
         
  }
 
+    // Load an Item
+    public Article loadItem(String code){
+        Article a = null;
+        String sql="SELECT * FROM articulos WHERE Codigo='"+code+"'";
+        try {
+            ResultSet rs=select(sql);
+            while (rs.next()) {
+                a = new Article(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getDouble(6));
+            }           
+            rs.close();
+            return a;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return a;
+    }
    
 }

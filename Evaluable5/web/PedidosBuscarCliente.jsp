@@ -90,7 +90,7 @@
                     <input type="text" name="txtArticulo" size="4" maxlength="6">
                     <br><br>
                     <input type="submit" value="Aceptar">
-
+                        
                     <input type="reset" value="Cancelar" 
 onclick="document.formPedidos.txtArticulo.focus()">                    
 <br><br>
@@ -119,8 +119,7 @@ onclick="document.formPedidos.txtArticulo.focus()">
                     else {
                         for (i=1; value.length<6; i++) {
                             value="0"+value
-                        }
-                        
+                        }  
                         return true
 }
                 }
