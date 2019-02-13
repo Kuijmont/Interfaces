@@ -25,6 +25,7 @@ import java.util.logging.Logger;
     private static Connection con;
     public static Statement st; 
     boolean buscarCliente;
+    private static ArrayList<String> articles;
     
     // This arraylist will serve to verify that there are no duplicate codes
     private static ArrayList<String> codes;
@@ -266,4 +267,82 @@ import java.util.logging.Logger;
         return a;
     }
    
-}
+    // Check Item
+      public static boolean checkItem(String code) {
+        try {
+            articles=listArticles();
+            for(int i=0; i<articles.size();i++){
+                if(code.matches(articles.get(i))){
+                    return true;
+                }
+            }
+            articles.clear();
+        } catch (SQLException ex) {
+            //Logger.getLogger(GestorBd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+      
+    // List all Articles
+    private static ArrayList<String> listArticles() throws SQLException {
+        ArrayList<String> cods=new ArrayList<String>();
+        // Creamos el Statement para poder hacer consultas
+        st = con.createStatement();
+
+        // La consulta es un String con código SQL
+        String sql1 = "SELECT Codigo FROM articulos";
+
+        // Ejecuta una consulta que devuelve resultados                
+        ResultSet rs = st.executeQuery(sql1);  
+        while (rs.next()){
+            cods.add(rs.getString(1));
+        }
+        return cods;
+    }
+    
+    // To show an Article
+    public static Article showArticle(String code) throws SQLException{
+        // Creamos el Statement para poder hacer consultas
+        st = con.createStatement();
+
+        // La consulta es un String con código SQL
+        String sql1 = "SELECT * FROM articulos WHERE Codigo='"+code+"'";
+
+        // Ejecuta una consulta que devuelve resultados                
+        ResultSet rs = st.executeQuery(sql1);
+        Article article=null;
+        while (rs.next()){
+            article=new Article(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(6));
+        }
+        return article;
+    }
+    
+    // Save in Table PedidosInternet 
+    public void GrabarPedidosInternet(Vector<PedidosInternet> v) throws SQLException{
+        for (int i = 0; i < v.size(); i++) {
+            String sql= "insert into pedidosInternet values('"+v.get(i).getCliente()+"', '"+v.get(i).getArticulo()+"',"+v.get(i).getUnidades()+", '"+v.get(i).getFecha()+"')";
+            st=con.createStatement();
+            st.executeUpdate(sql);
+            
+        }
+    }
+    
+    public void GrabarTransacciones() throws SQLException{
+        con.commit();
+    }
+    
+    public Vector getExtractosPanImp(String code, String fecha1, String fecha2) throws SQLException{
+        String sql = "Select * from pedidosInternet where Cliente='"+code+"' and Fecha >= '"+fecha1+"' and Fecha <= '"+fecha2+"'";
+        Vector v = new Vector();
+        Statement st=con.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        PedidosInternet p;
+        while (rs.next()){
+            p=new PedidosInternet(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getString(4));
+            v.add(p);
+        }
+        return v; 
+    }
+    
+   }
+

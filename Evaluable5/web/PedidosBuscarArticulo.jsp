@@ -23,26 +23,38 @@
 <html>
     <head><title>Gesti&oacute;n de pedidos</title></head>
     <h1>Gesti&oacute;n de pedidos</h1>
-<%  //ConectorSQL g=new ConectorSQL();
-    Article a=new Article(request.getParameter("txtArticulo"),"",0,0);
-    //a=g.loadItem(a.getCodigo());
-    if (a.getCodigo()=="") {
+<%  
+        /* Tomo los datos del cliente del atributo Cliente del objeto HttpSession. */
+        HttpSession s=request.getSession();
+        Client c=(Client) s.getAttribute("Cliente");
+        String codeCli=c.getCodigo();
+        String codeArt=request.getParameter("txtArticulo");
+        ConectorSQL g=new ConectorSQL();
+        g.conectBd();
+        if (!g.checkItem(codeArt)) {               
 %>         
     <body>
-        <h2>El art&iacute;culo con c&oacute;digo 
-            <%= request.getParameter("txtArticulo")%> 
-            no existe
-        </h2>
+        <h2>El art&iacute;culo con c&oacute;digo <%= request.getParameter("txtArticulo")%> no existe</h2>
+                 <a href="PedidosBuscarCliente.jsp?opcion=<%=request.getParameter
+            ("opcion")%>&txtCodigo=<%= c.getCodigo() %>">
+            Nuevo art&iacute;culo
+</a>|<a href="index.jsp">P&aacute;gina principal</a>
+    </body> 
 <%  
     }else { 
 %>
     <body onload="document.formPedidos.txtUnidades.focus()">
-<!-- Muestro los datos del cliente -->
-<%
-/* Tomo los datos del cliente del atributo Cliente del objeto HttpSession. */
-    HttpSession s=request.getSession();
-    Client c=(Client) s.getAttribute("Cliente");
-%>
+
+        <%
+                /* Guardo el cliente para las próximas veces que entre en esta
+                    página y no tenga que buscar el cliente. */
+                Article a=g.showArticle(codeArt);
+                Client cli=g.showClient(codeCli);
+                s.setAttribute("Cliente", new Client());
+                s.setAttribute("Cliente", cli);
+                s.setAttribute("Articulo", a);
+        %>
+    <!-- Muestro los datos del cliente -->
     <h2>Datos del cliente</h2>
 <table>
     <tr>
@@ -87,7 +99,7 @@
         <tr>
             <td><%= request.getParameter("txtArticulo") %></td>
             <td>&nbsp;&nbsp;&nbsp;<%= a.getDescripcion() %></td>
-            <td>&nbsp;&nbsp;<input type="text" name="txtUnidades" size="9" maxlength="9" onkeyup="CalcularPrecio(event)"></td>
+            <td>&nbsp;&nbsp;<input type="text" name="txtUnidades" size="9" maxlength="9" onkeyup="CalcularPrecio(event)" pattern="[0-9]+"></td>
             <td>&nbsp;&nbsp;&nbsp;<%= a.getPrecio() %></td>
             <td>&nbsp;&nbsp;<input type="text" name="txtImporte" size="9" maxlength="9" readonly></td>
         </tr>
@@ -104,16 +116,17 @@
     <input type=hidden name=opcion value="<%= request.getParameter("opcion") %>">
     <br><br>
     <input type="submit" value="Aceptar">
-    <input type="reset" value="Cancelar" onclick="document.formPedidos.txtArticulo.focus()">                    
+    <input type="reset" value="Cancelar" onclick="document.formPedidos.txtUnidades.focus()">                    
     <br><br>
     <hr>
-</form>
-<%   } %>
-<a href="PedidosBuscarCliente.jsp?opcion=<%=request.getParameter
-            ("opcion")%>&txtCodigo=<%= request.getParameter("txtCodigo") %>">
+    <a href="PedidosBuscarCliente.jsp?opcion=<%=request.getParameter
+            ("opcion")%>&txtCodigo=<%= c.getCodigo() %>">
     Nuevo art&iacute;culo
 </a>
-<a href="index.jsp">P&aacute;gina principal</a>         
+<a href="index.jsp">P&aacute;gina principal</a>
+</form>
+<%   } %>
+         
         <%-- <jsp:useBean id="beanInstanceName" scope="session" 
                 class="beanPackage.BeanClassName" /> --%>
         <%-- <jsp:getProperty name="beanInstanceName"  
@@ -122,10 +135,11 @@
 function CalcularPrecio(event) {
     // Compruebo si introduce números.
     with (document.formPedidos.txtUnidades) {
-        if (event.keyCode < 48 || event.keyCode > 57) {
+        if (!parseInt(value) && value!=0) {
             alert("Introduzca sólo números")
             /* Si introduce un caracter que no sea numérico anulo todo el campo. */
             value=""
+            
         }else {
         // Calculo el importe del pedido.
             var importe=0
