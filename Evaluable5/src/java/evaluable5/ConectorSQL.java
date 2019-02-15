@@ -36,7 +36,7 @@ import java.util.logging.Logger;
     
     public void conectBd() throws SQLException{
         con=DriverManager.getConnection("jdbc:mysql://localhost/interfaces", "root", "manager");
-        con.setAutoCommit(false); // Every time we do an operation, we need to make a commit () to save.
+        //con.setAutoCommit(false); // Every time we do an operation, we need to make a commit () to save.
     }
     
     // create table Proveedores(Codigo char(6), nif char(9), nombre varchar(15), apellido varchar(35), domicilio varchar(40), Código_Postal char (5), Localidad varchar(20), teléfono char (9), móvil char (9), fax char (9), e_mail varchar(20), total_ventas float(7,2), CONSTRAINT PK_cod primary key(Codigo));
@@ -336,11 +336,12 @@ import java.util.logging.Logger;
         Vector v = new Vector();
         Statement st=con.createStatement();
         ResultSet rs = st.executeQuery(sql);
-        PedidosInternet p;
         while (rs.next()){
-            p=new PedidosInternet(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getString(4));
+           PedidosInternet p=new PedidosInternet(rs.getString(1),rs.getString(2),rs.getFloat(3),rs.getString(4));
             v.add(p);
         }
+        rs.close();
+        st.close();
         return v; 
     }
     

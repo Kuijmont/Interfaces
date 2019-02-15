@@ -84,9 +84,10 @@ Text. */
             String articulo="";
             String unidades="";
             while (i<ext.size()) {
-                fecha=(String)ext.elementAt(i);
-                articulo=(String)ext.elementAt(i+1);
-                unidades=(String)ext.elementAt(i+2);
+                PedidosInternet p = (PedidosInternet)ext.get(i);
+                            fecha=p.getFecha();
+                            articulo=p.getArticulo();
+                            unidades=String.valueOf(p.getUnidades());
 %>
                  <tr>
                     <td><%= fecha %></td>
@@ -94,7 +95,7 @@ Text. */
 <td align="right">&nbsp;&nbsp;&nbsp;<%= unidades %></td>
                 </tr>
 <%  
-                i=i+3;
+                i++;
             }
         %>
         </table>

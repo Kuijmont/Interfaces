@@ -78,7 +78,7 @@ Client c=(Client) s.getAttribute("Cliente");
 */
             String Cero="";
             String fecha1=request.getParameter("Anio1")+"-";
-Cero=ponerCero(request.getParameter("Mes1"));
+            Cero=ponerCero(request.getParameter("Mes1"));
             fecha1=fecha1+Cero+request.getParameter("Mes1")+"-";
             Cero=ponerCero(request.getParameter("Dia1"));            
             fecha1=fecha1+Cero+request.getParameter("Dia1");
@@ -89,9 +89,10 @@ Cero=ponerCero(request.getParameter("Mes1"));
             fecha2=fecha2+Cero+request.getParameter("Dia2");
             Vector ext=new Vector();
             ConectorSQL g=new ConectorSQL();
+            g.conectBd();
             ext=g.getExtractosPanImp(c.getCodigo(),fecha1,fecha2);
-if (ext.size()==0) { %>
-<h1>No ha hecho pedidos entre las fechas</h1>
+            if (ext.size()==0) { %>
+                <h1>No ha hecho pedidos entre las fechas</h1>
                 <h1><%= fecha1 %> y <%= fecha2 %></h1>
         <%
             }else { 
@@ -123,11 +124,9 @@ if (ext.size()==0) { %>
                             <tr>
                                 <td><%= fecha %></td>
                                 <td>&nbsp;&nbsp;&nbsp;<%= articulo %></td>
-<td align="right">&nbsp;&nbsp;&nbsp;
-<%= unidades %>
-                                </td>
+                                <td align="right">&nbsp;&nbsp;&nbsp;<%= unidades %></td>
                             </tr>
-<%  
+                    <%  
                             i++;
                         }
                     %>
@@ -161,11 +160,9 @@ if (ext.size()==0) { %>
         %>
         <br>
         <hr>
-        <br><br>
-        <form name="formExtractos" action="ExtractosBuscarCliente.jsp" 
-            method="get">
-            <input type=submit name=cmdAceptar value="Nuevas fechas">
-</form>
+        <a href="ExtractosBuscarCliente.jsp?txtCodigo=<%= c.getCodigo() %>">
+        Nuevas fechas
+        </a><br><br>
         <a href="PedExtCodCli.jsp?opcion=e">Nuevo cliente</a>
 |
         <a href="index.jsp">P&aacute;gina principal</a>
